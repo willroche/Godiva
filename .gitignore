@@ -33,4 +33,9 @@ xmlrpc.php
 /modules
 /profiles
 /scripts
-/themes
+/themes/custom/godiva/node_modules/*
+/themes/custom/godiva/vendor/*
+/themes/custom/godiva/production/*
+/themes/fe/*
+
+/themes/custom/godiva/font-awesome/*

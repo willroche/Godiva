@@ -1,0 +1,33 @@
+// ==========================================================================
+// Button styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// Button styles
+// ==========================================================================
+
+.button {
+	font-family: @montserrat;
+	text-transform: uppercase;
+	border: 2px solid @bg-light;
+	display: inline-block;
+	.grid-item &, .category-item & {
+		font-size: 13px;
+		padding: 5px 14px;
+	}
+	&.big {
+		font-size: 22px;
+		background: @bg-gold;
+		padding: 15px 64px;
+		border: 0;
+	}
+}
+
+// END OF SCOPE
+}

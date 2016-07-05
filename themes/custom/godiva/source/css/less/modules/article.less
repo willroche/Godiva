@@ -1,0 +1,120 @@
+// ==========================================================================
+// B-Lazy lazy loading styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// B-Lazy lazy loading styles
+// ==========================================================================
+
+.article-bg {
+	height: 667px;
+	background: blue;
+	background-size: cover;
+	background-position: 50%;
+	@media @lg {
+		height: 550px;
+	}
+	@media @md {
+		height: 400px;
+	}
+	@media @sm {
+		height: 300px;
+	}
+}
+
+.article-content {
+	position: relative;
+}
+
+.article-share-holder {
+	background-color: @bg-light;
+	z-index: 1;
+	.article-specs {
+		text-align: right;
+		padding-top: 13px;
+	}
+}
+
+.article-image {
+	position: relative;
+	margin: 20px 0 20px 0;
+	img {
+		width: 100%;
+		display: block;
+	}
+	.article-img-social {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: rgba(255, 255, 255, 0.5);
+		padding: 0 8px;
+		@media @sm {
+			padding: 0 2%;
+		}
+		display: none;
+		.article-caption {
+			width: 88%;
+			float: left;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-family: @lato;
+			margin: 16px 0;
+			@media @md {
+				width: 83%;
+			}
+			@media @sm {
+				width: 68%;
+				font-size: 10px;
+				margin: 10px 0;
+			}
+		}
+		.article-img-share {
+			width: 12%;
+			float: left;
+			.jssocials-shares {
+				float: right;
+				@media @sm {
+					padding: 0;
+				}
+				.jssocials-share {
+					@media @sm {
+						margin: 0;
+						&:nth-child(2) {
+							margin-left: 4px;
+						}
+					}
+					.jssocials-share-link {
+						padding: 6px;	
+					}
+				}
+			}
+			@media @md {
+				width: 17%;
+			}
+			@media @sm {
+				width: 32%;
+				margin: 16px 0;
+			}
+		}
+	}
+}
+
+// Stick share bar to top of window on scroll
+.stuck {
+	position:fixed;
+	top:0;
+}
+
+.sticky-surpassed {
+  position:absolute;
+  bottom:0;
+}
+
+// END OF SCOPE
+}

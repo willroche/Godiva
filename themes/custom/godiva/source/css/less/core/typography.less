@@ -1,0 +1,456 @@
+// ==========================================================================
+// Typography (t)
+// ==========================================================================
+
+
+// The typography file is for type styles. These will be defined as
+// modules so that the styles can be easily extended in later
+// phases of the project.
+
+& {
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+// Mixins
+// ==========================================================================
+// Global heading styles can be defined as mixins and included in any and each
+// of the type modules. Any non-global styles can be defined thereafter.
+// Duplicate as necessary.
+
+body {
+	//-webkit-font-smoothing: antialiased;
+	font-family: @lato;
+}
+
+.h1( ... ) {
+	font-size: 70px;
+	line-height: 90px;
+	font-family: @montserrat;
+	font-weight: 700;
+	letter-spacing: -1.0px;
+	text-transform: uppercase;
+	margin: 0;
+	color: @font-gold;
+	@media @md {
+		font-size: 50px;
+		line-height: 50px;
+	}
+	@media @sm {
+		font-size: 45px;
+		line-height: 45px;
+	}
+}
+
+.h2( ... ) {
+	font-size: 63px;
+	font-family: @montserrat;
+	font-weight: 700;
+	letter-spacing: -0.5px;
+	text-transform: uppercase;
+	margin: 0 0 15px 0;
+	@media @md {
+		font-size: 34px;
+	}
+	@media @sm {
+		font-size: 29px;
+	}
+}
+
+.h3( ... ) {
+	font-size: 47px;
+	font-family: @montserrat;
+	font-weight: 400;
+	letter-spacing: -0.5px;
+}
+
+.h4( ... ) {
+	font-size: 26px;
+	line-height: 34px;
+	font-family: @lato;
+	font-weight: 400;
+	@media @md {
+		font-size: 24px;
+		line-height: 30px;
+	}
+	@media @sm {
+		font-size: 24px;
+		line-height: 30px;
+	}
+}
+
+.h5( ... ) {
+	font-size: 22px;
+	line-height: 28px;
+	font-weight: normal;
+}
+
+.p( ... ) {
+	font-size: 20px;
+	line-height: 32px;
+	font-family: @lato;
+	font-weight: 300;
+	margin: 0 0 20px 0;
+	@media @sm {
+		font-size: 17px;
+		line-height: 28px;
+	}
+}
+
+a {
+	.transition( all, 0.3s, ease-in-out );
+	text-decoration: none;
+	outline: 0;
+}
+
+h1 {
+	.h1();
+}
+
+h2 {
+	.h2();
+}
+
+h3 {
+	.h3();
+}
+
+h4 {
+	.h4();
+}
+
+h5 {
+	.h5();
+}
+
+p {
+	.p();
+}
+
+// Editable content
+// ==========================================================================
+// For blocks with CMS content where things like lists need to be styled.
+
+.t-nav {
+	h5 {
+		.h5();
+		font-size: 16px;
+		color: @font-gold;
+		margin: 0 0 10px 0;
+	}
+	p {
+		font-size: 13px;
+		margin: 0;
+		line-height: 15px;
+		a {
+			text-transform: inherit;
+			font-size: 13px;
+		}
+	}
+}
+
+.t-banner {
+	h2 {
+		width: 43%;
+		.h2();
+		font-size: 54px;
+		line-height: 54px;
+		font-family: @arapey;
+		text-transform: inherit;
+		display: block;
+		font-weight: 400;
+		margin: 0 auto;
+		@media @md {
+			width: 50%;
+			font-size: 40px;
+			line-height: 44px;
+		}
+		@media @sm {
+			width: 96%;
+			font-size: 29px;
+			line-height: 29px;
+		}
+		span {
+			font-size: 75px;
+			line-height: 70px;
+			display: block;
+			font-family: @montserrat;
+			text-transform: uppercase;
+			font-weight: 700;
+			@media @md {
+				font-size: 54px;
+				line-height: 54px;
+			}
+			@media @sm {
+				font-size: 41px;
+				line-height: 44px;
+			}
+		}
+		a {
+			color: @font-light;
+		}
+	}
+	h3 {
+		.h2();
+		margin: 0;
+	}
+}
+
+.t-masonary {
+	h2 {
+		font-family: @arapey;
+		text-transform: inherit;
+		font-size: 38px;
+		line-height: 42px;
+		margin: 15px 0 15px 0;
+		.transition( all, 0.3s, ease-out );
+		span {
+			font-size: 50px;
+			font-family: @montserrat;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+	}
+	h4 {
+		font-family: @lato;
+		font-size: 20px;
+		text-transform: uppercase;
+		font-weight: 400;
+		line-height: 20px;
+		margin: 0 0 8px 0;
+	}
+}
+
+.t-category {
+	h4 {
+		font-family: @lato;
+		font-size: 20px;
+		text-transform: uppercase;
+		font-weight: 400;
+		line-height: 20px;
+		margin: 0 0 15px 0;
+	}
+	hr {
+		width: 70%;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.7);
+		margin: 0 auto 15px;
+		display: block;
+		border: 0;
+	}
+}
+
+.t-specs {
+	p {
+		margin: 0 !important;
+		font-size: 17px !important;
+		line-height: 17px !important;
+		color: #333333 !important;
+		text-transform: uppercase;
+		font-family: @montserrat;
+		@media @md {
+			font-size: 12px !important;
+		}
+		span {
+			color: #b3b3b3;
+			margin: 0 5px 0 5px;
+		}
+	}
+}
+
+.t-content {
+	h4 {
+		font-size: 24px;
+		text-transform: uppercase;
+		line-height: 44px;
+		@media @sm {
+			font-size: 20px;
+			line-height: 38px;
+		}
+	}
+	p {
+		.p();
+	}
+
+	blockquote {
+		font-size: 54px;
+		font-family: @montserrat;
+		font-weight: 900;
+		text-transform: uppercase;
+		position: relative;
+		margin: 0;
+		text-align: center;
+		padding: 0 60px;
+		margin-top: 50px;
+		margin-bottom: 50px;
+		@media @md {
+			font-size: 40px;
+		}
+		@media @sm {
+			font-size: 21px;
+			padding: 0px 30px;
+		}
+		&:before {
+			content: '';
+			width: 44px;
+			height: 29px;
+			display: inline-block;
+			.bg-hi-dpi( transparent, '@{dir-images}quote-open.png', 0%, 0%, no-repeat, 44px, 29px);
+			position: absolute;
+			top: 0;
+			left: 0;
+			@media @sm {
+				background-size: 50%;
+			}
+		}
+		&:after {
+			content: '';
+			width: 44px;
+			height: 29px;
+			display: inline-block;
+			.bg-hi-dpi( transparent, '@{dir-images}quote-close.png', 0%, 0%, no-repeat, 44px, 29px);
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			@media @sm {
+				background-size: 50%;
+				background-position: 100% 100%;
+			}
+		}
+	}
+}
+
+.t-search {
+	h2 {
+		.h2();
+		font-family: @arapey;
+		text-transform: inherit;
+		font-size: 50px;
+		line-height: 50px;
+		margin: 0;
+		color: @font-gold;
+		font-weight: 400;
+		.transition( all, 0.3s, ease-out );
+		@media @sm {
+			font-size: 29px;
+			line-height: 38px;
+		}
+		span {
+			font-size: 50px;
+			font-family: @montserrat;
+			text-transform: uppercase;
+			font-weight: 700;
+			color: @font-dark;
+			@media @sm {
+				font-size: 37px;
+			}
+		}
+	}
+	h3 {
+		.h3();
+		font-family: @arapey;
+		margin: 0;
+		font-size: 40px;
+		color: @font-gold;
+		@media @sm {
+			font-size: 30px;
+		}
+	}
+	h4 {
+		.h4();
+		font-family: @lato;
+		font-size: 36px;
+		font-weight: 700;
+		margin: 0 0 10px 0;
+		a {
+			color: @font-dark;
+		}
+	}
+	h5 {
+		.h5();
+		font-size: 20px;
+		margin: 0 0 10px 0;
+		a {
+			color: @font-gold;
+		}
+	}
+	p {
+		.p();
+		margin: 0;
+	}
+}
+
+.t-recent {
+	h4 {
+		.h4();
+		font-size: 30px;
+		color: @font-dark;
+		margin: 0;
+		font-weight: 700;
+	}
+	h5 {
+		.h5();
+		font-size: 17px;
+		color: @font-gold;
+		margin: 0;
+		text-transform: uppercase;
+		font-weight: 300;
+	}
+}
+
+.t-footer {
+	@media @sm {
+		text-align: center;
+	}
+	h5 {
+		font-size: 16px;
+		font-family: @lato;
+		font-weight: 700;
+		text-transform: uppercase;
+		margin: 0 0 15px 0;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li {
+			font-size: 16px;
+			font-family: @lato;
+			text-transform: uppercase;
+			margin-bottom: 10px;
+			font-weight: 300;
+			letter-spacing: -0.7px;
+			.transition( all, 0.3s, ease-out );
+			&:last-child {
+				margin-bottom: 0;
+			}
+			a {
+				&:hover {
+					color: @bg-gold-hover;
+				}
+			}
+		}
+	}
+}
+
+// Center aligned
+// ==========================================================================
+.t-center {
+	text-align: center;
+}
+
+// White text
+// ==========================================================================
+.t-light {
+	h1, h2, h3, h4, h5, p, a {
+		color: @font-light;
+	}
+}
+
+// Right aligned
+// ==========================================================================
+.t-right {
+	text-align: right;
+}
+
+// END OF SCOPE
+}

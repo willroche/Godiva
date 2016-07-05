@@ -1,0 +1,128 @@
+// ==========================================================================
+// Header styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// Header
+// ==========================================================================
+
+header {
+	.header-holder {
+		margin-top: 30px;
+		position: relative;
+		@media @sm {
+			margin-top: 20px;
+		}
+		.header-logo {
+			.bg-hi-dpi( transparent, '@{dir-images}logo.png', 0%, 0%, no-repeat, 120px, 88px);
+			width: 120px;
+			height: 88px;
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			@media @md {
+				display: block;
+				position: initial;
+				width: 80px;
+				height: 58px;
+				background-size: 80px 58px;
+			}
+			@media @sm {
+				display: block;
+				position: initial;
+				width: 80px;
+				height: 58px;
+				background-size: 80px 58px;
+			}
+		}
+		.header-headline {
+			margin: 20px 0;
+			@media @md {
+				margin: 15px 0;
+			}
+			@media @sm {
+				margin: 15px 0;
+			}
+		}
+		.header-shop {
+			position: absolute;
+			right: 0;
+			top: 20px;
+			@media @md {
+				top: 31px;
+			}
+			@media @sm {
+				top: 31px;
+			}
+		}
+	}
+}
+
+.header {
+	position: relative;
+	z-index: 10;
+	position: fixed;
+	width: 100%;
+}
+
+.main-menu {
+	position: relative;
+	z-index: 10;
+	padding-top: 40px;
+	.transition( all, 0.3s, ease-out );
+	.sticky & {
+		padding-top: 20px;
+	}
+	@media @sm {
+		padding-top: 20px;
+	}
+}
+
+.i-search-close {
+	.bg-hi-dpi( transparent, '@{dir-images}i-search-close.png', 0%, 0%, no-repeat, 22px, 22px);
+	width: 22px;
+	height: 22px;
+	display: block;
+	cursor: pointer;
+}
+
+.i-menu-close {
+	.bg-hi-dpi( transparent, '@{dir-images}i-menu-close.png', 0%, 0%, no-repeat, 22px, 22px);
+	width: 22px;
+	height: 22px;
+	display: block;
+	cursor: pointer;
+}
+
+.home-hero-bg {
+	height: 555px;
+	background-size: cover;
+	background-position: 50% 0;
+	position: relative;
+	overflow: hidden;
+	display: table;
+	@media @sm {
+		&.right {
+			background-position: 100% 0;
+		}
+		&.left {
+			background-position: 0 0;
+		}
+	}
+	@media @md {
+		height: 450px;
+	}
+	@media @sm {
+		height: 300px;
+	}
+}
+
+// END OF SCOPE
+}

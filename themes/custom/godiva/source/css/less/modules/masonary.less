@@ -1,0 +1,112 @@
+// ==========================================================================
+// Masonary styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// Masonary styles
+// ==========================================================================
+
+.grid-sizer {
+	width: 432px;
+	@media @lg {
+		width: 360px;
+	}
+	@media @md {
+		width: 252px;
+	}
+	@media @sm {
+		width: 100%;
+	}
+}
+
+.grid-item {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	@media @sm {
+		padding-top: 0;
+	}
+}
+
+.grid-container {
+	overflow: hidden;
+	position: relative;
+	display: block;
+	&:hover {
+		.grid-bg {
+		-webkit-filter: blur(1.3px);
+		-moz-filter: blur(1.3px);
+		-o-filter: blur(1.3px);
+		-ms-filter: blur(1.3px);
+		filter: blur(1.3px);
+		&:before {
+			background-color: rgba(0, 0, 0, 0.3);
+			}
+		}
+	}
+}
+
+.grid-bg {
+	height: 400px;
+	background-size: cover;
+	background-position: 50%;
+	position: relative;
+	overflow: hidden;
+	.transition( all, 0.7s, ease-out );
+	.grid-item-full & {
+		height: 500px;
+		background-attachment: fixed;
+	}
+	&:before {
+		content: '';
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		background-color: rgba(0, 0, 0, 0.1);
+		.transition( all, 0.4s, ease-out );
+	}
+	@media @lg {
+		height: 340px;
+	}
+	@media @md {
+		height: 240px;
+	}
+}
+
+.grid-tag-label {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	text-align: center;
+	.grid-tag {
+		background: @bg-gold;
+		padding: 6px 17px;
+		display: inline-block;
+		font-family: @montserrat;
+		font-size: 15px;
+		text-transform: uppercase;
+	}
+}
+
+.grid-content {
+	position: absolute;
+	bottom: 60px;
+	width: 100%;
+	text-align: center;
+	.grid-content-line {
+		width: 220px;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.7);
+		margin: 0 auto;
+	}
+}
+
+// END OF SCOPE
+}

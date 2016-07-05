@@ -1,0 +1,36 @@
+name: Godiva
+type: theme
+description: The Godiva theme
+package: Other
+core: 8.x
+libraries:
+  - classy/base
+  - classy/user
+  - classy/dropbutton
+  - classy/dialog
+  - classy/file
+  - classy/progress
+  - core/normalize
+  - godiva/global-styling
+  - godiva/b-lazy
+  - godiva/js-files
+  - godiva/slick-slideshow
+  - godiva/font-awesome
+  - godiva/js-socials
+
+base theme: false
+
+regions:
+  search: search
+  header_content: Header content
+  primary_menu: Primary menu
+  header_socials: Header socials
+  header_shop: Header shop
+  featured_top: Featured top
+  content: Content
+  footer_top: Footer top
+  footer_left: Footer left
+  footer_middle: Footer middle
+  footer_right: Footer right
+  footer_bottom: Footer bottom
+  taxonomy_bottom: Taxonomy bottom
