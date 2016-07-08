@@ -1,0 +1,57 @@
+// ==========================================================================
+// Lightbox styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// Lightbox styles
+// ==========================================================================
+
+.lightbox-item {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	@media @sm {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	a {
+		display: block;
+	}
+	img {
+		width: 100%;
+		display: block;
+	}
+	.lightbox-instagram-holder {
+		position: absolute;
+		bottom: 15px;
+		right: 15px;
+		.instagram-time {
+			display: inline-block;
+			position: relative;
+			top: -19px;
+			margin-right: 8px;
+			font-family: @lato;
+			color: @font-light;
+		}
+		.instagram-logo {
+			.bg-hi-dpi( transparent, '@{dir-images}insta-logo.png', 0%, 0%, no-repeat, 45px, 45px);
+			width: 45px;
+			height: 45px;
+			display: inline-block;
+		}
+	}
+}
+
+.godiva-carousel {
+	margin: 20px 0 20px 0;
+}
+
+
+// END OF SCOPE
+}

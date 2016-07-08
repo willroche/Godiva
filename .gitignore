@@ -35,6 +35,7 @@ xmlrpc.php
 /themes/custom/godiva/node_modules/*
 /themes/custom/godiva/vendor/*
 /themes/custom/godiva/production/*
+/themes/custom/godiva/assets/*
 /themes/fe/*
 
 /themes/custom/godiva/font-awesome/*

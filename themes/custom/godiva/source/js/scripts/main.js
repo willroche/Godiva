@@ -1,7 +1,7 @@
-$(function() {
+jQuery(function() {
 
 	// Init masonary
-	$('.grid').masonry({
+	jQuery('.grid').masonry({
 		// set itemSelector so .grid-sizer is not used in layout
 		itemSelector: '.grid-item',
 		// use element for option
@@ -10,23 +10,23 @@ $(function() {
 	})
 
 	// Search overlay
-	$(".i-search, .i-search-close").click(function() {
-		$("#search").fadeToggle(300);
-		$("body").toggleClass("no-scroll");
+	jQuery(".i-search, .i-search-close").click(function() {
+		jQuery("#search").fadeToggle(300);
+		jQuery("body").toggleClass("no-scroll");
 	});
 
 	// Menu overlay
-	$(".button-nav, .i-menu-close").click(function() {
-		$("#menu").slideToggle(300);
-		$("body").toggleClass("no-scroll");
+	jQuery(".button-nav, .i-menu-close").click(function() {
+		jQuery("#menu").slideToggle(300);
+		jQuery("body").toggleClass("no-scroll");
 	});
 
 	// Init bLazy
 	var bLazy = new Blazy({});
 
-	// Masonary title grabbing last word and adding span
-	$('.grid-item h2').each(function(index, element) {
-		var heading = $(element), word_array, last_word, first_part;
+	// Masonary title grabbing last word and add span
+	jQuery('.grid-item h2').each(function(index, element) {
+		var heading = jQuery(element), word_array, last_word, first_part;
 
 		word_array = heading.html().split(/\s+/); // split on spaces
 		last_word = word_array.pop();             // pop the last word
@@ -35,13 +35,8 @@ $(function() {
 		heading.html([first_part, '<br/><span>', last_word, '</span>'].join(''));
 	});
 
-	//Sticky social nav
-	var sticky = new Waypoint.Sticky({
-		element: $('.article-share-holder')[0]
-	});
-
 	// Share article js social
-	$("#share-article").jsSocials({
+	jQuery("#share-article").jsSocials({
 		showCount: true,
 		showLabel: false,
 		shares: [
@@ -53,7 +48,7 @@ $(function() {
 	});
 
 	// Share article image js social
-	$(".share-article-image").jsSocials({
+	jQuery(".share-article-image").jsSocials({
 		showCount: false,
 		showLabel: false,
 		shares: [
@@ -63,18 +58,36 @@ $(function() {
 	});
 
 	// Caption slide on hover on article images
-	$(".article-image").hover(function() {
-		$( this ).find( ".article-img-social" ).stop().slideToggle(300);
+	jQuery(".article-image").hover(function() {
+		jQuery( this ).find( ".article-img-social" ).stop().slideToggle(300);
 	});
 
 	// Slick carousel init
-	$(".slick-article").slick({
+	jQuery(".slick-article").slick({
     	dots: true,
     	arrows: true,
-    	// autoplay: true,
     	infinite: false,
     	slidesToShow: 1,
     	slidesToScroll: 1
+	});
+
+	// Slick carousel init
+	jQuery(".home-godiva").slick({
+		dots: false,
+		arrows: true,
+		draggable: true,
+		infinite: false,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		responsive: [
+		    {
+		      breakpoint: 767,
+		      settings: {
+		        slidesToShow: 1,
+		        slidesToScroll: 1
+		      }
+		    }
+		]
 	});
 
 	var bLazy = new Blazy({ 
@@ -82,11 +95,15 @@ $(function() {
     });
 
 
-	$('.slick-article').on('afterChange', function(event, slick, direction){
+	jQuery('.slick-article, .home-godiva').on('afterChange', function(event, slick, direction){
 	  bLazy.revalidate();
 	});
 
-	// 
-	$(".recent-item:nth-child(3n+3)").after( '<div class="h-clearfix"></div>' );
+	jQuery('#slick-lightbox').slickLightbox({
+		caption: 'caption'
+	});
+
+	// Add clearfix on three items category page 
+	jQuery(".recent-item:nth-child(3n+3)").after( '<div class="h-clearfix"></div>' );
 
 });

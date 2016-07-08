@@ -2103,6 +2103,15 @@ p {
     font-size: 29px;
   }
 }
+.t-godiva h3,
+.t-godiva h4 {
+  color: #71032b !important;
+}
+.t-godiva h4 {
+  font-size: 28px;
+  font-family: 'Arapey', serif;
+  margin: 15px 0 0 0;
+}
 .t-masonary h2 {
   font-family: 'Arapey', serif;
   text-transform: inherit;
@@ -2728,6 +2737,19 @@ p {
     margin-top: 0px;
     margin-bottom: 10px;
   }
+}
+.slice.slice-godiva90 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.slice.slice-godiva-home {
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+.slice.slice-header-godiva {
+  border-right: 1px solid #cea449;
+  border-bottom: 1px solid #cea449;
+  border-left: 1px solid #cea449;
 }
 .slice-search-holder {
   margin-top: 20px;
@@ -3558,6 +3580,181 @@ header .header-holder .header-shop {
     text-align: center;
   }
 }
+.slick-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: black;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+.slick-lightbox .slick-loading .slick-list {
+  background-color: transparent;
+}
+.slick-lightbox .slick-prev {
+  left: 15px;
+}
+.slick-lightbox .slick-next {
+  right: 15px;
+}
+.slick-lightbox-hide {
+  opacity: 0;
+}
+.slick-lightbox-hide.slick-lightbox-ie {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+.slick-lightbox-hide-init {
+  position: absolute;
+  top: -9999px;
+  opacity: 0;
+}
+.slick-lightbox-hide-init.slick-lightbox-ie {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+.slick-lightbox-inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.slick-lightbox-slick-item {
+  text-align: center;
+  overflow: hidden;
+}
+.slick-lightbox-slick-item:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
+}
+.slick-caption-bottom .slick-lightbox-slick-item .slick-lightbox-slick-item .slick-lightbox-slick-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.slick-caption-dynamic .slick-lightbox-slick-item .slick-lightbox-slick-item .slick-lightbox-slick-caption {
+  display: block;
+  text-align: center;
+}
+.slick-lightbox-slick-item-inner {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 90%;
+  max-height: 90%;
+}
+.slick-lightbox-slick-img {
+  margin: 0 auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+}
+.slick-lightbox-slick-caption {
+  margin: 10px 0 0;
+  color: #ffffff;
+}
+.slick-lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: block;
+  height: 40px;
+  width: 40px;
+  line-height: 0;
+  font-size: 0;
+  cursor: pointer;
+  background: transparent;
+  color: transparent;
+  padding: 0;
+  border: none;
+}
+.slick-lightbox-close:focus {
+  outline: none;
+}
+.slick-lightbox-close:before {
+  font-family: "slick";
+  font-size: 45px;
+  line-height: 0;
+  color: white;
+  opacity: 0.85;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: '×';
+}
+.godiva-carousel .slick-slider button {
+  opacity: 0;
+}
+.godiva-carousel:hover button {
+  opacity: 1;
+}
+.godiva-carousel .slick-arrow {
+  display: none;
+  z-index: 1;
+  width: 60px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.godiva-carousel .slick-arrow.slick-disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.godiva-carousel .slick-arrow:hover {
+  background-color: #ffffff;
+}
+.godiva-carousel .slick-arrow:hover.slick-disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+@media (min-width: 768px) and (max-width: 1079px) {
+  .godiva-carousel .slick-arrow {
+    width: 45px;
+    height: 55px;
+  }
+}
+.godiva-carousel .slick-next {
+  right: 10px;
+}
+.godiva-carousel .slick-next:before {
+  content: '';
+  background: transparent url("../images/slick-next.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .godiva-carousel .slick-next:before {
+    background: transparent url("../images/slick-next@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
+.godiva-carousel .slick-prev {
+  left: 10px;
+}
+.godiva-carousel .slick-prev:before {
+  content: '';
+  background: transparent url("../images/slick-prev.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .godiva-carousel .slick-prev:before {
+    background: transparent url("../images/slick-prev@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
 .slick-article {
   margin: 20px 0 20px 0;
 }
@@ -3636,6 +3833,54 @@ header .header-holder .header-shop {
 @media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
   .slick-article .slick-prev:before {
     background: transparent url("../images/slick-prev@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
+.slick-lightbox .slick-arrow {
+  z-index: 1;
+  width: 95px;
+  height: 95px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .slick-lightbox .slick-arrow {
+    width: 65px;
+    height: 65px;
+  }
+}
+.slick-lightbox .slick-next {
+  right: 0px;
+}
+.slick-lightbox .slick-next:before {
+  content: '';
+  background: transparent url("../images/slick-lightbox-next.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .slick-lightbox .slick-next:before {
+    background: transparent url("../images/slick-lightbox-next@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
+.slick-lightbox .slick-prev {
+  left: 0px;
+}
+.slick-lightbox .slick-prev:before {
+  content: '';
+  background: transparent url("../images/slick-lightbox-prev.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .slick-lightbox .slick-prev:before {
+    background: transparent url("../images/slick-lightbox-prev@2x.png") 0% 0% no-repeat;
     background-size: 25px 42px;
   }
 }
@@ -4304,4 +4549,50 @@ header .header-holder .header-shop {
 }
 .contact-paragraph {
   margin: 30px 0 0 0;
+}
+.lightbox-item {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .lightbox-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+.lightbox-item a {
+  display: block;
+}
+.lightbox-item img {
+  width: 100%;
+  display: block;
+}
+.lightbox-item .lightbox-instagram-holder {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+.lightbox-item .lightbox-instagram-holder .instagram-time {
+  display: inline-block;
+  position: relative;
+  top: -19px;
+  margin-right: 8px;
+  font-family: 'lato', Arial, sans-serif;
+  color: #ffffff;
+}
+.lightbox-item .lightbox-instagram-holder .instagram-logo {
+  background: transparent url("../images/insta-logo.png") 0% 0% no-repeat;
+  width: 45px;
+  height: 45px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .lightbox-item .lightbox-instagram-holder .instagram-logo {
+    background: transparent url("../images/insta-logo@2x.png") 0% 0% no-repeat;
+    background-size: 45px 45px;
+  }
+}
+.godiva-carousel {
+  margin: 20px 0 20px 0;
 }
