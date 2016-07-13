@@ -103,6 +103,11 @@ jQuery(function() {
 		caption: 'caption'
 	});
 
+	var sticky = new Waypoint.Sticky({
+		element: jQuery('.article-share-holder')[0],
+		offset: 49
+	});
+
 	// Add clearfix on three items category page 
 	jQuery(".recent-item:nth-child(3n+3)").after( '<div class="h-clearfix"></div>' );
 

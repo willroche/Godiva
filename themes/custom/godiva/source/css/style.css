@@ -3550,7 +3550,7 @@ header .header-holder .header-shop {
 }
 .stuck {
   position: fixed;
-  top: 0;
+  top: 49px;
 }
 .sticky-surpassed {
   position: absolute;

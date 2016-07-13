@@ -48,6 +48,12 @@ jQuery(function() {
 		jQuery( ".search-panel:nth-child(3n+4)" ).after( "<div class='h-clearfix'></div>" );
 	});
 
+		//Sticky social nav
+	var sticky = new Waypoint.Sticky({
+		element: jQuery('.article-share-holder')[0],
+		offset: 49
+	});
+
 });
 
 WebFont.load({
