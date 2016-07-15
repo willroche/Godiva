@@ -18,301 +18,148 @@
 </head>
 <body>
 
-<!-- Menu -->
-<div id="menu" class="slice slice-overlay-menu">
-	<div class="l-col-12 l-content h-clearfix">
-		<div class="l-col-12 l-padding">
-			<div class="h-right">
-				<div class="i-menu-close"></div>
-			</div>
+<!-- Hamburger menu -->
+<nav id="c-menu--slide-right" class="c-menu c-menu--slide-right t-hamburger">
+	<div class="menu-close h-clearfix">
+		<button class="c-menu__close"></button>
+	</div>
+	<ul class="c-menu__items">
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Home</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">About</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Services</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Work</a></li>
+		<li class="c-menu__item"><a href="#" class="c-menu__link">Contact</a></li>
+	</ul>
+
+	<div class="hamburger-articles">
+		<h3>Latest Articles</h3>
+		<div class="article-holder">
+			<img src="../assets/menu-1.jpg"/>
+			<h5>GODIVA GUIDES - 10/13/16</h5>
+			<h4>Suo enim quisque studio maxime ducitur.</h4>
 		</div>
-		<div class="l-col-12 l-padding t-center">
-			<nav>
-				<ul>
-					<li><a href="">Home</a></li>
-					<li><a href="">Inside Godiva</a></li>
-					<li><a href="">Art &amp; Design</a></li>
-					<li><a href="">Lifestyle &amp; Travel</a></li>
-					<li><a href="">Chocolate Stories</a></li>
-					<li><a href="">#Godiva90</a></li>
-				</ul>
-			</nav>
+		<div class="article-holder">
+			<img src="../assets/menu-2.jpg"/>
+			<h5>DESIGN SERIES - 6/17/16</h5>
+			<h4>Teneo inquit finem illi videri nihil dolere.</h4>
+		</div>
+		<div class="article-holder">
+			<img src="../assets/menu-3.jpg"/>
+			<h5>VINTAGE - 6/01/16</h5>
+			<h4>Suo enim quisque studio maxime ducitur.</h4>
 		</div>
 	</div>
-</div>
-<!-- Menu end -->
 
-<!-- Search -->
-<div id="search" class="slice slice-overlay t-light">
-	<div class="l-col-12 l-content h-clearfix">
-		<div class="l-col-12 l-padding t-search">
-			<div class="h-right">
-				<div class="i-search-close"></div>
-			</div>
-		</div>
-		<div class="l-col-12 t-center t-search">
-			<div class="l-col-7 l-content l-padding">
-				<h1>Search</h1>
-				<form class="search-holders">
-					<input class="search" type="text" />
-				</form>
-			</div>
-		</div>
-		<!-- If there are search results then display this block -->
-		<div class="l-col-12">
-			<div class="l-col-12 t-center l-padding">
-				<h3>Search Results for</h3>
-			</div>
-			<div class="l-col-12 search-results t-listing t-center">
-				<div class="l-col-4 l-padding listing">
-					<a href="#">
-						<img class="b-lazy" data-src="../assets/search-1.jpg" alt=""/>
-						<h3>Lorem ipsum dolor</h3>
-						<h5>DISCOVER MORE</h5>
-					</a>
+	<div class="hamburger-tags">
+		<h3>Tags</h3>
+		<div class="hamburger-tag-holder">
+			<a class="i-tag h-clearfix" href="#">
+				<div class="i-tag-arrow"></div>
+				<div class="i-tag-body">
+					<span>Chocolate</span>
+					<span>Chocolate</span>
 				</div>
-				<div class="l-col-4 l-padding listing">
-					<a href="#">
-						<img class="b-lazy" data-src="../assets/search-2.jpg" alt=""/>
-						<h3>Lorem ipsum dolor</h3>
-						<h5>Full Story</h5>
-					</a>
+				<div class="i-tag-end"></div>
+			</a>
+			<a class="i-tag h-clearfix" href="#">
+				<div class="i-tag-arrow"></div>
+				<div class="i-tag-body">
+					<span>Dessert</span>
+					<span>Dessert</span>
 				</div>
-				<div class="l-col-4 l-padding listing">
-					<a href="#">
-						<img class="b-lazy" data-src="../assets/search-3.jpg" alt=""/>
-						<h3>lorem ipsum dolor dit amet</h3>
-						<h5>Find out here</h5>
-					</a>
+				<div class="i-tag-end"></div>
+			</a>
+			<a class="i-tag h-clearfix" href="#">
+				<div class="i-tag-arrow"></div>
+				<div class="i-tag-body">
+					<span>Recipes</span>
+					<span>Recipes</span>
 				</div>
-				<div class="l-col-4 l-padding listing">
-					<a href="#">
-						<img class="b-lazy" data-src="../assets/search-1.jpg" alt=""/>
-						<h3>Lorem ipsum dolor</h3>
-						<h5>DISCOVER MORE</h5>
-					</a>
+				<div class="i-tag-end"></div>
+			</a>
+			<a class="i-tag h-clearfix" href="#">
+				<div class="i-tag-arrow"></div>
+				<div class="i-tag-body">
+					<span>Godiva</span>
+					<span>Godiva</span>
 				</div>
-			</div>
+				<div class="i-tag-end"></div>
+			</a>
 		</div>
 	</div>
-</div>
-<!-- Search end -->
+</nav>
+<!-- Mask overlay -->
+<div id="c-mask" class="c-mask"></div>
+<!-- Hamburger menu end -->
 
-<header class="slice h-clearfix">
-	<div class="l-col-12 l-content">
-		<div class="l-col-12 l-padding t-center">
-			<div class="header-holder">
-				<div class="header-logo"></div>
-				<div class="header-headline">
-					<h1>Chocolate Notes</h1>
-				</div>
+<!-- Nav holder spacer -->
+<div class="slice slice-nav-holder"></div>
 
-				<div class="button-nav h-hidden-lg h-hidden-xl">
-					<span class="button-nav-lines"></span>
-				</div>
-
-				<div class="header-shop">
-					<select onchange="location = this.value;">
-						<option>Shop Godiva</option>
-						<option value="http://google.com">United States</option>
-						<option value="http://google.com">United Kingdom</option>
-						<option value="http://google.com">South America</option>
-						<option value="http://google.com">South Africa</option>
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
-
+<!-- Header nav -->
 <nav class="slice slice-nav h-clearfix">
+
+	<div class="header-search">
+		<div class="close-search"></div>
+		<form>
+			<input type="text" placeholder="Search..." />
+		</form>
+	</div>
+
 	<div class="l-col-12 nav-holder l-content h-clearfix t-nav">
-		<div class="l-col-12 l-padding">
-			<ul class="nav-main h-hidden-md h-hidden-sm">
-				<li><a href="">Home</a></li>
-				<li><a href="">Inside Godiva</a>
-					<div class="mega">
-						<div class="mega-article">
-							<h5>Articles</h5>	
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="mega-tag">
-							<h5>Tags</h5>
-							<ul>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li><a href="">Art &amp; Design</a>
-					<div class="mega">
-						<div class="mega-article">
-							<h5>Articles</h5>	
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="mega-tag">
-							<h5>Tags</h5>
-							<ul>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li><a href="">Lifestyle &amp; Travel</a>
-					<div class="mega">
-						<div class="mega-article">
-							<h5>Articles</h5>	
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="mega-tag">
-							<h5>Tags</h5>
-							<ul>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li><a href="">Chocolate Stories</a>
-					<div class="mega">
-						<div class="mega-article">
-							<h5>Articles</h5>	
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-							<div class="mega-article-holder h-clearfix">
-								<div class="mega-article-image">
-									<a href=""><img src="../assets/mega-article1.png"></a>
-								</div>
-								<div class="mega-article-content">
-									<p><a href="">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="mega-tag">
-							<h5>Tags</h5>
-							<ul>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-								<li><a href="">Lorem Ipsum</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li><a href="">#Godiva90</a></li>
-			</ul>
-			<div class="icon-holder">
+		<div class="l-col-6 l-padding f-col-8">
+			<div class="nav-title">
+				<h2>Chocolate <span>Notes</span></h2>
+			</div>
+		</div>
+		<div class="l-col-6 l-padding f-col-4">
+			<div class="search-holder">
+				<div class="icons search i-search"></div>
+				<div id="o-wrapper" class="o-wrapper">
+					<button id="c-button--slide-right" class="c-button"></button>
+				</div><!-- /o-wrapper -->
+			</div>
+
+			<div class="divider-holder">
+				<div class="divider-one"></div>
+				<div class="divider-two"></div>
+			</div>
+
+			<div class="header-shop h-hidden-sm">
+				<select onchange="location = this.value;">
+					<option>Shop Godiva</option>
+					<option value="http://google.com">United States</option>
+					<option value="http://google.com">United Kingdom</option>
+					<option value="http://google.com">South America</option>
+					<option value="http://google.com">South Africa</option>
+				</select>
+			</div>
+
+			<div class="divider-holder divider-holder-one h-hidden-sm">
+				<div class="divider-one"></div>
+				<div class="divider-two"></div>
+			</div>
+
+			<div class="icon-holder h-hidden-sm">
 				<a href="#" class="icons fb"></a>
 				<a href="#" class="icons insta"></a>
 				<a href="#" class="icons mail"></a>
-				<div class="icons search i-search"></div>
 			</div>
 		</div>
 	</div>
 </nav>
+<!-- Header nav close -->
+
+<!-- Logo slice -->
+<div class="slice h-clearfix">
+	<div class="l-col-12 l-padding l-content">
+		<div class="header-logo-holder">
+			<div class="header-logo-overlay">
+				<div class="header-logo"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Logo slice -->
 
 <div class="slice h-clearfix t-center t-light t-banner t-godiva slice-header-godiva">	
 	<div class="category-hero-bg b-lazy h-centered-holder" data-src="../assets/godiva.jpg">
@@ -465,13 +312,14 @@
 <script type="text/javascript" src="../source/js/libs/sticky.min.js"></script>
 <script type="text/javascript" src="../source/js/libs/slick.min.js"></script>
 <script type="text/javascript" src="../source/js/libs/slick-lightbox.min.js"></script>
+<script type="text/javascript" src="../source/js/libs/menu.min.js"></script>
 <script type="text/javascript" src="../source/js/scripts/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 <script>
  WebFont.load({
-    google: {
-      families: ['Arapey:400italic:latin', 'Lato:400,300,700:latin', 'Montserrat:400,700:latin']
-    }
+	google: {
+	  families: ['Arapey:400italic:latin', 'Lato:400,300,700:latin', 'Montserrat:400,700:latin']
+	}
   });
 </script>
 

@@ -1,0 +1,194 @@
+// ==========================================================================
+// Header styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+.hamburger-articles {
+	padding: 0 34px;
+	margin-top: 50px;
+	.article-holder {
+		padding-top: 30px;
+		padding-bottom: 25px;
+		border-bottom: 1px solid #565656;
+		img {
+			width: 100%;
+			display: block;
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.hamburger-tags {
+	padding: 0 34px;
+	margin-top: 50px;
+	.hamburger-tag-holder {
+		margin-top: 30px;
+	}
+}
+
+// Menu styles
+.c-menu {
+  position: fixed;
+  z-index: 200;
+  background-color: #3f3f3f;
+  transition: transform 0.3s;
+}
+
+.c-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: solid 1px #646464;
+}
+
+.o-wrapper {
+	float: right;
+	position: relative;
+	top: 3px;
+	button {
+		.bg-hi-dpi( transparent, '@{dir-images}menu-open.png', 0%, 0%, no-repeat, 28px, 20px);
+		width: 28px;
+		height: 20px;
+		border: 0;
+	}
+}
+
+.menu-close {
+	padding: 15px 20px;
+	border-bottom: solid 1px #222222;
+}
+/**
+ * Close button resets.
+ */
+.c-menu__close {
+	.bg-hi-dpi( transparent, '@{dir-images}i-menu-close-white.png', 0%, 0%, no-repeat, 22px, 22px);
+	width: 22px;
+	height: 22px;
+	display: block;
+	float: right;
+	border: 0;
+	border: none;
+	box-shadow: none;
+	border-radius: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+/**
+ * Close button resets.
+ */
+.c-menu__close:focus {
+  outline: none;
+}
+
+/**
+ * Body states.
+ *
+ * When a menu is active, we want to hide the overflows on the body to prevent
+ * awkward document scrolling.
+ */
+body.has-active-menu {
+  overflow: hidden;
+}
+
+/**
+ * Mask component
+ */
+
+.c-mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  background-color: #000;
+  opacity: 0;
+  transition: opacity 0.3s, width 0s 0.3s, height 0s 0.3s;
+}
+
+.c-mask.is-active {
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+// Left and right menus
+
+.c-menu--slide-left,
+.c-menu--slide-right,
+.c-menu--push-left,
+.c-menu--push-right {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.c-menu--slide-left,
+.c-menu--slide-right,
+.c-menu--push-left,
+.c-menu--push-right {
+	width: 400px;
+	@media @sm {
+		width: 100%;
+	}
+}
+
+
+.c-menu--slide-left .c-menu__item,
+.c-menu--slide-right .c-menu__item,
+.c-menu--push-left .c-menu__item,
+.c-menu--push-right .c-menu__item {
+  display: block;
+  border-top: solid 1px #646464;
+  border-bottom: solid 1px #222222;
+}
+
+
+
+.c-menu--slide-left .c-menu__link,
+.c-menu--slide-right .c-menu__link,
+.c-menu--push-left .c-menu__link,
+.c-menu--push-right .c-menu__link {
+  display: block;
+  color: #fff;
+  padding: 18px 34px;
+}
+
+.c-menu--slide-left .c-menu__close,
+.c-menu--slide-right .c-menu__close,
+.c-menu--push-left .c-menu__close,
+.c-menu--push-right .c-menu__close {
+  display: block;
+}
+
+// Slide and push right menus 
+
+.c-menu--slide-right,
+.c-menu--push-right {
+  top: 0;
+  right: 0;
+  transform: translateX(400px);
+  padding-bottom: 100px;
+  @media @sm {
+  	transform: translateX(100%);
+  }
+}
+
+.c-menu--slide-right.is-active,
+.c-menu--push-right.is-active {
+  transform: translateX(0);
+}
+
+// END OF SCOPE
+}

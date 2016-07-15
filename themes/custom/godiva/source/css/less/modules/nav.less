@@ -13,10 +13,19 @@
 // ==========================================================================
 
 .nav-holder {
-
-}
-
-.nav-holder {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	.transition( all, 0.3s, ease-out );
+	.nav-small & {
+		padding-top: 7px;
+		padding-bottom: 7px;
+		.icon-holder, .divider-holder-one {
+			display: none;
+		}
+		.search-holder {
+			top: 5px;
+		}
+	}
 	.nav-main {
 		display: inline-block;
 		ul {
@@ -165,25 +174,27 @@
 			}
 		}
 	}
+	.search-holder {
+		display: inline-block;
+		position: relative;
+		top: 6px;
+		float: right;
+		.icons {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-right: 10px;
+			&.search {
+				.bg-hi-dpi( transparent, '@{dir-images}nav/i-search.png', 0%, 0%, no-repeat, 24px, 24px);
+				cursor: pointer;
+			}
+		}
+	}
 	.icon-holder {
 		display: inline-block;
-		margin-left: 60px;
 		position: relative;
-		top: -12px;
-		@media @lg {
-			margin-left: 40px;
-		}
-		@media @md {
-			margin: 8px 0;
-			top: initial;
-			float: right;
-		}
-		@media @sm {
-			margin: 8px 0;
-			top: initial;
-			display: block;
-			text-align: center;
-		}
+		top: 6px;
+		float: right;
 		.icons {
 			display: inline-block;
 			width: 24px;
@@ -201,11 +212,27 @@
 			&.fb {
 				.bg-hi-dpi( transparent, '@{dir-images}nav/i-facebook.png', 0%, 0%, no-repeat, 24px, 24px);
 			}
-			&.search {
-				.bg-hi-dpi( transparent, '@{dir-images}nav/i-search.png', 0%, 0%, no-repeat, 24px, 24px);
-				cursor: pointer;
-			}
 		}
+	}
+}
+
+.divider-holder {
+	float: right;
+	margin: 0 15px;
+	@media @md {
+		margin: 0 10px;
+	}
+	@media @sm {
+		margin: 0 13px 0 0;
+	}
+	.divider-one, .divider-two {
+		height: 36px;
+		width: 1px;
+		background: #eac576;
+		float: left;
+	}
+	.divider-two {
+		background: #b88e33;
 	}
 }
 
@@ -213,11 +240,10 @@
 	width: 28px;
 	height: 24px;
 	cursor: pointer;
-	position: absolute;
 	display: inline-block;
 	padding-top: 10px;
-	top: 0;
-	right: 0;
+	margin-top: 2px;
+	margin-left: 5px;
 	&.open {
 		.button-nav-lines {
 			background: transparent;
@@ -235,16 +261,16 @@
 		float: left;
 		width: 100%;
 		height: 2px;
-		background: @bg-gold;
+		background: @bg-light;
 		position: relative;
 		&:before {
 			position: absolute;
 			content: '';
 			width: 28px;
 			height: 2px;
-			background-color: @bg-gold;
+			background-color: @bg-light;
 			display: block;
-			margin-top: -8px;
+			margin-top: -9px;
 			.transition( all, 0.1s, ease-out );
 		}
 		&:after {
@@ -252,9 +278,9 @@
 			content: '';
 			width: 28px;
 			height: 2px;
-			background-color: @bg-gold;
+			background-color: @bg-light;
 			display: block;
-			margin-top: 8px;
+			margin-top: 9px;
 			.transition( all, 0.1s, ease-out );
 		}
 	}

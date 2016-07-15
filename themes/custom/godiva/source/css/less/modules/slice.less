@@ -16,7 +16,7 @@
 	width: 100%;
 	&.slice-footer {
 		background: @bg-gold;
-		padding: 60px 0 40px 0;
+		padding: 40px 0 10px 0;
 		@media @sm {
 			padding: 60px 0 0 0;
 		}
@@ -37,6 +37,10 @@
 	}
 	&.slice-nav {
 		background: @bg-gold;
+		position: fixed;
+		top: 0;
+		z-index: 2;
+		.box-shadow(rgba(0, 0, 0, 0.36) 0px 10px 10px -3px);
 	}
 	&.slice-overlay {
 		background: rgba(206, 164, 73, 0.95);
@@ -89,6 +93,9 @@
 		border-right: 1px solid @bg-gold;
 		border-bottom: 1px solid @bg-gold;
 		border-left: 1px solid @bg-gold;
+	}
+	&.slice-nav-holder {
+		height: 76px;	
 	}
 }
 

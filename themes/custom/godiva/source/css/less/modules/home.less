@@ -1,0 +1,28 @@
+// ==========================================================================
+// Home styles
+// ==========================================================================
+
+
+& {
+
+@import (multiple, less) "vars.less";
+@import (multiple, less) "less-helpers/less/mixins.less";
+
+
+// Home styles
+// ==========================================================================
+
+.home-hero-bg {
+	height: 550px;
+	background-size: cover;
+	background-position: 50%;
+	@media @md {
+		height: 400px;
+	}
+	@media @sm {
+		height: 300px;
+	}
+}
+
+// END OF SCOPE
+}

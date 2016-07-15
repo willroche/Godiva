@@ -20,6 +20,18 @@
 body {
 	//-webkit-font-smoothing: antialiased;
 	font-family: @lato;
+	
+}
+
+h1, h2, h3, h4, h5, li, p, div, span, blockquote {
+	&::-moz-selection {
+		color: @bg-light;
+		background-color: @bg-gold;
+	}
+	&::selection {
+		color: @bg-light;
+		background-color: @bg-gold;
+	}
 }
 
 .h1( ... ) {
@@ -131,6 +143,29 @@ p {
 // For blocks with CMS content where things like lists need to be styled.
 
 .t-nav {
+	h2 {
+		font-size: 30px;
+		font-weight: 700;
+		font-family: @lato;
+		margin: 0;
+		color: @font-light;
+		.transition( all, 0.3s, ease-out );
+		span {
+			font-weight: 100;
+		}
+		@media @sm {
+			font-size: 21px;
+			margin: 6px 0 0 0;
+		}
+		.nav-small & {
+			font-size: 24px;
+			margin-top: 3px;
+			@media @sm {
+				font-size: 21px;
+				margin: 5px 0 0 0;
+			}
+		}
+	}
 	h5 {
 		.h5();
 		font-size: 16px;
@@ -145,6 +180,43 @@ p {
 			text-transform: inherit;
 			font-size: 13px;
 		}
+	}
+}
+
+.t-hamburger {
+	.c-menu__items {
+		li {
+			a {
+				font-size: 20px;
+				font-weight: 500;
+				color: @font-light;
+				text-transform: uppercase;
+				&:hover {
+					background: #585858;
+				}
+			}
+		}
+	}
+	h3 {
+		font-size: 26px;
+		font-weight: 300;
+		margin: 0;
+		text-transform: uppercase;
+		font-family: @lato;
+		color: @font-light;
+	}
+	h4 {
+		margin: 0;
+		color: @font-light;
+		font-size: 22px;
+		font-family: @lato;
+		line-height: 30px;
+	}
+	h5 {
+		margin: 0;
+		color: @font-gold;
+		font-size: 17px;
+		font-family: @lato;
 	}
 }
 

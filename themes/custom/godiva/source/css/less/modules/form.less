@@ -58,26 +58,26 @@
 }
 
 .header-shop {
+	display: inline-block;
+	float: right;
+	position: relative;
+	@media @md {
+		top: 5px;
+	}
 	select {
-		width: 50%;
 		background: none;
+		outline: 0;
 		height: 36px;
-		float: right;
 		width: 150px;
-		font-size: 14px;
-		border: 1px solid #cba162;
-		color: @font-gold;
+		font-size: 16px;
+		border: none;
+		color: @font-light;
 		text-transform: uppercase;
 		font-family: @lato;
 		font-weight: 400;
 		@media @md {
-			font-size: 12px;
-			width: 110px;
-			height: 27px;
-		}
-		@media @sm {
-			font-size: 12px;
-			width: 110px;
+			font-size: 16px;
+			width: 140px;
 			height: 27px;
 		}
 	}

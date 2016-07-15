@@ -10,15 +10,13 @@ jQuery(function() {
 	})
 
 	// Search overlay
-	jQuery(".i-search, .i-search-close").click(function() {
-		jQuery("#search").fadeToggle(300);
-		jQuery("body").toggleClass("no-scroll");
+	jQuery(".i-search").click(function() {
+		jQuery(".header-search").toggleClass("search-expand");
 	});
 
-	// Menu overlay
-	jQuery(".button-nav, .i-menu-close").click(function() {
-		jQuery("#menu").slideToggle(300);
-		jQuery("body").toggleClass("no-scroll");
+	// Close search box
+	jQuery(".close-search").click(function() {
+		jQuery(".header-search").toggleClass("search-expand");
 	});
 
 	// Init bLazy
@@ -103,12 +101,44 @@ jQuery(function() {
 		caption: 'caption'
 	});
 
-	var sticky = new Waypoint.Sticky({
-		element: jQuery('.article-share-holder')[0],
-		offset: 49
+	jQuery(window).scroll(function() {    
+	    var scroll = jQuery(window).scrollTop();
+
+	    if (scroll >= 200) {
+	        jQuery(".slice-nav").addClass("nav-small");
+	    } else {
+	        jQuery(".slice-nav").removeClass("nav-small");
+	    }
 	});
 
 	// Add clearfix on three items category page 
 	jQuery(".recent-item:nth-child(3n+3)").after( '<div class="h-clearfix"></div>' );
 
+	if ( jQuery( ".article-share-holder" ).length ) {
+ 		var sticky = new Waypoint.Sticky({
+		element: jQuery('.article-share-holder')[0],
+		offset: 49
+	});
+ 
+}
+
+	
+
+});
+
+/**
+* Slide right instantiation and action.
+*/
+var slideRight = new Menu({
+	wrapper: '#o-wrapper',
+	type: 'slide-right',
+	menuOpenerClass: '.c-button',
+	maskId: '#c-mask'
+});
+
+var slideRightBtn = document.querySelector('#c-button--slide-right');
+
+slideRightBtn.addEventListener('click', function(e) {
+	e.preventDefault;
+	slideRight.open();
 });
