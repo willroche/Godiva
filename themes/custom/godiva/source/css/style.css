@@ -2042,6 +2042,14 @@ p {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
+.t-nav h2 a {
+  color: #ffffff;
+  -webkit-transition: all 0s ease-out;
+  -moz-transition: all 0s ease-out;
+  -ms-transition: all 0s ease-out;
+  -o-transition: all 0s ease-out;
+  transition: all 0s ease-out;
+}
 .t-nav h2 span {
   font-weight: 100;
 }
@@ -2219,6 +2227,7 @@ p {
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   font-weight: 700;
+  display: block;
 }
 .t-masonary h4 {
   font-family: 'lato', Arial, sans-serif;
@@ -2846,11 +2855,11 @@ p {
 }
 .slice.slice-footer {
   background: #cea449;
-  padding: 40px 0 10px 0;
+  padding: 25px 0 20px 0;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .slice.slice-footer {
-    padding: 60px 0 0 0;
+    padding: 20px 0 20px 0;
   }
 }
 .slice.slice-recent {
@@ -3013,10 +3022,18 @@ p {
   height: 100%;
   width: 100%;
   padding: 20px;
+  outline: 0;
+  font-size: 25px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
   border: 0;
 }
 .nav-small .header-search form input {
   padding: 10px 20px;
+  font-size: 17px;
 }
 .header-search form ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
@@ -3068,6 +3085,8 @@ p {
   width: 152px;
   font-size: 12px;
   text-align: center;
+  margin: 0;
+  line-height: 20px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .footer-logo p {
@@ -3535,6 +3554,11 @@ p {
   overflow: hidden;
   position: relative;
   display: block;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .grid-container:hover .grid-bg {
   -webkit-filter: blur(1.3px);
@@ -3552,6 +3576,11 @@ p {
   background-position: 50%;
   position: relative;
   overflow: hidden;
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  transform: scale(1.25);
   -webkit-transition: all 0.7s ease-out;
   -moz-transition: all 0.7s ease-out;
   -ms-transition: all 0.7s ease-out;
@@ -3617,6 +3646,11 @@ p {
   text-transform: uppercase;
   border: 2px solid #ffffff;
   display: inline-block;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .grid-item .button,
 .category-item .button {
@@ -3630,14 +3664,9 @@ p {
   border: 0;
 }
 .article-bg {
-  height: 667px;
+  height: 550px;
   background-size: cover;
   background-position: 50%;
-}
-@media (min-width: 1080px) and (max-width: 1295px) {
-  .article-bg {
-    height: 550px;
-  }
 }
 @media (min-width: 768px) and (max-width: 1079px) {
   .article-bg {

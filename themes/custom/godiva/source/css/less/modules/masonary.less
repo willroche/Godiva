@@ -37,6 +37,7 @@
 	overflow: hidden;
 	position: relative;
 	display: block;
+	.transition( all, 0.3s, ease-out );
 	&:hover {
 		.grid-bg {
 		-webkit-filter: blur(1.3px);
@@ -44,6 +45,7 @@
 		-o-filter: blur(1.3px);
 		-ms-filter: blur(1.3px);
 		filter: blur(1.3px);
+		// .transform( scale( 1.25 ) );
 		&:before {
 			background-color: rgba(0, 0, 0, 0.3);
 			}
@@ -57,6 +59,7 @@
 	background-position: 50%;
 	position: relative;
 	overflow: hidden;
+	.transform( scale( 1.25 ) );
 	.transition( all, 0.7s, ease-out );
 	.grid-item-full & {
 		height: 500px;

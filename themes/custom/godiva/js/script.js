@@ -26,6 +26,10 @@ jQuery(function() {
 	  // left
 	});
 
+	jQuery('.i-search').click(function(){
+		jQuery('.header-search form input').focus();
+	});
+
 	jQuery("#share").jsSocials({
 		showLabel: false,
     	showCount: false,
