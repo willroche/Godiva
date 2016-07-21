@@ -53,14 +53,35 @@
 		li {
 			float: left;
 			a {
-				font-size: 30px;
+				font-size: 23px;
 				font-family: @lato;
 				color: @font-gold;
-				margin: 0 14px;
+				margin: 0 10px;
 				@media @sm {
-					font-size: 22px;
+					font-size: 20px;
 				}
 			}
+		}
+	}
+}
+
+.search-article-holder {
+	margin: 15px 0;
+	@media @sm {
+		text-align: center;
+	}
+	.search-image {
+		display: block;
+	}
+	img {
+		float: left;
+		display: block;
+		margin-right: 20px;
+		@media @sm {
+			display: inline-block;
+			float: none;
+			margin-right: 0;
+			margin-bottom: 10px;
 		}
 	}
 }
