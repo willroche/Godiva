@@ -1,0 +1,28 @@
+
+GridStack 8.x-1.0-dev, 2016-04-24
+---------------------------------
+- #2704415 by gausarts, crantisz: Number of columns ignored.
+- #2704409 by crantisz: An error on saving.
+
+GridStack 8.x-1.0-dev, 2016-04-11
+---------------------------------
+- #2703665 by crantisz: An error on adding.
+
+GridStack 8.x-1.0-dev, 2016-04-03
+---------------------------------
+- Fixed for indefined index breakpoints.
+- Added composer.json.
+
+GridStack 8.x-1.0-dev, 2016-03-29
+---------------------------------
+- Fixed for $form['background'] being overriden.
+- Fixed for missing $settings['item_id'].
+
+GridStack 8.x-1.0-dev, 2016-03-28
+---------------------------------
+- Added the module files.
+- Initial commit.
+
+GridStack 8.x-1.0-dev, 2016-02-22
+---------------------------------
+- Initial WIP.

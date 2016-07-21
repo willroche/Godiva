@@ -1,0 +1,76 @@
+gridstack:
+  remote: https://github.com/troolee/gridstack.js
+  version: 0.2.x
+  license:
+    name: MIT
+    url: https://github.com/troolee/gridstack.js/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    /libraries/gridstack/dist/gridstack.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/underscore
+
+ui:
+  version: VERSION
+  css:
+    theme:
+      css/gridstack.ui.css: {}
+  dependencies:
+    - core/jquery
+    - core/underscore
+    - core/jquery.ui
+    - core/jquery.ui.widget
+    - core/jquery.ui.draggable
+    - core/jquery.ui.mouse
+    - core/jquery.ui.resizable
+    - core/jquery.ui.touch-punch
+
+load:
+  version: VERSION
+  js:
+    js/gridstack.load.min.js: { weight: 0 }
+  css:
+    base:
+      css/gridstack.css: {}
+    theme:
+      css/gridstack.theme.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - blazy/load
+    - gridstack/gridstack
+
+customized:
+  version: VERSION
+  js:
+    js/gridstack.min.js: {}
+    js/gridstack.load.min.js: { weight: 0 }
+  css:
+    base:
+      css/gridstack.css: {}
+    theme:
+      css/gridstack.theme.css: {}
+  dependencies:
+    - core/jquery
+    - core/underscore
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - blazy/load
+
+admin:
+  version: VERSION
+  js:
+    js/gridstack.admin.min.js: {}
+  css:
+    theme:
+      css/gridstack.admin.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once
+    - gridstack/ui
+    - gridstack/load

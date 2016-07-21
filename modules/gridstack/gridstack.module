@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Provides GridStack integration to have multi-column grids with drag-and-drop.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function gridstack_theme() {
+  $themes = [];
+  foreach (['gridstack', 'box', 'admin', 'dummy'] as $item) {
+    $key = $item == 'gridstack' ? $item : 'gridstack_' . $item;
+    $themes[$key] = [
+      'render element' => 'element',
+      'file' => 'templates/gridstack.theme.inc',
+    ];
+  }
+  return $themes;
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function gridstack_library_info_build() {
+  $path = drupal_get_path('module', 'gridstack');
+  $libraries = [];
+  if ($skins = \Drupal::service('gridstack.manager')->getSkins()) {
+    foreach ($skins as $key => $skin) {
+      $provider = isset($skin['provider']) ? $skin['provider'] : 'gridstack';
+      $id = $provider . '.' . $key;
+      if (isset($skin['css']) && is_array($skin['css'])) {
+        $libraries[$id]['css'] = $skin['css'];
+      }
+      if (isset($skin['js']) && is_array($skin['js'])) {
+        $libraries[$id]['js'] = $skin['js'];
+      }
+    }
+  }
+
+  foreach (range(1, 12) as $key) {
+    $libraries['gridstack.' . $key] = [
+      'dependencies' => ['gridstack/gridstack'],
+      'css' => [
+        'layout' => ['css/layout/grid-stack-' . $key . '.css' => []],
+      ],
+    ];
+  }
+  return $libraries;
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function gridstack_hook_info() {
+  $hooks['gridstack_skins_info'] = ['group' => 'gridstack'];
+  return $hooks;
+}
+
+/**
+ * Implements hook_help().
+ */
+function gridstack_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.gridstack':
+      return check_markup(file_get_contents(dirname(__FILE__) . "/README.txt"));
+  }
+}

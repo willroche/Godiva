@@ -1,0 +1,213 @@
+/**
+ * @file
+*/
+
+.form--gridstack .details--settings {
+  background: #f9f9f9;
+  border: 1px solid #dbe1e9;
+  box-shadow: 0 0 0 4px #f9f9f9;
+  clear: both;
+  float: left;
+  overflow: visible;
+  position: relative;
+  margin: 30px auto;
+  width: 100%;
+}
+
+.form--gridstack details.form-wrapper {
+  clear: both;
+}
+
+.gridstack--admin {
+  background: lightgoldenrodyellow;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.gridstack--admin .box__content {
+  color: #2c3e50;
+  text-align: center;
+  background-color: #18bc9c;
+}
+
+.gridstack--admin .gridstack--nested .box__content {
+  background-color: #999;
+}
+
+.gridstack-preview {
+  clear: both;
+}
+
+.form--gridstack .gridstack-preview .form-type-textarea {
+  float: none;
+  width: 100% !important;
+}
+
+.form--gridstack .gridstack-actions {
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.form--gridstack .gridstack-actions .button {
+  margin: 0 5px;
+}
+
+.form--gridstack .box .button-group {
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.form--gridstack .box .button {
+  display: inline-block;
+  font-size: 22px;
+  padding: 0;
+  width: 28px;
+}
+
+.form--gridstack .box .box__content .form-item {
+  width: auto;  
+}
+
+.form--gridstack .box .box__content .form-select {
+  border: 1px solid #dadada;
+  font-size: 13px;
+  font-weight: 400;
+  height: 28px;
+  max-width: 80px;
+  min-width: 80px;
+  position: relative;
+  text-indent: 12px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  text-indent: .01px;
+  text-overflow: "";
+  white-space: nowrap; /* Fix for Bartik */
+  visibility: hidden;
+}
+
+.form--gridstack #edit-json .form-item {
+  width: 100%;
+}
+
+.form--optionset .gridstack--nomargin > .gridstack__box > .box__content,
+.form--optionset .gridstack--nomargin > .gridstack__box > .placeholder-content {
+  -webkit-box-shadow: 0 0 1px 0 #fff inset;
+  box-shadow: 0 0 1px 0 #fff inset;
+}
+
+.gridstack--admin .box::before,
+.form--gridstack .box .box__dimension {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: block;
+  font-size: 13px;
+  line-height: 1.2;
+  left: 10px;
+  padding: 5px 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 8;
+}
+
+.gridstack--admin .box::before {
+  content: attr(data-index);
+}
+
+.form--gridstack .box .box__dimension {
+  bottom: 0;
+  left: 50%;
+  padding: 5px;
+  top: auto;
+  transform: translateX(-50%);
+  visibility: hidden;
+}
+
+.form--gridstack .box .button--remove {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  z-index: 10;
+}
+
+.form--gridstack .box:hover .box__dimension,
+.form--gridstack .box:hover .form-select {
+  visibility: visible;
+}
+
+.gridstack--admin .button-group {
+  z-index: 9;
+}
+
+.gridstack--admin .button-group div {
+  background: none;
+  border: 0;
+  display: inline-block;
+  float: none;
+  min-height: 22px;
+  padding: 0;
+  width: auto;
+}
+
+.form--optionset .gridstack--nomargin .box::before {
+  left: 0;
+}
+
+.form--optionset .gridstack--nomargin .box .button--remove {
+  right: 0;
+}
+
+.form--gridstack #edit-add-grids {
+  display: block;
+  margin: 0 auto;
+  visibility: hidden;
+}
+
+.form--gridstack .gridstack-preview .ajax-progress-throbber .throbber,
+.form--gridstack .gridstack-preview .ajax-progress-throbber .message {
+  display: inline-block;
+  float: none;
+  margin: 0 auto;
+  max-width: 210px;
+}
+
+.form--gridstack .gridstack-preview .ajax-progress {
+  display: block;
+  margin-top: -40px;
+  text-align: center;
+}
+
+.form--gridstack .gridstack-wrapper {
+  overflow: auto;
+  padding: 20px;
+}
+
+.form-wrapper--table-gridstack-responsive th:first-child {
+  text-align: right;
+}
+
+.form-wrapper--table-gridstack-responsive th:last-child {
+  display: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .form--optionset .form-wrapper--gridstack-grid .form-item,
+  .toolbar-tray-open .form--optionset .form-wrapper--gridstack-grid  .form-item {
+    width: 20%;
+  }
+
+  .form--optionset .form-wrapper--gridstack-grids .form-item  label {
+    width: 100px;
+  }
+
+  .form--optionset .form-wrapper--gridstack-grids  .form-select {
+    max-width: 100px;
+    min-height: 28px;
+    min-width: 100px;
+  }
+  .form--gridstack #edit-json .form-item {
+    width: 100%;
+  }
+}

@@ -1,0 +1,20 @@
+/**
+ * @file
+ */
+
+.gridstack--skin--selena {
+  color: #ccc;
+}
+
+.gridstack--skin--selena a {
+  color: #fff;
+}
+
+.gridstack--skin--selena .box__link {
+  font-size: small;
+  text-transform: uppercase;
+}
+
+.gridstack--skin--selena .box__title {
+  margin-top: 0;
+}

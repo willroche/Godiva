@@ -1,0 +1,107 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - gridstack_example
+id: tagore
+name: tagore
+label: Tagore
+weight: null
+options:
+  settings:
+    isNested: false
+    alwaysShowResizeHandle: false
+    auto: true
+    cellHeight: 80
+    disableDrag: true
+    disableResize: true
+    draggable: false
+    float: false
+    minWidth: 640
+    width: 12
+    height: 0
+    resizable: false
+    rtl: false
+    staticGrid: true
+    verticalMargin: 20
+    noMargin: false
+  grids:
+    -
+      node:
+        x: 0
+        y: 0
+        width: 4
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 4
+        y: 0
+        width: 4
+        height: 3
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 0
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 10
+        y: 0
+        width: 2
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 2
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 4
+        y: 3
+        width: 2
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 6
+        y: 3
+        width: 2
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 0
+        y: 4
+        width: 4
+        height: 3
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 4
+        width: 4
+        height: 3
+        image_style: ''
+      nested: { }
+json:
+  grids:
+    node: '[{"x":0,"y":0,"width":4,"height":4},{"x":4,"y":0,"width":4,"height":3},{"x":8,"y":0,"width":2,"height":2},{"x":10,"y":0,"width":2,"height":4},{"x":8,"y":2,"width":2,"height":2},{"x":4,"y":3,"width":2,"height":4},{"x":6,"y":3,"width":2,"height":4},{"x":0,"y":4,"width":4,"height":3},{"x":8,"y":4,"width":4,"height":3}]'
+    nested: ''
+  settings: '{"isNested":false,"alwaysShowResizeHandle":false,"disableDrag":true,"disableResize":true,"draggable":false,"float":false,"height":620,"resizable":false,"staticGrid":true}'
+  breakpoints: ''

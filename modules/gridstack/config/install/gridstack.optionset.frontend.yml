@@ -1,0 +1,123 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - gridstack
+id: frontend
+name: frontend
+label: 'Default Frontend'
+weight: -9
+options:
+  settings:
+    isNested: false
+    alwaysShowResizeHandle: false
+    auto: true
+    cellHeight: 80
+    disableDrag: true
+    disableResize: true
+    draggable: false
+    float: false
+    minWidth: 640
+    width: 12
+    height: 0
+    resizable: false
+    rtl: false
+    staticGrid: true
+    verticalMargin: 20
+    noMargin: false
+  grids:
+    -
+      node:
+        x: 0
+        y: 0
+        width: 4
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 4
+        y: 0
+        width: 4
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 0
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 10
+        y: 0
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 0
+        y: 2
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 2
+        y: 2
+        width: 2
+        height: 4
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 2
+        width: 4
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 0
+        y: 4
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 4
+        y: 4
+        width: 4
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 8
+        y: 4
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+    -
+      node:
+        x: 10
+        y: 4
+        width: 2
+        height: 2
+        image_style: ''
+      nested: { }
+json:
+  grids:
+    node: '[{"x":0,"y":0,"width":4,"height":2},{"x":4,"y":0,"width":4,"height":4},{"x":8,"y":0,"width":2,"height":2},{"x":10,"y":0,"width":2,"height":2},{"x":0,"y":2,"width":2,"height":2},{"x":2,"y":2,"width":2,"height":4},{"x":8,"y":2,"width":4,"height":2},{"x":0,"y":4,"width":2,"height":2},{"x":4,"y":4,"width":4,"height":2},{"x":8,"y":4,"width":2,"height":2},{"x":10,"y":4,"width":2,"height":2}]'
+    nested: ''
+  settings: '{"isNested":false,"alwaysShowResizeHandle":false,"cellHeight":80,"disableDrag":true,"disableResize":true,"draggable":false,"float":false,"height":420,"resizable":false,"staticGrid":true}'
+  breakpoints: ''
