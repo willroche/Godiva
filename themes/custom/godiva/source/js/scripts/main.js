@@ -23,15 +23,15 @@ jQuery(function() {
 	var bLazy = new Blazy({});
 
 	// Masonary title grabbing last word and add span
-	jQuery('.grid-item h2').each(function(index, element) {
-		var heading = jQuery(element), word_array, last_word, first_part;
+	// jQuery('.grid-item h2').each(function(index, element) {
+	// 	var heading = jQuery(element), word_array, last_word, first_part;
 
-		word_array = heading.html().split(/\s+/); // split on spaces
-		last_word = word_array.pop();             // pop the last word
-		first_part = word_array.join(' ');        // rejoin the first words together
+	// 	word_array = heading.html().split(/\s+/); // split on spaces
+	// 	last_word = word_array.pop();             // pop the last word
+	// 	first_part = word_array.join(' ');        // rejoin the first words together
 
-		heading.html([first_part, '<br/><span>', last_word, '</span>'].join(''));
-	});
+	// 	heading.html([first_part, '<br/><span>', last_word, '</span>'].join(''));
+	// });
 
 	// Share article js social
 	jQuery("#share-article").jsSocials({
@@ -58,6 +58,11 @@ jQuery(function() {
 	// Caption slide on hover on article images
 	jQuery(".article-image").hover(function() {
 		jQuery( this ).find( ".article-img-social" ).stop().slideToggle(300);
+	});
+
+	// Focus search field on click
+	jQuery('.i-search').click(function(){
+		jQuery('.header-search form input').focus();
 	});
 
 	// Slick carousel init
@@ -109,6 +114,14 @@ jQuery(function() {
 	    } else {
 	        jQuery(".slice-nav").removeClass("nav-small");
 	    }
+	});
+
+	$(function () {
+		var options = {
+			cell_height: 80,
+			vertical_margin: 10
+		};
+		$('.grid-stack').gridstack(options);
 	});
 
 	// Add clearfix on three items category page 
