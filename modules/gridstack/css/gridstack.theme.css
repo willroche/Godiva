@@ -1,0 +1,190 @@
+/**
+ * @file
+ *
+ * .gridstack: module defined classes to abide its namespace.
+ * .grid-stack: JS defined classes, or managed by JS dynamically.
+ */
+
+.gridstack,
+.gridstack * {
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.gridstack {
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  min-height: 210px;
+  position: relative;
+}
+
+.grid-stack-rtl {
+  direction: ltr;
+}
+
+.grid-stack-rtl > .box {
+  direction: rtl;
+}
+
+.gridstack > .box > .box__content {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  width: auto;
+  z-index: 0 !important;
+  overflow: hidden;
+}
+
+.gridstack,
+.gridstack .box {
+  -webkit-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+  transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+}
+
+.gridstack .box,
+.gridstack .box__content {
+  background-position: center center;
+  background-size: cover;
+}
+
+.gridstack .box {
+  min-height: 40px;
+}
+
+.gridstack .box img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.gridstack--nomargin > .box > .box__content,
+.gridstack--nomargin > .box > .placeholder-content {
+  left: 0;
+  right: 0;
+}
+
+.gridstack .box__caption {
+  left: 0;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.box--caption--bottom .box__caption {
+  bottom: 0;
+  top: auto;
+}
+
+.box--caption--top .box__caption {
+  top: 0;
+}
+
+.box--caption--center .box__caption {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.gridstack .media--loading .box__caption {
+  -webkit-transition: opacity 500ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
+}
+
+.gridstack .media--loading::before,
+.gridstack .media--loading .box__caption {
+  opacity: 0;
+}
+
+.gridstack .b-loaded .box__caption,
+.grid-stack-static .media--loading::before,
+.grid-stack-static .media--loading .box__content {
+  opacity: 1;
+}
+
+.grid-stack-static .media--loading .box__content {
+  background-color: #333;
+}
+
+/**
+ * Gridstack is disabled by default at 768.
+ */
+.gridstack--disabled {
+  height: auto !important;
+}
+
+.gridstack.gridstack--disabled > .box {
+  float: left;
+  height: auto !important;
+  position: relative !important;
+  /* width: auto !important; */
+  left: 0 !important;
+  top: auto !important;
+  margin-bottom: 0;
+}
+
+.gridstack.gridstack--disabled > .box > .box__content {
+  left: auto;
+  position: relative;
+  right: auto;
+}
+
+.gridstack.gridstack--disabled > .box--background > .box__content {
+  min-height: 320px;
+}
+
+/**
+ * @todo rework this temporary fix for the mess.
+ */
+.gridstack.gridstack--disabled.grid-stack-1 > .box {
+  width: 100%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-2 > .box {
+  width: 50%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-3 > .box {
+  width: 33.3333333333%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-4 > .box {
+  width: 25%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-5 > .box {
+  width: 20%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-6 > .box {
+  width: 16.6666666667%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-7 > .box {
+  width: 14.2857142857%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-8 > .box {
+  width: 12.5%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-9 > .box {
+  width: 11.1111111111%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-10 > .box {
+  width: 10%;
+}
+
+.gridstack.gridstack--disabled.grid-stack-10 > .box {
+  width: 9.0909090909%;
+}

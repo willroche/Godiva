@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the individual GridStack box/item template.
+ *
+ * Available variables:
+ * - attributes: An array of attributes to apply to the element.
+ * - item.box: A renderable array of the main image/background, or empty if
+ *   CSS background image is preferred.
+ * - item.caption: A renderable array containing caption fields if provided:
+ *   - title: The individual box title.
+ *   - link: The box links or buttons.
+ *   - data: any possible field for more complex data if crazy enough.
+ * - settings: An array containing the given settings.
+ *
+ * @see template_preprocess_gridstack_box()
+ */
+#}
+{%
+  set classes = [
+    'gridstack__box',
+    'box box--' ~ (delta + 1),
+    settings.layout ? 'box--caption--' ~ settings.layout|clean_class,
+    settings.class ? settings.class,
+    settings.nested ? 'box--nested',
+    settings.background ? 'box--background media--loading',
+    'grid-stack-item'
+  ]
+%}
+{%
+  set content_classes = [
+    'box__content',
+    settings.background ? 'b-lazy'
+  ]
+%}
+
+{% spaceless %}
+<div{{ attributes.addClass(classes) }}>
+  <div{{ content_attributes.addClass(content_classes) }}>
+
+  {{ item.box }}
+
+  {% if item.caption %}
+    <div class="box__caption">
+
+      {% if item.caption.title %}
+        <h2 class="box__title">{{ item.caption.title }}</h2>
+      {% endif %}
+
+      {% if item.caption.data %}
+        <div class="box__description">{{ item.caption.data }}</div>
+      {% endif %}
+
+      {% if item.caption.link %}
+        <div class="box__link">{{ item.caption.link }}</div>
+      {% endif %}
+
+    </div>
+  {% endif %}
+
+  </div>
+</div>
+{% endspaceless %}

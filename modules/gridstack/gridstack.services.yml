@@ -1,0 +1,8 @@
+services:
+  gridstack.manager:
+    class: Drupal\gridstack\GridStackManager
+    parent: blazy.manager.base
+
+  gridstack.admin:
+    class: Drupal\gridstack\Form\GridStackAdmin
+    arguments: ['@blazy.admin.extended', '@gridstack.manager']
