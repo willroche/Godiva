@@ -74,6 +74,17 @@ jQuery(function() {
     	slidesToScroll: 1
 	});
 
+	jQuery(".slick-home-carousel").slick({
+    	dots: true,
+    	arrows: false,
+    	infinite: true,
+    	slidesToShow: 1,
+    	slidesToScroll: 1,
+    	pauseOnHover: false,
+    	autoplay: true,
+    	autoplaySpeed: 4000
+	});
+
 	// Slick carousel init
 	jQuery(".home-godiva").slick({
 		dots: false,
@@ -98,7 +109,7 @@ jQuery(function() {
     });
 
 
-	jQuery('.slick-article, .home-godiva').on('afterChange', function(event, slick, direction){
+	jQuery('.slick-article, .home-godiva, .slick-home-carousel').on('afterChange', function(event, slick, direction){
 	  bLazy.revalidate();
 	});
 
