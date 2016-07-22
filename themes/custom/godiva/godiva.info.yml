@@ -13,6 +13,7 @@ libraries:
   - core/normalize
   - godiva/global-styling
   - godiva/b-lazy
+  - godiva/js-menus
   - godiva/js-files
   - godiva/slick-slideshow
   - godiva/font-awesome

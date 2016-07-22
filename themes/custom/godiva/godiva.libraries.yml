@@ -40,6 +40,11 @@ font-awesome:
     theme:
       font-awesome/css/font-awesome.min.css: {}
 
+js-menus:
+  version: 1.x
+  js:
+    js/menu.min.js: {}
+
 js-files:
   version: 1.x
   js:

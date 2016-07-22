@@ -4036,6 +4036,68 @@ p {
 .slick-home-carousel .slick-dots .slick-active button {
   background-color: #cea449;
 }
+.slick-home-carousel .slick-arrow {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -ms-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.slick-home-carousel:hover .slick-arrow {
+  z-index: 1;
+  width: 95px;
+  height: 95px;
+  background-color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+.slick-home-carousel:hover .slick-arrow.slick-disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.slick-home-carousel:hover .slick-arrow:hover {
+  background-color: #ffffff;
+}
+.slick-home-carousel:hover .slick-arrow:hover.slick-disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .slick-home-carousel:hover .slick-arrow {
+    width: 65px;
+    height: 65px;
+  }
+}
+.slick-home-carousel:hover .slick-next {
+  right: 0px;
+}
+.slick-home-carousel:hover .slick-next:before {
+  content: '';
+  background: transparent url("../images/slick-next.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .slick-home-carousel:hover .slick-next:before {
+    background: transparent url("../images/slick-next@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
+.slick-home-carousel:hover .slick-prev {
+  left: 0px;
+}
+.slick-home-carousel:hover .slick-prev:before {
+  content: '';
+  background: transparent url("../images/slick-prev.png") 0% 0% no-repeat;
+  width: 25px;
+  height: 42px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .slick-home-carousel:hover .slick-prev:before {
+    background: transparent url("../images/slick-prev@2x.png") 0% 0% no-repeat;
+    background-size: 25px 42px;
+  }
+}
 .slick-article {
   margin: 20px 0 20px 0;
 }
