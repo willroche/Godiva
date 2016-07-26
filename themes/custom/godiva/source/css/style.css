@@ -2086,15 +2086,6 @@ p {
   text-transform: inherit;
   font-size: 13px;
 }
-.t-hamburger .c-menu__items li a {
-  font-size: 20px;
-  font-weight: 500;
-  color: #ffffff;
-  text-transform: uppercase;
-}
-.t-hamburger .c-menu__items li a:hover {
-  background: #585858;
-}
 .t-hamburger h3 {
   font-size: 26px;
   font-weight: 300;
@@ -4987,11 +4978,29 @@ p {
   background-color: #3f3f3f;
   transition: transform 0.3s;
 }
-.c-menu__items {
+.c-menu__items ul {
   list-style: none;
   margin: 0;
   padding: 0;
   border-bottom: solid 1px #646464;
+}
+.c-menu__items ul li {
+  border-top: 1px solid #646464;
+  border-bottom: 1px solid #222222;
+}
+.c-menu__items ul li a {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 18px 34px;
+  display: block;
+}
+.c-menu__items ul li a:hover {
+  background: #585858;
+}
+.c-menu__items ul li a.is-active {
+  background-color: #585858;
 }
 .o-wrapper {
   float: right;
@@ -5083,26 +5092,26 @@ body.has-active-menu {
     width: 100%;
   }
 }
-.c-menu--slide-left .c-menu__item,
-.c-menu--slide-right .c-menu__item,
-.c-menu--push-left .c-menu__item,
-.c-menu--push-right .c-menu__item {
+.c-menu--slide-left .c-menu__item li,
+.c-menu--slide-right .c-menu__item li,
+.c-menu--push-left .c-menu__item li,
+.c-menu--push-right .c-menu__item li {
   display: block;
   border-top: solid 1px #646464;
   border-bottom: solid 1px #222222;
 }
-.c-menu--slide-left .c-menu__link,
-.c-menu--slide-right .c-menu__link,
-.c-menu--push-left .c-menu__link,
-.c-menu--push-right .c-menu__link {
+.c-menu--slide-left .c-menu__link li,
+.c-menu--slide-right .c-menu__link li,
+.c-menu--push-left .c-menu__link li,
+.c-menu--push-right .c-menu__link li {
   display: block;
   color: #fff;
   padding: 18px 34px;
 }
-.c-menu--slide-left .c-menu__close,
-.c-menu--slide-right .c-menu__close,
-.c-menu--push-left .c-menu__close,
-.c-menu--push-right .c-menu__close {
+.c-menu--slide-left .c-menu__close li,
+.c-menu--slide-right .c-menu__close li,
+.c-menu--push-left .c-menu__close li,
+.c-menu--push-right .c-menu__close li {
   display: block;
 }
 .c-menu--slide-right,
