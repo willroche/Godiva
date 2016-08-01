@@ -45,6 +45,17 @@ js-menus:
   js:
     js/menu.min.js: {}
 
+js-sticky:
+  version: 1.x
+  js:
+    js/sticky.min.js: {}
+
+
+js-waypoints:
+  version: 1.x
+  js:
+    js/jquery.waypoints.min.js: {}
+
 js-files:
   version: 1.x
   js:

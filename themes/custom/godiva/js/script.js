@@ -128,7 +128,7 @@ jQuery(function() {
 	});
 
 	// Add clearfix on three items category page 
-	jQuery(".recent-item:nth-child(3n+3)").after( '<div class="h-clearfix"></div>' );
+	jQuery(".recent-item:nth-child(4n+3)").after( '<div class="h-clearfix"></div>' );
 
 	if ( jQuery( ".article-share-holder" ).length ) {
  		var sticky = new Waypoint.Sticky({

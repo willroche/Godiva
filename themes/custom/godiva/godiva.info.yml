@@ -14,6 +14,8 @@ libraries:
   - godiva/global-styling
   - godiva/b-lazy
   - godiva/js-menus
+  - godiva/js-waypoints
+  - godiva/js-sticky
   - godiva/js-files
   - godiva/slick-slideshow
   - godiva/font-awesome

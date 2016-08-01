@@ -3745,6 +3745,9 @@ p {
     margin: 10px 0;
   }
 }
+.article-image .article-img-social .article-caption div {
+  display: inline-block;
+}
 .article-image .article-img-social .article-img-share {
   width: 12%;
   float: left;
