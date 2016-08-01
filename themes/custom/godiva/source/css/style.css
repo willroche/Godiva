@@ -2968,28 +2968,17 @@ p {
   top: 20px;
 }
 .header-logo-holder .header-logo-overlay .header-logo {
-  background: transparent url("../images/logo.png") 0% 0% no-repeat;
   width: 120px;
   height: 88px;
   display: inline-block;
 }
-@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .header-logo-holder .header-logo-overlay .header-logo {
-    background: transparent url("../images/logo@2x.png") 0% 0% no-repeat;
-    background-size: 120px 88px;
-  }
+.header-logo-holder .header-logo-overlay .header-logo img {
+  width: 100%;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .header-logo-holder .header-logo-overlay .header-logo {
-    background: transparent url("../images/logo-mobile.png") 0% 0% no-repeat;
-    width: 72px;
-    height: 53px;
-  }
-}
-@media (min-width: 0px) and (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .header-logo-holder .header-logo-overlay .header-logo {
-    background: transparent url("../images/logo-mobile@2x.png") 0% 0% no-repeat;
-    background-size: 72px 53px;
+    width: 80px;
+    height: 59px;
   }
 }
 .header-search {
