@@ -2096,6 +2096,8 @@ p {
 }
 .t-hamburger h4 {
   margin: 0;
+}
+.t-hamburger h4 a {
   color: #ffffff;
   font-size: 22px;
   font-family: 'lato', Arial, sans-serif;
@@ -2103,9 +2105,12 @@ p {
 }
 .t-hamburger h5 {
   margin: 0;
+}
+.t-hamburger h5 a {
   color: #cea449;
   font-size: 17px;
   font-family: 'lato', Arial, sans-serif;
+  text-transform: uppercase;
 }
 .t-banner h2 {
   width: 43%;
