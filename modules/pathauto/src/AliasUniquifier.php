@@ -12,7 +12,9 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Path\AliasManagerInterface;
-use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\Path\AliasStorageInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 /**
  * Provides a utility for creating a unique path alias.
@@ -41,11 +43,11 @@ class AliasUniquifier implements AliasUniquifierInterface {
   protected $moduleHandler;
 
   /**
-   * The route provider service.
+   * The url matcher service.
    *
-   * @var \Drupal\Core\Routing\RouteProviderInterface.
+   * @var \Symfony\Component\Routing\Matcher\UrlMatcherInterface
    */
-  protected $routeProvider;
+  protected $urlMatcher;
 
   /**
    * The alias manager.
@@ -53,6 +55,15 @@ class AliasUniquifier implements AliasUniquifierInterface {
    * @var \Drupal\Core\Path\AliasManagerInterface
    */
   protected $aliasManager;
+
+  /**
+   * Stores the last matching route name.
+   *
+   * Used to prevent a loop if the same route matches a given pattern.
+   *
+   * @var
+   */
+  protected $lastRouteName;
 
   /**
    * Creates a new AliasUniquifier.
@@ -63,14 +74,14 @@ class AliasUniquifier implements AliasUniquifierInterface {
    *   The alias storage helper.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
-   * @param \Drupal\Core\Routing\RouteProviderInterface $route_provider
-   *   The route provider service.
+   * @param \Symfony\Component\Routing\Matcher\UrlMatcherInterface $url_matcher
+   *   The url matcher service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, AliasStorageHelperInterface $alias_storage_helper, ModuleHandlerInterface $module_handler, RouteProviderInterface $route_provider, AliasManagerInterface $alias_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, AliasStorageHelperInterface $alias_storage_helper, ModuleHandlerInterface $module_handler, UrlMatcherInterface $url_matcher, AliasManagerInterface $alias_manager) {
     $this->configFactory = $config_factory;
     $this->aliasStorageHelper = $alias_storage_helper;
     $this->moduleHandler = $module_handler;
-    $this->routeProvider = $route_provider;
+    $this->urlMatcher = $url_matcher;
     $this->aliasManager = $alias_manager;
   }
 
@@ -156,17 +167,20 @@ class AliasUniquifier implements AliasUniquifierInterface {
       return TRUE;
     }
 
-    $routes = $this->routeProvider->getRoutesByPattern($path);
+    try {
+      $route = $this->urlMatcher->match($path);
 
-    // Only return true for an exact match, ignore placeholders.
-    foreach ($routes as $route) {
-      if ($route->getPath() == $path) {
-        return TRUE;
+      if ($route['_route'] == $this->lastRouteName) {
+        throw new \InvalidArgumentException('The path "' . $path . '" collides with the route with identifier ' . $this->lastRouteName . ', whose path is ' . $route['_route_object']->getPath());
       }
+
+      $this->lastRouteName = $route['_route'];
+      return TRUE;
     }
-
-    return FALSE;
-
+    catch (ResourceNotFoundException $e) {
+      $this->lastRouteName = NULL;
+      return FALSE;
+    }
   }
 
 }

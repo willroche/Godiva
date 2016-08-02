@@ -1,0 +1,8 @@
+services:
+  flippy.pager:
+    class: Drupal\flippy\FlippyPager
+    arguments:
+      - '@entity_field.manager'
+      - '@event_dispatcher'
+  flippy.event:
+    class: Drupal\flippy\FlippyEvent
