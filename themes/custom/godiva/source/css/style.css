@@ -4581,6 +4581,11 @@ p {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.category-holder ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 .category-hero-bg {
   height: 417px;
   background-size: cover;
@@ -4596,9 +4601,22 @@ p {
     height: 250px;
   }
 }
-.category-more {
+.more-link {
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+  display: block !important;
+  text-align: center !important;
+}
+.more-link a {
+  font-size: 18px;
+  display: inline-block;
+  background: #cea449;
+  padding: 10px 35px;
+  border: 0;
+  color: #ffffff;
+}
+.more-link a:hover {
+  color: #ffffff;
 }
 .category-item {
   padding-top: 10px;
@@ -4618,6 +4636,9 @@ p {
 }
 .category-container:hover .category-bg:before {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.category-container:hover .button {
+  color: #ffffff;
 }
 .category-bg {
   height: 412px;
