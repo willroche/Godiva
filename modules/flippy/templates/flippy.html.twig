@@ -1,29 +1,29 @@
-<div class="slice h-clearfix slice-pagination">
- <div class="l-col-10 l-content">
+<div class="slice h-clearfix">
+ <div class="l-col-10 l-content h-clearfix pagination-modify">
    <div class="flippy" id="test">
      {% if first %}
        <div class="l-col-5 l-padding">
-           <div class="button pagination prev">{{ first }}</div>
+           <div class="pagination-button prev">{{ first }}</div>
        </div>
      {% endif %}
      {% if prev %}
        <div class="l-col-5 l-padding">
-           <div class="button pagination prev">{{ prev }}</div>
+           <div class="pagination-button prev">{{ prev }}</div>
        </div>
      {% endif %}
      {% if random %}
        <div class="l-col-5 l-padding">
-           <div class="button pagination next">{{ random }}</div>
+           <div class="pagination-button next">{{ random }}</div>
        </div>
      {% endif %}
      {% if next %}
        <div class="l-col-5 l-padding">
-           <div class="button pagination next">{{ next }}</div>
+           <div class="pagination-button next">{{ next }}</div>
        </div>
      {% endif %}
      {% if last %}
        <div class="l-col-5 l-padding">
-           <div class="button pagination next">{{ last }}</div>
+           <div class="pagination-button next">{{ last }}</div>
        </div>
      {% endif %}
    </div>

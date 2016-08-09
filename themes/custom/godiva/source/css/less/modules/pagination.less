@@ -63,5 +63,76 @@
 	}
 }
 
+.pagination-modify {
+	margin-top: 60px;
+	margin-bottom: 60px;
+	@media @sm {
+		margin-top: 10px;
+		margin-bottom: 30px;
+	}
+	.pagination-button {
+		border: 2px solid @bg-gold;
+		display: block;
+		color: @font-gold;
+		font-size: 24px;
+		line-height: 58px;
+		margin-bottom: 10px;
+		.transition( all, 0.3s, ease-out );
+		a {
+			display: block;
+			color: @font-gold;
+			.transition( all, 0.3s, ease-out );
+		}
+		&.prev {
+			padding-left: 20px;
+			a {
+				&:before {
+					content: "";
+					.bg-hi-dpi( transparent, '@{dir-images}pagination-prev.png', 0%, 0%, no-repeat, 40px, 40px);
+					width: 40px;
+					height: 40px;
+					display: inline-block;
+					position: relative;
+					top: 10px;
+					margin-right: 10px;
+				}
+			}
+
+
+			span {
+				.bg-hi-dpi( transparent, '@{dir-images}pagination-prev.png', 0%, 0%, no-repeat, 40px, 40px);
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				position: relative;
+				top: 10px;
+				margin-right: 10px;
+			}
+		}
+		&.next {
+			text-align: right;
+			padding-right: 20px;
+			a {
+				&:after {
+					content: "";
+					.bg-hi-dpi( transparent, '@{dir-images}pagination-next.png', 0%, 0%, no-repeat, 40px, 40px);
+					width: 40px;
+					height: 40px;
+					display: inline-block;
+					position: relative;
+					top: 10px;
+					margin-left: 10px;
+				}
+			}
+			
+		}
+		&:hover {
+			background-color: rgba(206, 164, 73, 0.2);
+		}
+	}
+}
+
+
+
 // END OF SCOPE
 }

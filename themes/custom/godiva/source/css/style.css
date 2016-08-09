@@ -4526,6 +4526,95 @@ p {
 .pagination .pagination-button:hover {
   background-color: rgba(206, 164, 73, 0.2);
 }
+.pagination-modify {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .pagination-modify {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+}
+.pagination-modify .pagination-button {
+  border: 2px solid #cea449;
+  display: block;
+  color: #cea449;
+  font-size: 24px;
+  line-height: 58px;
+  margin-bottom: 10px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.pagination-modify .pagination-button a {
+  display: block;
+  color: #cea449;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.pagination-modify .pagination-button.prev {
+  padding-left: 20px;
+}
+.pagination-modify .pagination-button.prev a:before {
+  content: "";
+  background: transparent url("../images/pagination-prev.png") 0% 0% no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .pagination-modify .pagination-button.prev a:before {
+    background: transparent url("../images/pagination-prev@2x.png") 0% 0% no-repeat;
+    background-size: 40px 40px;
+  }
+}
+.pagination-modify .pagination-button.prev span {
+  background: transparent url("../images/pagination-prev.png") 0% 0% no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .pagination-modify .pagination-button.prev span {
+    background: transparent url("../images/pagination-prev@2x.png") 0% 0% no-repeat;
+    background-size: 40px 40px;
+  }
+}
+.pagination-modify .pagination-button.next {
+  text-align: right;
+  padding-right: 20px;
+}
+.pagination-modify .pagination-button.next a:after {
+  content: "";
+  background: transparent url("../images/pagination-next.png") 0% 0% no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  margin-left: 10px;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .pagination-modify .pagination-button.next a:after {
+    background: transparent url("../images/pagination-next@2x.png") 0% 0% no-repeat;
+    background-size: 40px 40px;
+  }
+}
+.pagination-modify .pagination-button:hover {
+  background-color: rgba(206, 164, 73, 0.2);
+}
 .recent-title {
   text-align: center;
 }
