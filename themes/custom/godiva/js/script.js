@@ -1,13 +1,5 @@
 jQuery(function() {
 
-	// Init masonary
-	// jQuery('.grid').masonry({
-	// 	// set itemSelector so .grid-sizer is not used in layout
-	// 	itemSelector: '.grid-item',
-	// 	// use element for option
-	// 	columnWidth: '.grid-sizer',
-	// 	percentPosition: true
-	// })
 
 	// Search overlay
 	jQuery(".i-search").click(function() {
@@ -22,16 +14,6 @@ jQuery(function() {
 	// Init bLazy
 	var bLazy = new Blazy({});
 
-	// Masonary title grabbing last word and add span
-	// jQuery('.grid-item h2').each(function(index, element) {
-	// 	var heading = jQuery(element), word_array, last_word, first_part;
-
-	// 	word_array = heading.html().split(/\s+/); // split on spaces
-	// 	last_word = word_array.pop();             // pop the last word
-	// 	first_part = word_array.join(' ');        // rejoin the first words together
-
-	// 	heading.html([first_part, '<br/><span>', last_word, '</span>'].join(''));
-	// });
 
 	// Share article js social
 	jQuery("#share-article").jsSocials({
@@ -113,9 +95,9 @@ jQuery(function() {
 	  bLazy.revalidate();
 	});
 
-	// jQuery('#slick-lightbox').slickLightbox({
-	// 	caption: 'caption'
-	// });
+	jQuery('#slick-lightbox').slickLightbox({
+		caption: 'caption'
+	});
 
 	jQuery(window).scroll(function() {
 		var scroll = jQuery(window).scrollTop();
