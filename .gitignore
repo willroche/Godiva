@@ -32,8 +32,6 @@ xmlrpc.php
 /misc
 /profiles
 /scripts
-/themes/custom/godiva/node_modules/*
-/themes/custom/godiva/vendor/*
 /themes/custom/godiva/production/*
 /themes/custom/godiva/assets/*
 /themes/fe/*

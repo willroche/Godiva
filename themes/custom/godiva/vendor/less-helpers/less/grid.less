@@ -1,0 +1,336 @@
+// ==========================================================================
+// Grid Mixins
+// ==========================================================================
+
+// Grid mixins file, all grid based mixins should go into this file
+
+
+// Grid setup mixins
+// ==========================================================================
+
+// Grid helper
+// Calling `.grid( 12, 100px, 10px );` will setup a 12 column grid with a
+// 100px column and 10px gutter
+//
+// Example HTML:
+// <div class="l-col-12 l-content">
+//   <div class="l-col-8 l-padding">
+//     Body content
+//   </div>
+//   <div class="l-col-4 l-padding">
+//     Right side nav
+//   </div>
+// </div>
+.grid( @cols, @col-width, @gutter-width, @ns: "l", @ns-fluid: false ) {
+	@grid-column-width: @col-width;
+	@grid-gutter-width: @gutter-width;
+
+	// Remove quotes from namespace
+	@ns-safe: ~"@{ns}";
+
+	.grid-col(  @cols, ~"@{ns-safe}-col"  );
+	.grid-push( @cols, ~"@{ns-safe}-push" );
+	.grid-pull( @cols, ~"@{ns-safe}-pull" );
+
+	.@{ns-safe}-content { .grid-content-def(); }
+	.@{ns-safe}-padding { .grid-padding-def(); }
+
+	@pc: ( 100% / @cols );
+
+	// Inner/nested grid
+	.fluidgrid( @cols, @pc, @gutter-width, ~"@{ns-safe}-i" );
+}
+
+.grid( @cols, @col-width, @gutter-width, @ns: "l", @ns-fluid: false ) when ( isstring( @ns-fluid ) ) {
+	@ns-fluid-safe: ~"@{ns-fluid}";
+	@pc: ( 100% / @cols );
+	// Fluid grid
+	.fluidgrid( @cols, @pc, @gutter-width, @ns-fluid-safe );
+}
+
+
+// Column mixins
+// ==========================================================================
+
+// Column style definitions
+// This will set the styles for a specific column span
+.grid-col-def( @col-span ) {
+	display: block;
+	float: left;
+	width: ( ( @grid-gutter-width + @grid-column-width ) * @col-span );
+}
+
+// For columns with 100% width i.e mobile styles
+.grid-col-def( @col-span ) when ( @grid-column-width = 100% ) {
+	width: @grid-column-width;
+}
+
+// Content holder definitions
+// Will center content, block needs a column class for width
+.grid-content-def() {
+	margin: 0 auto;
+	display: block;
+	float: none;
+}
+
+// Block padding
+// Will add default padding based on the grid gutter width
+.grid-padding-def() {
+	padding-left: ( @grid-gutter-width / 2 );
+	padding-right: ( @grid-gutter-width / 2 );
+}
+
+// Column push definitions
+// This will set the styles for a specific column span offset
+.grid-push-def( @col-offset: 1 ) {
+	margin-left: ( ( @grid-gutter-width + @grid-column-width ) * @col-offset );
+}
+// For columns with 100% width i.e mobile styles
+.grid-push-def( @col-offset: 1 ) when ( @grid-column-width = 100% ) {
+	margin-left: 0;
+}
+
+// Column pull definitions
+// This will set the styles for a specific column span negative offset
+.grid-pull-def( @col-offset: 1 ) {
+	margin-right: ( ( @grid-gutter-width + @grid-column-width ) * @col-offset );
+}
+// For columns with 100% width i.e mobile styles
+.grid-pull-def( @col-offset: 1 ) when ( @grid-column-width = 100% ) {
+	margin-right: 0;
+}
+
+// Column Width
+// This will set an element to a column size, which will define a width
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 1  ) { .@{ns}-1  { .grid-col-def( 1  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 2  ) { .@{ns}-2  { .grid-col-def( 2  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 3  ) { .@{ns}-3  { .grid-col-def( 3  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 4  ) { .@{ns}-4  { .grid-col-def( 4  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 5  ) { .@{ns}-5  { .grid-col-def( 5  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 6  ) { .@{ns}-6  { .grid-col-def( 6  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 7  ) { .@{ns}-7  { .grid-col-def( 7  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 8  ) { .@{ns}-8  { .grid-col-def( 8  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 9  ) { .@{ns}-9  { .grid-col-def( 9  ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 10 ) { .@{ns}-10 { .grid-col-def( 10 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 11 ) { .@{ns}-11 { .grid-col-def( 11 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 12 ) { .@{ns}-12 { .grid-col-def( 12 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 13 ) { .@{ns}-13 { .grid-col-def( 13 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 14 ) { .@{ns}-14 { .grid-col-def( 14 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 15 ) { .@{ns}-15 { .grid-col-def( 15 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 16 ) { .@{ns}-16 { .grid-col-def( 16 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 17 ) { .@{ns}-17 { .grid-col-def( 17 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 18 ) { .@{ns}-18 { .grid-col-def( 18 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 19 ) { .@{ns}-19 { .grid-col-def( 19 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 20 ) { .@{ns}-20 { .grid-col-def( 20 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 21 ) { .@{ns}-21 { .grid-col-def( 21 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 22 ) { .@{ns}-22 { .grid-col-def( 22 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 23 ) { .@{ns}-23 { .grid-col-def( 23 ); } }
+.grid-col( @cols, @ns: "l-col" ) when ( @cols >= 24 ) { .@{ns}-24 { .grid-col-def( 24 ); } }
+
+// Column Push
+// Push the element x columns from its current position
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 1  ) { .@{ns}-1  { .grid-push-def( 1  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 2  ) { .@{ns}-2  { .grid-push-def( 2  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 3  ) { .@{ns}-3  { .grid-push-def( 3  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 4  ) { .@{ns}-4  { .grid-push-def( 4  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 5  ) { .@{ns}-5  { .grid-push-def( 5  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 6  ) { .@{ns}-6  { .grid-push-def( 6  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 7  ) { .@{ns}-7  { .grid-push-def( 7  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 8  ) { .@{ns}-8  { .grid-push-def( 8  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 9  ) { .@{ns}-9  { .grid-push-def( 9  ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 10 ) { .@{ns}-10 { .grid-push-def( 10 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 11 ) { .@{ns}-11 { .grid-push-def( 11 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 12 ) { .@{ns}-12 { .grid-push-def( 12 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 13 ) { .@{ns}-13 { .grid-push-def( 13 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 14 ) { .@{ns}-14 { .grid-push-def( 14 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 15 ) { .@{ns}-15 { .grid-push-def( 15 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 16 ) { .@{ns}-16 { .grid-push-def( 16 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 17 ) { .@{ns}-17 { .grid-push-def( 17 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 18 ) { .@{ns}-18 { .grid-push-def( 18 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 19 ) { .@{ns}-19 { .grid-push-def( 19 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 20 ) { .@{ns}-20 { .grid-push-def( 20 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 21 ) { .@{ns}-21 { .grid-push-def( 21 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 22 ) { .@{ns}-22 { .grid-push-def( 22 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 23 ) { .@{ns}-23 { .grid-push-def( 23 ); } }
+.grid-push( @cols, @ns: "l-push" ) when ( @cols >= 24 ) { .@{ns}-24 { .grid-push-def( 24 ); } }
+
+// Column Pull
+// Pull the element x columns from its current position
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 1  ) { .@{ns}-1  { .grid-pull-def( 1  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 2  ) { .@{ns}-2  { .grid-pull-def( 2  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 3  ) { .@{ns}-3  { .grid-pull-def( 3  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 4  ) { .@{ns}-4  { .grid-pull-def( 4  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 5  ) { .@{ns}-5  { .grid-pull-def( 5  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 6  ) { .@{ns}-6  { .grid-pull-def( 6  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 7  ) { .@{ns}-7  { .grid-pull-def( 7  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 8  ) { .@{ns}-8  { .grid-pull-def( 8  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 9  ) { .@{ns}-9  { .grid-pull-def( 9  ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 10 ) { .@{ns}-10 { .grid-pull-def( 10 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 11 ) { .@{ns}-11 { .grid-pull-def( 11 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 12 ) { .@{ns}-12 { .grid-pull-def( 12 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 13 ) { .@{ns}-13 { .grid-pull-def( 13 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 14 ) { .@{ns}-14 { .grid-pull-def( 14 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 15 ) { .@{ns}-15 { .grid-pull-def( 15 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 16 ) { .@{ns}-16 { .grid-pull-def( 16 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 17 ) { .@{ns}-17 { .grid-pull-def( 17 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 18 ) { .@{ns}-18 { .grid-pull-def( 18 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 19 ) { .@{ns}-19 { .grid-pull-def( 19 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 20 ) { .@{ns}-20 { .grid-pull-def( 20 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 21 ) { .@{ns}-21 { .grid-pull-def( 21 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 22 ) { .@{ns}-22 { .grid-pull-def( 22 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 23 ) { .@{ns}-23 { .grid-pull-def( 23 ); } }
+.grid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 24 ) { .@{ns}-24 { .grid-pull-def( 24 ); } }
+
+
+
+
+
+// ==========================================================================
+// ==========================================================================
+// ==========================================================================
+// Fluid grid mixins
+// ==========================================================================
+// ==========================================================================
+// ==========================================================================
+
+
+
+
+.fluidgrid( @cols, @col-width, @gutter-width, @ns: "l" ) {
+	@fluidgrid-column-width: @col-width;
+	@fluidgrid-gutter-width: @gutter-width;
+
+	// Remove quotes from namespace
+	@ns-safe: ~"@{ns}";
+
+	.fluidgrid-col(  @cols, ~"@{ns-safe}-col"  );
+	.fluidgrid-push( @cols, ~"@{ns-safe}-push" );
+	.fluidgrid-pull( @cols, ~"@{ns-safe}-pull" );
+}
+
+// Column mixins
+// ==========================================================================
+
+// Column style definitions
+// This will set the styles for a specific column span
+.fluidgrid-col-def( @col-span ) {
+	display: block;
+	float: left;
+	width: ( @fluidgrid-column-width * @col-span );
+}
+
+// Content holder definitions
+// Will center content, block needs a column class for width
+.fluidgrid-content-def() {
+	margin: 0 auto;
+	display: block;
+	float: none;
+}
+
+// Block padding
+// Will add default padding based on the grid gutter width
+.fluidgrid-padding-def() {
+	padding-left: ( @fluidgrid-gutter-width / 2 );
+	padding-right: ( @fluidgrid-gutter-width / 2 );
+}
+
+// Column push definitions
+// This will set the styles for a specific column span offset
+.fluidgrid-push-def( @col-offset: 1 ) {
+	margin-left: ( @fluidgrid-column-width * @col-offset );
+}
+// For columns with 100% width i.e mobile styles
+.fluidgrid-push-def( @col-offset: 1 ) when ( @fluidgrid-column-width = 100% ) {
+	margin-left: 0;
+}
+
+// Column pull definitions
+// This will set the styles for a specific column span negative offset
+.fluidgrid-pull-def( @col-offset: 1 ) {
+	margin-right: ( @fluidgrid-column-width * @col-offset );
+}
+// For columns with 100% width i.e mobile styles
+.fluidgrid-pull-def( @col-offset: 1 ) when ( @fluidgrid-column-width = 100% ) {
+	margin-right: 0;
+}
+
+// Column Width
+// This will set an element to a column size, which will define a width
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 1  ) { .@{ns}-1  { .fluidgrid-col-def( 1  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 2  ) { .@{ns}-2  { .fluidgrid-col-def( 2  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 3  ) { .@{ns}-3  { .fluidgrid-col-def( 3  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 4  ) { .@{ns}-4  { .fluidgrid-col-def( 4  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 5  ) { .@{ns}-5  { .fluidgrid-col-def( 5  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 6  ) { .@{ns}-6  { .fluidgrid-col-def( 6  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 7  ) { .@{ns}-7  { .fluidgrid-col-def( 7  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 8  ) { .@{ns}-8  { .fluidgrid-col-def( 8  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 9  ) { .@{ns}-9  { .fluidgrid-col-def( 9  ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 10 ) { .@{ns}-10 { .fluidgrid-col-def( 10 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 11 ) { .@{ns}-11 { .fluidgrid-col-def( 11 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 12 ) { .@{ns}-12 { .fluidgrid-col-def( 12 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 13 ) { .@{ns}-13 { .fluidgrid-col-def( 13 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 14 ) { .@{ns}-14 { .fluidgrid-col-def( 14 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 15 ) { .@{ns}-15 { .fluidgrid-col-def( 15 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 16 ) { .@{ns}-16 { .fluidgrid-col-def( 16 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 17 ) { .@{ns}-17 { .fluidgrid-col-def( 17 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 18 ) { .@{ns}-18 { .fluidgrid-col-def( 18 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 19 ) { .@{ns}-19 { .fluidgrid-col-def( 19 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 20 ) { .@{ns}-20 { .fluidgrid-col-def( 20 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 21 ) { .@{ns}-21 { .fluidgrid-col-def( 21 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 22 ) { .@{ns}-22 { .fluidgrid-col-def( 22 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 23 ) { .@{ns}-23 { .fluidgrid-col-def( 23 ); } }
+.fluidgrid-col( @cols, @ns: "l-col" ) when ( @cols >= 24 ) { .@{ns}-24 { .fluidgrid-col-def( 24 ); } }
+
+// Column Push
+// Push the element x columns from its current position
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 1  ) { .@{ns}-1  { .fluidgrid-push-def( 1  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 2  ) { .@{ns}-2  { .fluidgrid-push-def( 2  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 3  ) { .@{ns}-3  { .fluidgrid-push-def( 3  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 4  ) { .@{ns}-4  { .fluidgrid-push-def( 4  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 5  ) { .@{ns}-5  { .fluidgrid-push-def( 5  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 6  ) { .@{ns}-6  { .fluidgrid-push-def( 6  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 7  ) { .@{ns}-7  { .fluidgrid-push-def( 7  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 8  ) { .@{ns}-8  { .fluidgrid-push-def( 8  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 9  ) { .@{ns}-9  { .fluidgrid-push-def( 9  ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 10 ) { .@{ns}-10 { .fluidgrid-push-def( 10 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 11 ) { .@{ns}-11 { .fluidgrid-push-def( 11 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 12 ) { .@{ns}-12 { .fluidgrid-push-def( 12 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 13 ) { .@{ns}-13 { .fluidgrid-push-def( 13 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 14 ) { .@{ns}-14 { .fluidgrid-push-def( 14 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 15 ) { .@{ns}-15 { .fluidgrid-push-def( 15 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 16 ) { .@{ns}-16 { .fluidgrid-push-def( 16 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 17 ) { .@{ns}-17 { .fluidgrid-push-def( 17 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 18 ) { .@{ns}-18 { .fluidgrid-push-def( 18 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 19 ) { .@{ns}-19 { .fluidgrid-push-def( 19 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 20 ) { .@{ns}-20 { .fluidgrid-push-def( 20 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 21 ) { .@{ns}-21 { .fluidgrid-push-def( 21 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 22 ) { .@{ns}-22 { .fluidgrid-push-def( 22 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 23 ) { .@{ns}-23 { .fluidgrid-push-def( 23 ); } }
+.fluidgrid-push( @cols, @ns: "l-push" ) when ( @cols >= 24 ) { .@{ns}-24 { .fluidgrid-push-def( 24 ); } }
+
+// Column Pull
+// Pull the element x columns from its current position
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 1  ) { .@{ns}-1  { .fluidgrid-pull-def( 1  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 2  ) { .@{ns}-2  { .fluidgrid-pull-def( 2  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 3  ) { .@{ns}-3  { .fluidgrid-pull-def( 3  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 4  ) { .@{ns}-4  { .fluidgrid-pull-def( 4  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 5  ) { .@{ns}-5  { .fluidgrid-pull-def( 5  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 6  ) { .@{ns}-6  { .fluidgrid-pull-def( 6  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 7  ) { .@{ns}-7  { .fluidgrid-pull-def( 7  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 8  ) { .@{ns}-8  { .fluidgrid-pull-def( 8  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 9  ) { .@{ns}-9  { .fluidgrid-pull-def( 9  ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 10 ) { .@{ns}-10 { .fluidgrid-pull-def( 10 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 11 ) { .@{ns}-11 { .fluidgrid-pull-def( 11 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 12 ) { .@{ns}-12 { .fluidgrid-pull-def( 12 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 13 ) { .@{ns}-13 { .fluidgrid-pull-def( 13 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 14 ) { .@{ns}-14 { .fluidgrid-pull-def( 14 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 15 ) { .@{ns}-15 { .fluidgrid-pull-def( 15 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 16 ) { .@{ns}-16 { .fluidgrid-pull-def( 16 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 17 ) { .@{ns}-17 { .fluidgrid-pull-def( 17 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 18 ) { .@{ns}-18 { .fluidgrid-pull-def( 18 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 19 ) { .@{ns}-19 { .fluidgrid-pull-def( 19 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 20 ) { .@{ns}-20 { .fluidgrid-pull-def( 20 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 21 ) { .@{ns}-21 { .fluidgrid-pull-def( 21 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 22 ) { .@{ns}-22 { .fluidgrid-pull-def( 22 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 23 ) { .@{ns}-23 { .fluidgrid-pull-def( 23 ); } }
+.fluidgrid-pull( @cols, @ns: "l-pull" ) when ( @cols >= 24 ) { .@{ns}-24 { .fluidgrid-pull-def( 24 ); } }

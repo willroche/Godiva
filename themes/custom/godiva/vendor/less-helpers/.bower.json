@@ -1,0 +1,46 @@
+{
+  "name": "less-helpers",
+  "main": [],
+  "description": "A set of basic reuseable less components",
+  "keywords": [
+    "less",
+    "mixins"
+  ],
+  "dependencies": {
+    "normalize-css": "~2.1.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://heyday.mit-license.org/"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/heyday/less-helpers"
+    }
+  ],
+  "bugs": "https://github.com/heyday/less-helpers/issues",
+  "maintainers": [
+    {
+      "name": "Pieter Vanderwerff"
+    }
+  ],
+  "ignore": [
+    "test/",
+    ".gitignore",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "homepage": "https://github.com/heyday/less-helpers",
+  "_release": "69d8664ae4",
+  "_resolution": {
+    "type": "branch",
+    "branch": "fluid-grid-adaptive",
+    "commit": "69d8664ae447fe669103e3553eeda671019f6107"
+  },
+  "_source": "git@github.com:heyday/less-helpers.git",
+  "_target": "fluid-grid-adaptive",
+  "_originalSource": "git@github.com:heyday/less-helpers.git"
+}

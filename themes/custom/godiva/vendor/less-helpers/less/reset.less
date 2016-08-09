@@ -1,0 +1,30 @@
+// ==========================================================================
+// Reset (bootstrap reset import)
+// ==========================================================================
+
+// Reset file imported from bootstrap
+// https://github.com/twitter/bootstrap/blob/master/less/reset.less
+//
+// Includes a css reset (normalize.css) and base print styles (h5bp)
+// http://github.com/necolas/normalize.css
+// https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+
+& {
+	@import (multiple, less) "./mixins.less";
+
+	// Add mixins required by the bootstrap reset.less file
+	// Would be nice if bootsrap imported these mixins for you and the mixins
+	// file didn't output styles
+
+	// Webkit-style focus
+	// ------------------
+	.tab-focus() {
+		// Default
+		outline: thin dotted #333;
+		// Webkit
+		outline: 5px auto -webkit-focus-ring-color;
+		outline-offset: -2px;
+	}
+
+	@import (less) 'normalize-css/normalize.css';
+}
