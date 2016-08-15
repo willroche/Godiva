@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\flippy\FlippyEvent.
- */
-
 namespace Drupal\flippy;
 
 use Symfony\Component\EventDispatcher\Event;

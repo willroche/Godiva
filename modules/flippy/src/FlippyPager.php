@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\flippy\FlippyPager.
- */
-
 namespace Drupal\flippy;
 
 use Drupal\Core\Entity\EntityFieldManager;

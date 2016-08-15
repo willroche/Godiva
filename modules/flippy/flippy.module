@@ -423,26 +423,25 @@ function template_preprocess_flippy(&$vars) {
   if ($nav = $vars['list']) {
 
     $token_service = \Drupal::token();
-    $render_service = \Drupal::service('renderer');
-
-    $url = Url::fromRoute('entity.node.canonical');
 
     if ($flippy_settings->get('flippy_first_last_' . $vars['node']->getType()) != 0) {
       if (isset($nav['first']) && $nav['first']['nid'] != FALSE) {
+        $url = Url::fromRoute('entity.node.canonical');
         $url->setRouteParameter('node', $nav['first']['nid']);
         $vars['first'] = Link::fromTextAndUrl($token_service->replace($first_label, ['node' => Node::load($nav['first']['nid'])]), $url);
         $renderable = $vars['first']->toRenderable();
-        $vars['first'] = $render_service->render($renderable);
+        $vars['first'] = $renderable;
       }
       elseif ($show_empty) {
         $vars['first'] = $first_label;
       }
 
       if (isset($nav['last']) && $nav['last']['nid'] != FALSE) {
+        $url = Url::fromRoute('entity.node.canonical');
         $url->setRouteParameter('node', $nav['last']['nid']);
         $vars['last'] = Link::fromTextAndUrl($token_service->replace($last_label, ['node' => Node::load($nav['last']['nid'])]), $url);
         $renderable = $vars['last']->toRenderable();
-        $vars['last'] = $render_service->render($renderable);
+        $vars['last'] = $renderable;
       }
       elseif ($show_empty) {
         $vars['last'] = $last_label;
@@ -450,27 +449,30 @@ function template_preprocess_flippy(&$vars) {
     }
 
     if ($flippy_settings->get('flippy_random_'. $vars['node']->getType())) {
+      $url = Url::fromRoute('entity.node.canonical');
       $url->setRouteParameter('node', $nav['random']['nid']);
       $vars['random'] = Link::fromTextAndUrl($token_service->replace($random_label, ['node' => Node::load($nav['random']['nid'])]), $url);
       $renderable = $vars['random']->toRenderable();
-      $vars['random'] = $render_service->render($renderable);
+      $vars['random'] = $renderable;
     }
 
     if (isset($nav['prev']) && $nav['prev']['nid'] != FALSE) {
+      $url = Url::fromRoute('entity.node.canonical');
       $url->setRouteParameter('node', $nav['prev']['nid']);
       $vars['prev'] = Link::fromTextAndUrl($token_service->replace($prev_label, ['node' => Node::load($nav['prev']['nid'])]), $url);
       $renderable = $vars['prev']->toRenderable();
-      $vars['prev'] = $render_service->render($renderable);
+      $vars['prev'] = $renderable;
     }
     elseif ($show_empty) {
       $vars['prev'] = t($prev_label);
     }
 
     if (isset($nav['next']) && $nav['next']['nid'] != FALSE) {
+      $url = Url::fromRoute('entity.node.canonical');
       $url->setRouteParameter('node', $nav['next']['nid']);
       $vars['next'] = Link::fromTextAndUrl($token_service->replace($next_label, ['node' => Node::load($nav['next']['nid'])]), $url);
       $renderable = $vars['next']->toRenderable();
-      $vars['next'] = $render_service->render($renderable);
+      $vars['next'] = $renderable;
     }
     elseif ($show_empty) {
       $vars['next'] = t($next_label);

@@ -1,8 +1,4 @@
 <?php
-/**
-* @file
-* Contains \Drupal\flippy\Plugin\Block\FlippyBlock.
-*/
 
 namespace Drupal\flippy\Plugin\Block;
 
