@@ -202,7 +202,13 @@ function yamlform_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInt
         $link->setText(Unicode::ucfirst($text));
       }
     }
+  }
 
+  // Fix 'Help' breadcrumb text.
+  if ($route_match->getRouteName() == 'yamlform.help') {
+    $links = $breadcrumb->getLinks();
+    $link = end($links);
+    $link->setText(t('YAML form'));
   }
 }
 
@@ -325,7 +331,7 @@ function yamlform_page_attachments(&$page) {
 function yamlform_theme() {
   $info = [
     'yamlform_help' => [
-      'variables' => ['title' => NULL, 'content' => NULL, 'youtube_id' => NULL, 'open' => TRUE, 'element_id' => 'help-details'],
+      'variables' => ['info' => []],
     ],
     'yamlform_help_video_youtube' => [
       'variables' => ['youtube_id' => NULL],
@@ -508,18 +514,6 @@ function _yamlform_entity_element_validate_rendering_error_handler($error_level,
   }
 }
 
-/**
- * Check is use AJAX for specified UI functionality.
- *
- * @param string $type
- *   The type of functionality.
- *
- * @return string
- *   Empty if the functionality is disabled else returns 'use_ajax' class
- */
-function _yamlform_use_ajax($type = 'dialog') {
-  return (\Drupal::config('yamlform.settings')->get('ui.' . $type . '_disabled')) ? '' : 'use-ajax';
-}
 
 /**
  * Implements hook_query_alter().

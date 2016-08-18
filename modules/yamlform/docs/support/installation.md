@@ -193,3 +193,9 @@ or words.
 
 > Word or character counting, with server-side validation, is available for text 
 > fields and text areas.
+
+**[CKEditor Link (and Fake Objects](http://ckeditor.com/addon/link)**
+
+This plugin adds the link and anchor support.
+
+> Allows YAML Form module to use CKEditor's native link and anchor dialog.

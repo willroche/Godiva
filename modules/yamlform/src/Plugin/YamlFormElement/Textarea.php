@@ -15,7 +15,7 @@ use Drupal\Component\Render\HtmlEscapedText;
  *   multiline = TRUE
  * )
  */
-class Textarea extends TextFieldBase {
+class Textarea extends TextBase {
 
   /**
    * {@inheritdoc}

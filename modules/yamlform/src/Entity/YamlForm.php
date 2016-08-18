@@ -395,7 +395,12 @@ class YamlForm extends ConfigEntityBundleBase implements YamlFormInterface {
    * {@inheritdoc}
    */
   public function setSettings(array $settings) {
-    $this->settings = $settings + self::getDefaultSettings();
+    // Always apply the default settings.
+    $this->settings = self::getDefaultSettings();
+    // Now apply custom settings.
+    foreach ($settings as $name => $value) {
+      $this->settings[$name] = $value;
+    }
     return $this;
   }
 
@@ -442,11 +447,12 @@ class YamlForm extends ConfigEntityBundleBase implements YamlFormInterface {
       'page_confirm_path' => '',
       'form_submit_label' => '',
       'form_exception_message' => '',
+      'form_closed_message' => '',
       'form_confidential' => FALSE,
       'form_confidential_message' => '',
       'form_prepopulate' => FALSE,
       'form_novalidate' => FALSE,
-      'form_closed_message' => '',
+      'form_autofocus' => FALSE,
       'wizard_progress_bar' => TRUE,
       'wizard_progress_pages' => FALSE,
       'wizard_progress_percentage' => FALSE,
@@ -589,7 +595,7 @@ class YamlForm extends ConfigEntityBundleBase implements YamlFormInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSubmissionForm(array $values = []) {
+  public function getSubmissionForm(array $values = [], $operation = 'default') {
     // Set this YAML form's id.
     $values['yamlform_id'] = $this->id();
 
@@ -598,7 +604,7 @@ class YamlForm extends ConfigEntityBundleBase implements YamlFormInterface {
       ->create($values);
 
     return \Drupal::service('entity.form_builder')
-      ->getForm($yamlform_submission);
+      ->getForm($yamlform_submission, $operation);
   }
 
   /**

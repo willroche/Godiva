@@ -5,7 +5,7 @@ namespace Drupal\yamlform\Element;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Render\Element\CompositeFormElementTrait;
-use Drupal\yamlform\Entity\YamlFormOptions;
+use Drupal\yamlform\Entity\YamlFormOptions as YamlFormOptionsEntity;
 
 /**
  * Provides an base composite form element.
@@ -81,7 +81,7 @@ abstract class YamlFormCompositeBase extends FormElement {
       }
 
       if (isset($composite_element['#options'])) {
-        $composite_element['#options'] = YamlFormOptions::getElementOptions($composite_element);
+        $composite_element['#options'] = YamlFormOptionsEntity::getElementOptions($composite_element);
       }
     }
 

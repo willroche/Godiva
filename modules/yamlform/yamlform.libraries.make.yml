@@ -22,6 +22,26 @@ libraries:
       type: get
       url: 'https://github.com/RobinHerbots/jquery.inputmask/archive/3.3.1.zip'
 
+  ckeditor_link:
+    library_title: CKEditor Link
+    library_url: http://ckeditor.com/addon/link
+    library_version: '4.5.10'
+    directory_name: link
+    destination: /core/assets/vendor/ckeditor/plugins
+    download:
+      type: get
+      url: 'http://download.ckeditor.com/link/releases/link_4.5.10.zip'
+
+  ckeditor_fakeobjects:
+    library_title: CKEditor Fake Objects
+    library_url: http://ckeditor.com/addon/fakeobjects
+    library_version: '4.5.10'
+    directory_name: fakeobjects
+    destination: /core/assets/vendor/ckeditor/plugins
+    download:
+      type: get
+      url: 'http://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.5.10.zip'
+
   signature_pad:
     library_title: Signature Pad
     library_url: https://github.com/szimek/signature_pad

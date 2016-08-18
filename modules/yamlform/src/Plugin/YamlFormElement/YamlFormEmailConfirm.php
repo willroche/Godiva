@@ -61,8 +61,7 @@ class YamlFormEmailConfirm extends Email {
       '#title' => $this->t('Email confirm title'),
     ];
     $form['email_confirm']['confirm__description'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Email confirm description'),
     ];
     $form['email_confirm']['confirm__placeholder'] = [

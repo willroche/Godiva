@@ -104,7 +104,7 @@ class YamlFormMarkup extends YamlFormElementBase {
     $form['markup'] = [
       '#type' => 'details',
       '#title' => $this->t('Markup settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['markup']['display_on'] = [
       '#type' => 'select',

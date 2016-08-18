@@ -104,7 +104,7 @@ class YamlFormCodeMirror extends YamlFormElementBase {
     $form['codemirror'] = [
       '#type' => 'details',
       '#title' => $this->t('CodeMirror settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['codemirror']['mode'] = [
       '#title' => $this->t('Mode'),

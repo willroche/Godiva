@@ -105,4 +105,12 @@ class YamlFormSubmissionDeleteForm extends ContentEntityDeleteForm {
     return $this->getCancelUrl();
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function logDeletionMessage() {
+    // Deletion logging is handled via YamlFormSubmissionStorage.
+    // @see \Drupal\yamlform\YamlFormSubmissionStorage::delete
+  }
+
 }

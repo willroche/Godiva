@@ -12,6 +12,6 @@ namespace Drupal\yamlform\Plugin\YamlFormElement;
  *   category = @Translation("Advanced")
  * )
  */
-class Search extends TextFieldBase {
+class Search extends TextBase {
 
 }

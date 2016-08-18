@@ -119,7 +119,7 @@ class YamlFormEmailConfirm extends FormElement {
     else {
       // NOTE: Only mail_1 needs to be validated since mail_2 is the same value.
       // Verify the required value.
-      if ($element['mail_1']['#required'] && empty($value)) {
+      if ($element['mail_1']['#required'] && empty($mail_1)) {
         $form_state->setError($element, t('@name field is required.', ['@name' => $element['mail_1']['#title']]));
       }
       // Verify that the value is not longer than #maxlength.

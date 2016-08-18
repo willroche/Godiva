@@ -17,6 +17,13 @@ use Drupal\yamlform\YamlFormInterface;
 abstract class YamlFormCompositeBase extends YamlFormElementBase {
 
   /**
+   * {@inheritdoc}
+   */
+  public function getRelatedTypes(array $element) {
+    $types = [];
+  }
+
+  /**
    * Get composite elements.
    *
    * @return array
@@ -172,7 +179,7 @@ abstract class YamlFormCompositeBase extends YamlFormElementBase {
     $form['composite'] = [
       '#type' => 'details',
       '#title' => $this->t('@title settings', ['@title' => $this->getPluginLabel()]),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
 
     $header = [

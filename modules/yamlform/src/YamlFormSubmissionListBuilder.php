@@ -3,7 +3,6 @@
 namespace Drupal\yamlform;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -12,6 +11,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 
 /**
  * Provides a list controller for yamlform submission entity.
@@ -189,11 +189,7 @@ class YamlFormSubmissionListBuilder extends EntityListBuilder {
         '#type' => 'link',
         '#title' => $this->t('Customize'),
         '#url' => Url::fromRoute($route_name, $route_parameters, $route_options),
-        '#attributes' => [
-          'class' => ['yamlform-results-custom', _yamlform_use_ajax('dialog')],
-          'data-dialog-type' => 'modal',
-          'data-dialog-options' => Json::encode(['width' => 500]),
-        ],
+        '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(500, ['button', 'button-action', 'button--small', 'button-yamlform-setting']),
       ];
     }
 
@@ -345,11 +341,7 @@ class YamlFormSubmissionListBuilder extends EntityListBuilder {
             '#type' => 'link',
             '#title' => new FormattableMarkup('<span class="yamlform-icon yamlform-icon-notes yamlform-icon-notes--@state"></span>', ['@state' => $state]),
             '#url' => Url::fromRoute($route_name, $route_parameters, $route_options),
-            '#attributes' => [
-              'class' => [_yamlform_use_ajax('dialog')],
-              'data-dialog-type' => 'modal',
-              'data-dialog-options' => Json::encode(['width' => 400]),
-            ],
+            '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(400),
           ],
           'class' => ['yamlform-results__icon'],
         ];

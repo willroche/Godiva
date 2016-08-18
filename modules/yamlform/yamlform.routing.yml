@@ -6,6 +6,14 @@ yamlform.settings:
   requirements:
     _permission: 'administer yamlform'
 
+yamlform.help:
+  path: '/admin/help/yamlform/{id}'
+  defaults:
+    _controller: '\Drupal\yamlform\Controller\YamlFormHelpController::index'
+    _title_callback: '\Drupal\yamlform\Controller\YamlFormHelpController::title'
+  requirements:
+    _access: 'TRUE'
+
 yamlform.admin_settings.third_party:
   path: '/admin/structure/yamlform/settings/third-party'
   defaults:

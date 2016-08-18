@@ -22,6 +22,18 @@ because Drupal's YAML utility is not a service.](https://www.drupal.org/node/192
 
 > Impacts previewing entity autocomplete elements.
 
+**[Issue #2207383: Create a tooltip component](https://www.drupal.org/node/2207383)
+
+> Impacts displaying element description in a tooltip. jQUery UI's tooltip's UX
+> is not great.
+
+**Drupal's CKEditor link dialog replaces open dialog.
+
+> Makes it impossible to display the CKEditor's in a dialog.
+> Workaround: Use CKEditor's link dialog.
+
+_Not sure this issue should be addressed by core._
+
 ### Submission Display
 
 **[Issue #2484693: Telephone Link field formatter breaks Drupal with 5 digits or less in the number](https://www.drupal.org/node/2720923)**

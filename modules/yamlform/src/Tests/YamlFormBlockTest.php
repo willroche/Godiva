@@ -39,7 +39,7 @@ class YamlFormBlockTest extends YamlFormTestBase {
     $block->getPlugin()->setConfigurationValue('yamlform_id', 'test_confirmation_message');
     $block->save();
     $this->drupalPostForm('<front>', [], t('Submit'));
-    $this->assertRaw('This is a custom confirmation message.');
+    $this->assertRaw('This is a <b>custom</b> confirmation message.');
 
   }
 

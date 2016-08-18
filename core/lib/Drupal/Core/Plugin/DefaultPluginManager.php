@@ -3,6 +3,7 @@
 namespace Drupal\Core\Plugin;
 
 use Drupal\Component\Plugin\Discovery\CachedDiscoveryInterface;
+use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\UseCacheBackendTrait;
 use Drupal\Component\Plugin\Discovery\DiscoveryCachedTrait;
@@ -20,7 +21,7 @@ use Drupal\Core\Plugin\Factory\ContainerFactory;
  *
  * @ingroup plugin_api
  */
-class DefaultPluginManager extends PluginManagerBase implements PluginManagerInterface, CachedDiscoveryInterface {
+class DefaultPluginManager extends PluginManagerBase implements PluginManagerInterface, CachedDiscoveryInterface, CacheableDependencyInterface {
 
   use DiscoveryCachedTrait;
   use UseCacheBackendTrait;
@@ -238,8 +239,19 @@ class DefaultPluginManager extends PluginManagerBase implements PluginManagerInt
    * method.
    */
   public function processDefinition(&$definition, $plugin_id) {
+    // Only arrays can be operated on.
+    if (!is_array($definition)) {
+      return;
+    }
+
     if (!empty($this->defaults) && is_array($this->defaults)) {
       $definition = NestedArray::mergeDeep($this->defaults, $definition);
+    }
+
+    // If no default form is defined and this plugin implements
+    // \Drupal\Core\Plugin\PluginFormInterface, use that for the default form.
+    if (!isset($definition['forms']['configure']) && isset($definition['class']) && is_subclass_of($definition['class'], PluginFormInterface::class)) {
+      $definition['forms']['configure'] = $definition['class'];
     }
   }
 
@@ -311,6 +323,27 @@ class DefaultPluginManager extends PluginManagerBase implements PluginManagerInt
    */
   protected function providerExists($provider) {
     return $this->moduleHandler->moduleExists($provider);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return $this->cacheTags;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheMaxAge() {
+    return CACHE::PERMANENT;
   }
 
 }

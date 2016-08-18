@@ -138,24 +138,24 @@ drush features-diff yamlform_test
 
 # Export YAML form configuration from your site.          
 drush features-export -y yamlform
-drush features-export -y yamlform_node
 drush features-export -y yamlform_test
 drush features-export -y yamlform_examples
 drush features-export -y yamlform_templates
+drush features-export -y yamlform_node
 
 # Tidy YAML form configuration from your site.          
 drush yamlform-tidy -y yamlform
-drush yamlform-tidy -y yamlform_node
 drush yamlform-tidy -y yamlform_test
 drush yamlform-tidy -y yamlform_examples
 drush yamlform-tidy -y yamlform_templates
+drush yamlform-tidy -y yamlform_node
 
 # Re-import all YAML form configuration into your site.      
 drush features-import -y yamlform
-drush features-import -y yamlform_node
 drush features-import -y yamlform_examples
 drush features-import -y yamlform_templates
 drush features-import -y yamlform_test
+drush features-import -y yamlform_node
 ```
 
 **Install extra modules.**

@@ -8,30 +8,29 @@
   'use strict';
 
   /**
-   * Autoplay help video when details element is opened.
+   * Handling disabling help dialog for mobile devices.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the behavior for disabling help dialog for mobile devices.
    */
-  Drupal.behaviors.yamlFormHelpDetailsVideo = {
+  Drupal.behaviors.yamlFormHelpDialog = {
     attach: function (context) {
-      $('details.yamlform-help-details > summary', context).once('yamlform-help-details').click(function() {
-        var $details = $(this).parent();
-
-        // Track is details has 'open' attribute, which means that it is
-        // being closed.
-        var isClosing = ($details.attr('open') == 'open');
-
-        $details.find('.yamlform-help-video-youtube iframe').each(function() {
-          var src = $(this).attr('src');
-          if (isClosing) {
-            $(this).attr('src', src.replace('?autoplay=1', ''));
-          }
-          else {
-            $(this).attr('src', src + '?autoplay=1');
-          }
-        })
-
+      $(context).find('.button-yamlform-play').once().on('click', function(event) {
+        if ($(window).width() < 768) {
+          event.stopImmediatePropagation();
+        }
+      }).each(function() {
+        // Must make sure that this click event handler is execute first and
+        // before the AJAX dialog handler.
+        // @see http://stackoverflow.com/questions/2360655/jquery-event-handlers-always-execute-in-order-they-were-bound-any-way-around-t
+        var handlers = $._data(this, 'events')['click'];
+        var handler = handlers.pop();
+        // move it at the beginning
+        handlers.splice(0, 0, handler);
       });
     }
   };
-
 
 })(jQuery, Drupal);

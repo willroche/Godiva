@@ -18,6 +18,7 @@ libraries:
   - godiva/js-sticky
   - godiva/js-files
   - godiva/slick-slideshow
+  - godiva/slick-lightbox
   - godiva/font-awesome
   - godiva/js-socials
 

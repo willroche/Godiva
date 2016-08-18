@@ -48,6 +48,6 @@
  * Suppress table drag warnings.
  */
 .yamlform-options-table .tabledrag-changed-warning,
-.yamlform-options-table .tabledrag-changed{
+.yamlform-options-table .tabledrag-changed {
   display: none !important;
 }

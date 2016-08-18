@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class YamlFormSubmissionForm extends ContentEntityForm {
 
+  use YamlFormDialogTrait;
+
   /**
    * The YAML form element (plugin) manager.
    *
@@ -143,8 +145,13 @@ class YamlFormSubmissionForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
 
     // Add novalidate attribute to form if client side validation disabled.
-    if ($this->isFormNoValidate()) {
+    if ($this->getYamlFormSetting('form_novalidate')) {
       $form['#attributes']['novalidate'] = 'novalidate';
+    }
+
+    // Add autofocus class to form.
+    if ($this->entity->isNew() && $this->getYamlFormSetting('form_autofocus')) {
+      $form['#attributes']['class'][] = 'js-yamlform-autofocus';
     }
 
     // Call custom YAML form alter hook.
@@ -286,7 +293,9 @@ class YamlFormSubmissionForm extends ContentEntityForm {
       // If the current user can update any submission just display the closed
       // message and still allow them to create new submissions.
       if ($yamlform->isTemplate() && $yamlform->access('duplicate')) {
-        $this->messageManager->display(YamlFormMessageManagerInterface::TEMPLATE_PREVIEW, 'warning');
+        if (!$this->isModalDialog()) {
+          $this->messageManager->display(YamlFormMessageManagerInterface::TEMPLATE_PREVIEW, 'warning');
+        }
       }
       elseif ($yamlform->access('submission_update_any')) {
         $this->messageManager->display(YamlFormMessageManagerInterface::ADMIN_ACCESS, 'warning');
@@ -1113,7 +1122,7 @@ class YamlFormSubmissionForm extends ContentEntityForm {
    * Get the YAML form submission's YAML form settings.
    *
    * @return array
-   *   A specific settings or an associative array of settings.
+   *   An associative array of settings.
    */
   protected function getYamlFormSettings() {
     if (empty($this->settings)) {
@@ -1134,6 +1143,22 @@ class YamlFormSubmissionForm extends ContentEntityForm {
     }
 
     return $this->settings;
+  }
+
+  /**
+   * Get a YAML form submission's YAML form setting.
+   *
+   * @param string $name
+   *   Setting name.
+   * @param null|mixed $default_value
+   *   Default value.
+   *
+   * @return mixed
+   *   A YAML form setting.
+   */
+  protected function getYamlFormSetting($name, $default_value = NULL) {
+    $settings = $this->getYamlFormSettings();
+    return (isset($settings[$name])) ? $settings[$name] : $default_value;
   }
 
   /**

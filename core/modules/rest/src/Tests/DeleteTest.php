@@ -16,7 +16,7 @@ class DeleteTest extends RESTTestBase {
    *
    * @var array
    */
-  public static $modules = array('hal', 'rest', 'entity_test');
+  public static $modules = array('hal', 'rest', 'entity_test', 'node');
 
   /**
    * Tests several valid and invalid delete requests on all entity types.
@@ -31,13 +31,15 @@ class DeleteTest extends RESTTestBase {
       // Create a user account that has the required permissions to delete
       // resources via the REST API.
       $permissions = $this->entityPermissions($entity_type, 'delete');
-      $permissions[] = 'restful delete entity:' . $entity_type;
       $account = $this->drupalCreateUser($permissions);
       $this->drupalLogin($account);
 
       // Create an entity programmatically.
       $entity = $this->entityCreate($entity_type);
       $entity->save();
+      // Try first to delete over REST API without the CSRF token.
+      $this->httpRequest($entity->urlInfo(), 'DELETE', NULL, NULL, TRUE);
+      $this->assertResponse(403, 'X-CSRF-Token request header is missing');
       // Delete it over the REST API.
       $response = $this->httpRequest($entity->urlInfo(), 'DELETE');
       // Clear the static cache with entity_load(), otherwise we won't see the

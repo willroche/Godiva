@@ -1,0 +1,7 @@
+data_source: null
+roles_to_geolocate:
+  authenticated: authenticated
+save_user_location_creation: true
+debug_mode: false
+debug_mode_ip: null
+allowed_pages: null

@@ -79,7 +79,7 @@ class YamlFormRating extends Range {
     $form['rating'] = [
       '#type' => 'details',
       '#title' => $this->t('Rating settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['rating']['star_size'] = [
       '#type' => 'select',

@@ -7,6 +7,28 @@
 
   'use strict';
 
+  /**
+   * Autofocus first input.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the behavior for the YAML form autofocusing.
+   */
+  Drupal.behaviors.yamlFormAutofocus = {
+    attach: function (context) {
+      $(context).find('.yamlform-submission-form.js-yamlform-autofocus :input:visible:enabled:first').focus();
+    }
+  };
+
+  /**
+   * Disable validate when save draft submit button is clicked.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the behavior for the YAML form draft submit button.
+   */
   Drupal.behaviors.yamlFormDraft = {
     attach: function (context) {
       $(context).find('#edit-draft').once().on('click', function () {

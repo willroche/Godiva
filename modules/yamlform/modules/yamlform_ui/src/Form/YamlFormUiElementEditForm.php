@@ -20,6 +20,17 @@ class YamlFormUiElementEditForm extends YamlFormUiElementFormBase {
       throw new NotFoundHttpException();
     }
 
+    // Handler changing element type.
+    if ($type = $this->getRequest()->get('type')) {
+      $yamlform_element = $this->getYamlFormElement();
+      $related_types = $yamlform_element->getRelatedTypes($this->element);
+      if (!isset($related_types[$type])) {
+        throw new NotFoundHttpException();
+      }
+      $this->originalType = $this->element['#type'];
+      $this->element['#type'] = $type;
+    }
+
     $form['#title'] = $this->t('Edit @title element', [
       '@title' => (!empty($this->element['#title'])) ? $this->element['#title'] : $key,
     ]);

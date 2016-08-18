@@ -2,8 +2,6 @@
 
 namespace Drupal\yamlform\Plugin\YamlFormElement;
 
-use Drupal\yamlform\YamlFormElementBase;
-
 /**
  * Provides a 'hidden' element.
  *
@@ -14,7 +12,7 @@ use Drupal\yamlform\YamlFormElementBase;
  *   category = @Translation("Basic")
  * )
  */
-class Hidden extends YamlFormElementBase {
+class Hidden extends TextBase {
 
   /**
    * {@inheritdoc}

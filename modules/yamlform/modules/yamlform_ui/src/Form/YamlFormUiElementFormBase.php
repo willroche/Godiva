@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Drupal\yamlform\YamlFormDialogTrait;
 use Drupal\yamlform\YamlFormElementManagerInterface;
 use Drupal\yamlform\YamlFormEntityElementsValidator;
@@ -46,6 +47,13 @@ abstract class YamlFormUiElementFormBase extends FormBase {
    * @var array
    */
   protected $element = [];
+
+  /**
+   * The YAML form element's original element type.
+   *
+   * @var string
+   */
+  protected $originalType;
 
   /**
    * The action of the current form.
@@ -120,10 +128,36 @@ abstract class YamlFormUiElementFormBase extends FormBase {
     $form['properties']['general']['type'] = [
       '#type' => 'item',
       '#title' => $this->t('Type'),
-      '#markup' => $yamlform_element->getPluginLabel(),
+      'label' => [
+        '#markup' => $yamlform_element->getPluginLabel(),
+      ],
       '#weight' => -100,
       '#parents' => ['type'],
     ];
+
+    // Allows users to change element type.
+    if ($key && $yamlform_element->getRelatedTypes($this->element)) {
+      $route_parameters = ['yamlform' => $yamlform->id(), 'key' => $key];
+      if ($this->originalType) {
+        $original_yamlform_element = $this->elementManager->createInstance($this->originalType);
+        $route_parameters = ['yamlform' => $yamlform->id(), 'key' => $key];
+        $form['properties']['general']['type']['cancel'] = [
+          '#type' => 'link',
+          '#title' => $this->t('Cancel'),
+          '#url' => new Url('entity.yamlform_ui.element.edit_form', $route_parameters),
+          '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(800, ['button', 'button--small']),
+        ];
+        $form['properties']['general']['type']['#description'] = '(' . $this->t('Changing from %type', ['%type' => $original_yamlform_element->getPluginLabel()]) . ')';
+      }
+      else {
+        $form['properties']['general']['type']['change_type'] = [
+          '#type' => 'link',
+          '#title' => $this->t('Change'),
+          '#url' => new Url('entity.yamlform_ui.change_element', $route_parameters),
+          '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(800, ['button', 'button--small']),
+        ];
+      }
+    }
 
     // Use title for key (machine_name).
     if (isset($form['properties']['general']['title'])) {
@@ -250,8 +284,7 @@ abstract class YamlFormUiElementFormBase extends FormBase {
    *   A YAML form element.
    */
   public function getYamlFormElement() {
-    $plugin_id = $this->elementManager->getElementPluginId($this->element);
-    return $this->elementManager->createInstance($plugin_id, $this->element);
+    return $this->elementManager->getElementInstance($this->element);
   }
 
 }

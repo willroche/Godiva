@@ -171,9 +171,9 @@ interface YamlFormMessageManagerInterface {
    * @param string $type
    *   (optional) The message's type. Defaults to 'warning'. These values are
    *   supported:
-   *   - 'notice'
-   *   - 'warning'
-   *   - 'error'
+   *   - 'notice'.
+   *   - 'warning'.
+   *   - 'error'.
    */
   public function log($key, $type = 'warning');
 

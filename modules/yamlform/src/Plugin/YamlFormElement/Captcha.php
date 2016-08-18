@@ -94,7 +94,7 @@ class Captcha extends YamlFormElementBase {
     $form['captcha'] = [
       '#type' => 'details',
       '#title' => $this->t('CAPTCHA settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['captcha']['captcha_type'] = [
       '#type' => 'select',

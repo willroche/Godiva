@@ -131,6 +131,17 @@ yamlform.element.details:
     - core/jquery
     - core/jquery.once
 
+yamlform.element.html_editor:
+  version: 1.x
+  js:
+    js/yamlform.element.html_editor.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
+    - core/ckeditor
+
 yamlform.element.inputmask:
   version: 1.x
   js:
@@ -152,6 +163,18 @@ yamlform.element.options:
   css:
     component:
       css/yamlform.element.options.css: {}
+
+yamlform.element.other:
+  version: 1.x
+  css:
+    component:
+      css/yamlform.element.other.css: {}
+  js:
+    js/yamlform.element.other.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
 
 yamlform.element.rating:
   version: 1.x
@@ -193,17 +216,14 @@ yamlform.element.toggle:
     - core/drupal
     - yamlform/jquery.toggles
 
-yamlform.element.other:
+yamlform.element.tooltip:
   version: 1.x
-  css:
-    component:
-      css/yamlform.element.other.css: {}
   js:
-    js/yamlform.element.other.js: {}
+    js/yamlform.element.tooltip.js: {}
   dependencies:
     - core/drupal
-    - core/jquery
     - core/jquery.once
+    - core/jquery.ui.tooltip
 
 yamlform.navigation:
   version: 1.x

@@ -7,9 +7,6 @@ use Drupal\Component\FileCache\FileCache;
 use Drupal\Component\FileCache\FileCacheFactory;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Config\ConfigImporter;
-use Drupal\Core\Config\StorageComparer;
-use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
@@ -20,6 +17,7 @@ use Drupal\Core\Language\Language;
 use Drupal\Core\Site\Settings;
 use Drupal\simpletest\AssertContentTrait;
 use Drupal\simpletest\AssertHelperTrait;
+use Drupal\Tests\ConfigTestTrait;
 use Drupal\Tests\RandomGeneratorTrait;
 use Drupal\simpletest\TestServiceProvider;
 use Symfony\Component\DependencyInjection\Reference;
@@ -55,6 +53,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
   use AssertContentTrait;
   use AssertHelperTrait;
   use RandomGeneratorTrait;
+  use ConfigTestTrait;
 
   /**
    * {@inheritdoc}
@@ -261,18 +260,6 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
       $this->databasePrefix = 'simpletest' . $suffix;
     } while (is_dir($this->root . '/' . $this->siteDirectory));
 
-    $this->vfsRoot = vfsStream::setup('root', NULL, array(
-      'sites' => array(
-        'simpletest' => array(
-          $suffix => array(),
-        ),
-      ),
-    ));
-    $this->siteDirectory = vfsStream::url('root/sites/simpletest/' . $suffix);
-
-    mkdir($this->siteDirectory . '/files', 0775);
-    mkdir($this->siteDirectory . '/files/config/' . CONFIG_SYNC_DIRECTORY, 0775, TRUE);
-
     // Ensure that all code that relies on drupal_valid_test_ua() can still be
     // safely executed. This primarily affects the (test) site directory
     // resolution (used by e.g. LocalStream and PhpStorage).
@@ -288,14 +275,38 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     );
     new Settings($settings);
 
-    $GLOBALS['config_directories'] = array(
-      CONFIG_SYNC_DIRECTORY => $this->siteDirectory . '/files/config/sync',
-    );
+    $this->setUpFilesystem();
 
     foreach (Database::getAllConnectionInfo() as $key => $targets) {
       Database::removeConnection($key);
     }
     Database::addConnectionInfo('default', 'default', $this->getDatabaseConnectionInfo()['default']);
+  }
+
+  /**
+   * Sets up the filesystem, so things like the file directory.
+   */
+  protected function setUpFilesystem() {
+    $suffix = str_replace('simpletest', '', $this->databasePrefix);
+    $this->vfsRoot = vfsStream::setup('root', NULL, array(
+      'sites' => array(
+        'simpletest' => array(
+          $suffix => array(),
+        ),
+      ),
+    ));
+    $this->siteDirectory = vfsStream::url('root/sites/simpletest/' . $suffix);
+
+    mkdir($this->siteDirectory . '/files', 0775);
+    mkdir($this->siteDirectory . '/files/config/' . CONFIG_SYNC_DIRECTORY, 0775, TRUE);
+
+    $settings = Settings::getInstance() ? Settings::getAll() : [];
+    $settings['file_public_path'] = $this->siteDirectory . '/files';
+    new Settings($settings);
+
+    $GLOBALS['config_directories'] = array(
+      CONFIG_SYNC_DIRECTORY => $this->siteDirectory . '/files/config/sync',
+    );
   }
 
   /**
@@ -531,11 +542,6 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
 
     // Provide a default configuration, if not set.
     if (!isset($configuration['default'])) {
-      $configuration['default'] = [
-        'class' => FileCache::class,
-        'cache_backend_class' => NULL,
-        'cache_backend_configuration' => [],
-      ];
       // @todo Use extension_loaded('apcu') for non-testbot
       //  https://www.drupal.org/node/2447753.
       if (function_exists('apcu_fetch')) {
@@ -663,7 +669,7 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
     }
 
     // Shut down the kernel (if bootKernel() was called).
-    // @see \Drupal\system\Tests\DrupalKernel\DrupalKernelTest
+    // @see \Drupal\KernelTests\Core\DrupalKernel\DrupalKernelTest
     if ($this->container) {
       $this->container->get('kernel')->shutdown();
     }
@@ -998,57 +1004,9 @@ abstract class KernelTestBase extends \PHPUnit_Framework_TestCase implements Ser
    *   \Drupal\Core\Site\Settings::get() to perform custom merges.
    */
   protected function setSetting($name, $value) {
-    $settings = Settings::getAll();
+    $settings = Settings::getInstance() ? Settings::getAll() : [];
     $settings[$name] = $value;
     new Settings($settings);
-  }
-
-  /**
-   * Returns a ConfigImporter object to import test configuration.
-   *
-   * @return \Drupal\Core\Config\ConfigImporter
-   *
-   * @todo Move into Config-specific test base class.
-   */
-  protected function configImporter() {
-    if (!$this->configImporter) {
-      // Set up the ConfigImporter object for testing.
-      $storage_comparer = new StorageComparer(
-        $this->container->get('config.storage.sync'),
-        $this->container->get('config.storage'),
-        $this->container->get('config.manager')
-      );
-      $this->configImporter = new ConfigImporter(
-        $storage_comparer,
-        $this->container->get('event_dispatcher'),
-        $this->container->get('config.manager'),
-        $this->container->get('lock'),
-        $this->container->get('config.typed'),
-        $this->container->get('module_handler'),
-        $this->container->get('module_installer'),
-        $this->container->get('theme_handler'),
-        $this->container->get('string_translation')
-      );
-    }
-    // Always recalculate the changelist when called.
-    return $this->configImporter->reset();
-  }
-
-  /**
-   * Copies configuration objects from a source storage to a target storage.
-   *
-   * @param \Drupal\Core\Config\StorageInterface $source_storage
-   *   The source config storage.
-   * @param \Drupal\Core\Config\StorageInterface $target_storage
-   *   The target config storage.
-   *
-   * @todo Move into Config-specific test base class.
-   */
-  protected function copyConfig(StorageInterface $source_storage, StorageInterface $target_storage) {
-    $target_storage->deleteAll();
-    foreach ($source_storage->listAll() as $name) {
-      $target_storage->write($name, $source_storage->read($name));
-    }
   }
 
   /**

@@ -51,6 +51,17 @@ interface YamlFormElementInterface extends PluginInspectionInterface, PluginForm
   public function getDefaultProperties();
 
   /**
+   * Determine if an element supports a specified property.
+   *
+   * @param string $property_name
+   *   An element's property name.
+   *
+   * @return bool
+   *   TRUE if the element supports a specified property.
+   */
+  public function hasProperty($property_name);
+
+  /**
    * Checks if the YAML form element can have a value.
    *
    * @param array $element
@@ -106,6 +117,17 @@ interface YamlFormElementInterface extends PluginInspectionInterface, PluginForm
   public function isComposite(array $element);
 
   /**
+   * Checks if YAML form element is hidden.
+   *
+   * @param array $element
+   *   An element.
+   *
+   * @return bool
+   *   TRUE if the YAML form element is hidden.
+   */
+  public function isHidden(array $element);
+
+  /**
    * Checks if YAML form element value has multiple values.
    *
    * @param array $element
@@ -117,17 +139,28 @@ interface YamlFormElementInterface extends PluginInspectionInterface, PluginForm
   public function hasMultipleValues(array $element);
 
   /**
-   * Gets the actual configuration form array to be built.
+   * Get related element types.
    *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * @param array $element
+   *   The element.
    *
    * @return array
-   *   An associative array contain the element's configuration form without
-   *   any default values..
+   *   An array containing related element types.
    */
+  public function getRelatedTypes(array $element);
+
+    /**
+     * Gets the actual configuration form array to be built.
+     *
+     * @param array $form
+     *   An associative array containing the structure of the form.
+     * @param \Drupal\Core\Form\FormStateInterface $form_state
+     *   The current state of the form.
+     *
+     * @return array
+     *   An associative array contain the element's configuration form without
+     *   any default values..
+     */
   public function form(array $form, FormStateInterface $form_state);
 
   /**

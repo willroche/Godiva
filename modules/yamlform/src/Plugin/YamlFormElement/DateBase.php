@@ -14,15 +14,6 @@ abstract class DateBase extends YamlFormElementBase {
   /**
    * {@inheritdoc}
    */
-  public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
-      'date_format' => '',
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function formatText(array &$element, $value, array $options = []) {
     $timestamp = strtotime($value);
     if (empty($timestamp)) {
@@ -56,9 +47,6 @@ abstract class DateBase extends YamlFormElementBase {
   public function getFormat(array $element) {
     if (isset($element['#format'])) {
       return $element['#format'];
-    }
-    elseif (isset($element['#date_format'])) {
-      return $element['#date_format'];
     }
     else {
       return parent::getFormat($element);
@@ -97,24 +85,6 @@ abstract class DateBase extends YamlFormElementBase {
     else {
       $form_state->setValue($name, '');
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function form(array $form, FormStateInterface $form_state) {
-    $form = parent::form($form, $form_state);
-    $form['date'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Date settings'),
-      '#open' => TRUE,
-    ];
-    $form['date']['date_format'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Date format'),
-      '#description' => $this->t('Examples: l, F j, Y - g:i A'),
-    ];
-    return $form;
   }
 
 }

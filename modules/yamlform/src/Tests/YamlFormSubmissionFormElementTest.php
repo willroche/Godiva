@@ -69,7 +69,7 @@ class YamlFormSubmissionFormElementTest extends YamlFormTestBase {
     // Check element with #unique can be updated.
     $this->drupalPostForm("admin/structure/yamlform/manage/test_element_unique/submission/$sid/edit", [], t('Submit'));
     $this->assertNoRaw('The value <em class="placeholder">value</em> has already been submitted once for the <em class="placeholder">textfield</em> field. You may have already submitted this form, or you need to use a different value.');
-    $this->assertRaw('New submission added to Test: Element: Unique.');
+    $this->assertRaw('Submission updated in <em class="placeholder">Test: Element: Unique</em>.');
 
     /* Test #autocomplete_options element property */
 
@@ -115,18 +115,18 @@ class YamlFormSubmissionFormElementTest extends YamlFormTestBase {
 
     $yamlform_dates = YamlForm::load('test_element_dates');
 
-    // Check 'text_format' values.
+    // Check '#format' values.
     $this->drupalGet('yamlform/test_element_dates');
-    $this->assertFieldByName('date', '2009-08-18');
-    $this->assertFieldByName('datetime[date]', '2009-08-18');
-    $this->assertFieldByName('datetime[time]', '16:00:00');
-    $this->assertFieldByName('datelist_date[month]', '8');
+    $this->assertFieldByName('date_default', '2009-08-18');
+    $this->assertFieldByName('datetime_default[date]', '2009-08-18');
+    $this->assertFieldByName('datetime_default[time]', '16:00:00');
+    $this->assertFieldByName('datelist_default[month]', '8');
 
     // Check 'datelist' and 'datetime' #default_value.
     $form = $yamlform_dates->getSubmissionForm();
-    $this->assert(is_string($form['elements']['date']['#default_value']), 'date #default_value is a string.');
-    $this->assert($form['elements']['datetime']['#default_value'] instanceof DrupalDateTime, 'datelist_date #default_value instance of \Drupal\Core\Datetime\DrupalDateTime.');
-    $this->assert($form['elements']['datelist_date']['#default_value'] instanceof DrupalDateTime, 'datelist_date #default_value instance of \Drupal\Core\Datetime\DrupalDateTime.');
+    $this->assert(is_string($form['elements']['date_elements']['date_default']['#default_value']), 'date_default #default_value is a string.');
+    $this->assert($form['elements']['datetime_elements']['datetime_default']['#default_value'] instanceof DrupalDateTime, 'datelist_default #default_value instance of \Drupal\Core\Datetime\DrupalDateTime.');
+    $this->assert($form['elements']['datelist_elements']['datelist_default']['#default_value'] instanceof DrupalDateTime, 'datelist_default #default_value instance of \Drupal\Core\Datetime\DrupalDateTime.');
 
     // Check 'entity_autocomplete' #default_value.
     $yamlform_entity_autocomplete = YamlForm::load('test_element_entity_autocomplete');

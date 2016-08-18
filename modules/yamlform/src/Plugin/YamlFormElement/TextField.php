@@ -14,7 +14,7 @@ use Drupal\yamlform\YamlFormSubmissionInterface;
  *   category = @Translation("Basic"),
  * )
  */
-class TextField extends TextFieldBase {
+class TextField extends TextBase {
 
   /**
    * {@inheritdoc}

@@ -2,12 +2,12 @@
 
 namespace Drupal\yamlform;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -74,14 +74,18 @@ class YamlFormEntityListBuilder extends ConfigEntityListBuilder {
     // Must manually add local actions to the form because we can't alter local
     // actions and add the needed dialog attributes.
     // @see https://www.drupal.org/node/2585169
+    if ($this->moduleHandler()->moduleExists('yamlform_ui')) {
+      $add_form_attributes = YamlFormDialogHelper::getModalDialogAttributes(400, ['button', 'button-action', 'button--primary', 'button--small']);
+    }
+    else {
+      $add_form_attributes = ['class' => ['button', 'button-action', 'button--primary', 'button--small']];
+    }
     $build['local_actions'] = [
       'add_form' => [
         '#type' => 'link',
         '#title' => $this->t('Add form'),
         '#url' => new Url('entity.yamlform.add_form'),
-        '#attributes' => [
-          'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-        ] + $this->getDialogAttributes(),
+        '#attributes' => $add_form_attributes,
       ],
     ];
 
@@ -156,7 +160,10 @@ class YamlFormEntityListBuilder extends ConfigEntityListBuilder {
     // WORK-AROUND: Don't link to the YAML form.
     // See: Access control is not applied to config entity queries
     // https://www.drupal.org/node/2636066
-    $row['title'] = ($entity->access('view')) ? $entity->toLink() : $entity->label();
+    $row['title']['data']['title'] = ['#markup' => ($entity->access('view')) ? $entity->toLink()->toString() : $entity->label()];
+    if ($entity->isTemplate()) {
+      $row['title']['data']['template'] = ['#markup' => ' <b>(' . $this->t('Template') . ')</b>'];
+    }
     $row['description']['data']['description']['#markup'] = $entity->get('description');
     $row['status'] = $entity->isOpen() ? $this->t('Open') : $this->t('Closed');
     $row['owner'] = ($owner = $entity->getOwner()) ? $owner->toLink() : '';
@@ -218,7 +225,7 @@ class YamlFormEntityListBuilder extends ConfigEntityListBuilder {
           'title' => $this->t('Duplicate'),
           'weight' => 23,
           'url' => Url::fromRoute('entity.yamlform.duplicate_form', $route_parameters),
-          'attributes' => $this->getDialogAttributes(),
+          'attributes' => YamlFormDialogHelper::getModalDialogAttributes(400),
         ];
       }
     }
@@ -323,22 +330,6 @@ class YamlFormEntityListBuilder extends ConfigEntityListBuilder {
   protected function isAdmin() {
     $account = \Drupal::currentUser();
     return ($account->hasPermission('administer yamlform') || $account->hasPermission('edit any yamlform'));
-  }
-
-  /**
-   * Get modal dialog attributes.
-   *
-   * @return array
-   *   Modal dialog attributes.
-   */
-  protected function getDialogAttributes() {
-    return [
-      'class' => [_yamlform_use_ajax('dialog')],
-      'data-dialog-type' => 'modal',
-      'data-dialog-options' => Json::encode([
-        'width' => 400,
-      ]),
-    ];
   }
 
 }

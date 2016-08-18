@@ -8,12 +8,12 @@
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Component\Serialization\Yaml;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\Xss;
+use Drupal\yamlform\Element\YamlFormCodeMirror;
 use Drupal\yamlform\Utility\YamlFormTidy;
 use Drupal\yamlform\Utility\YamlFormDateHelper;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Drupal\yamlform\Utility\YamlFormElementHelper;
-use Drupal\yamlform\Element\YamlFormCodeMirror;
 
 /**
  * Prepares variables for yamlform help.
@@ -26,37 +26,49 @@ use Drupal\yamlform\Element\YamlFormCodeMirror;
  *   - content: Help content.
  */
 function template_preprocess_yamlform_help(&$variables) {
-  $t_args = ['@title' => Unicode::strtolower($variables['title'])];
-  if ($variables['youtube_id']) {
-    $title = t('Watch a video about @title', $t_args);
-  }
-  else {
-    $title = t('Learn more about @title', $t_args);
-  }
+  $info = $variables['info'];
 
-  $help = [
-    '#type' => 'details',
-    '#title' => $title,
-    '#attributes' => [
-      'class' => ['yamlform-help-details'],
-      'data-yamlform-element-id' => $variables['element_id'],
-    ],
-    '#open' => FALSE,
-  ];
+  $variables += $info;
 
-  if (is_array($variables['content'])) {
-    $help['content'] = $variables['content'];
+  $help = [];
+  if (is_array($info['content'])) {
+    $help['content'] = $info['content'];
   }
   else {
     $help['content'] = [
-      '#markup' => $variables['content'],
+      '#markup' => $info['content'],
     ];
   }
-  if ($variables['youtube_id']) {
-    $help['video'] = [
-      '#theme' => 'yamlform_help_video_youtube',
-      '#youtube_id' => $variables['youtube_id'],
-    ];
+
+  if ($info['youtube_id']) {
+    $video_display = \Drupal::config('yamlform.settings')->get('ui.video_display');
+    $classes = ['button', 'button-action', 'button--small', 'button-yamlform-play'];
+    switch ($video_display) {
+      case 'dialog';
+        $help['link'] = [
+          '#type' => 'link',
+          '#title' => 'Watch video',
+          '#url' => Url::fromRoute('yamlform.help', ['id' => str_replace('_', '-', $info['id'])]),
+          '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(1000, $classes),
+          '#prefix' => ' ',
+        ];
+        break;
+
+      case 'link':
+        $help['link'] = [
+          '#type' => 'link',
+          '#title' => 'Watch video',
+          '#url' => Url::fromUri('https://youtu.be/' . $info['youtube_id']),
+          '#attributes' => ['class' => $classes],
+          '#prefix' => ' ',
+        ];
+
+        break;
+
+      case 'hidden':
+      default:
+        break;
+    }
   }
 
   $variables['help'] = $help;

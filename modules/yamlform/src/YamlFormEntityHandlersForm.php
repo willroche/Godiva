@@ -2,10 +2,10 @@
 
 namespace Drupal\yamlform;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -54,14 +54,6 @@ class YamlFormEntityHandlersForm extends EntityForm {
     $yamlform = $this->getEntity();
 
     $user_input = $form_state->getUserInput();
-
-    $dialog_attributes = [
-      'class' => [_yamlform_use_ajax('dialog')],
-      'data-dialog-type' => 'modal',
-      'data-dialog-options' => Json::encode([
-        'width' => 800,
-      ]),
-    ];
 
     // Build table header.
     $header = [
@@ -121,7 +113,7 @@ class YamlFormEntityHandlersForm extends EntityForm {
               'yamlform' => $this->entity->id(),
               'yamlform_handler' => $key,
             ]),
-            'attributes' => $dialog_attributes,
+            'attributes' => YamlFormDialogHelper::getModalDialogAttributes(800),
           ],
           'delete' => [
             'title' => $this->t('Delete'),
@@ -138,21 +130,21 @@ class YamlFormEntityHandlersForm extends EntityForm {
     // actions and add the needed dialog attributes.
     // @see https://www.drupal.org/node/2585169
     if (!$yamlform->hasTranslations()) {
+      $dialog_attributes = YamlFormDialogHelper::getModalDialogAttributes(
+        800,
+        ['button', 'button-action', 'button--primary', 'button--small']
+      );
       $form['local_actions'] = [
         'add_element' => [
           '#type' => 'link',
           '#title' => $this->t('Add email'),
           '#url' => new Url('entity.yamlform.handler.add_form', ['yamlform' => $yamlform->id(), 'yamlform_handler' => 'email']),
-          '#attributes' => [
-            'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-          ] + $dialog_attributes,
+          '#attributes' => $dialog_attributes,
           'add_page' => [
             '#type' => 'link',
             '#title' => $this->t('Add handler'),
             '#url' => new Url('entity.yamlform.handlers', ['yamlform' => $yamlform->id()]),
-            '#attributes' => [
-              'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-            ] + $dialog_attributes,
+            '#attributes' => $dialog_attributes,
           ],
         ],
       ];

@@ -12,7 +12,7 @@ namespace Drupal\yamlform\Plugin\YamlFormElement;
  *   category = @Translation("Advanced")
  * )
  */
-class Telephone extends TextFieldBase {
+class Telephone extends TextBase {
 
   /**
    * {@inheritdoc}

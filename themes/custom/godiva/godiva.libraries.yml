@@ -28,11 +28,16 @@ slick-slideshow:
     gpl-compatible: true
   css:
     theme:
-      http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css: { type: external, minified: false }
+      https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css: { type: external, minified: false }
   js:
-    http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js: { type: external, minified: true }
+    https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js: { type: external, minified: true }
   dependencies:
     - core/jquery
+
+slick-lightbox:
+  version: 1.6.2
+  js:
+    js/slick-lightbox.min.js: {}
 
 font-awesome:
   version: 4.6.0

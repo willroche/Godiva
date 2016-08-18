@@ -53,20 +53,21 @@ settings:
   page: true
   page_submit_path: ''
   page_confirm_path: ''
-  form_closed_message: ''
-  form_exception_message: ''
   form_submit_label: ''
+  form_exception_message: ''
+  form_closed_message: ''
   form_confidential: false
   form_confidential_message: ''
   form_prepopulate: false
   form_novalidate: false
+  form_autofocus: false
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
-  wizard_prev_button_label: ''
   wizard_next_button_label: ''
-  wizard_complete: true
+  wizard_prev_button_label: ''
   wizard_start_label: ''
+  wizard_complete: true
   wizard_complete_label: ''
   preview: 0
   preview_next_button_label: ''
@@ -81,11 +82,11 @@ settings:
   confirmation_message: ''
   confirmation_url: ''
   limit_total: null
-  entity_limit_total: null
   limit_total_message: ''
   limit_user: null
-  entity_limit_user: null
   limit_user_message: ''
+  entity_limit_total: null
+  entity_limit_user: null
   results_disabled: true
 access:
   create:

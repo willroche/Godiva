@@ -184,7 +184,7 @@ class YamlFormMessageManager implements YamlFormMessageManagerInterface {
         return $this->t("The below form has been prepopulated with custom/random test data. When submitted, this information <strong>will still be saved</strong> and/or <strong>sent to designated recipients</strong>.", $t_args);
 
       case YamlFormMessageManagerInterface::TEMPLATE_PREVIEW;
-        return $this->t('You are previewing the below template, which can be used to <a href=":duplicate_href">create a new YAML form</a>. <strong>Submitted data will be ignored</strong>.', $t_args);
+        return $this->t('You are previewing the below template, which can be used to <a href=":duplicate_href">create a new form</a>. <strong>Submitted data will be ignored</strong>.', $t_args);
 
       default:
         return FALSE;

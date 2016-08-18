@@ -74,7 +74,7 @@ class YamlFormSelectOther extends FormElement {
    * Processes a select other list form element.
    *
    * See select list form element for select list properties.
-   * 
+   *
    * @see \Drupal\Core\Render\Element\Select
    */
   public static function processYamlFormSelectOther(&$element, FormStateInterface $form_state, &$complete_form) {

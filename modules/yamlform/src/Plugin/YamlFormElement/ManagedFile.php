@@ -297,7 +297,7 @@ class ManagedFile extends YamlFormElementBase {
     $form['file'] = [
       '#type' => 'details',
       '#title' => $this->t('File settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['file']['max_filesize'] = [
       '#type' => 'number',

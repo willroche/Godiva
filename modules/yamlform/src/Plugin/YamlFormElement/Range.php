@@ -12,7 +12,7 @@ namespace Drupal\yamlform\Plugin\YamlFormElement;
  *   category = @Translation("Advanced")
  * )
  */
-class Range extends TextFieldBase {
+class Range extends NumericBase {
 
   /**
    * {@inheritdoc}

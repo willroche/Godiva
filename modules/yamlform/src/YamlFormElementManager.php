@@ -129,7 +129,7 @@ class YamlFormElementManager extends DefaultPluginManager implements FallbackPlu
    */
   public function getElementInstance(array $element) {
     $plugin_id = $this->getElementPluginId($element);
-    return $this->createInstance($plugin_id);
+    return $this->createInstance($plugin_id, $element);
   }
 
 }

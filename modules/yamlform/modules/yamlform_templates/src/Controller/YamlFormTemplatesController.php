@@ -2,14 +2,16 @@
 
 namespace Drupal\yamlform_templates\Controller;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
+use Drupal\yamlform\YamlFormInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Provides route responses for YAML form templates.
@@ -64,7 +66,7 @@ class YamlFormTemplatesController extends ControllerBase implements ContainerInj
     $header = [
       $this->t('Title'),
       ['data' => $this->t('Description'), 'class' => [RESPONSIVE_PRIORITY_LOW]],
-      $this->t('Operations'),
+      ['data' => $this->t('Operations'), 'colspan' => 2],
     ];
 
     $yamlforms = $this->getTemplates($keys);
@@ -74,23 +76,22 @@ class YamlFormTemplatesController extends ControllerBase implements ContainerInj
 
       $row['title'] = $yamlform->toLink();
       $row['description']['data']['description']['#markup'] = $yamlform->get('description');
-      $row['operations']['data'] = [
+      $row['select']['data'] = [
         '#type' => 'operations',
         '#links' => [
           'duplicate' => [
-            'title' => $this->t('Duplicate'),
+            'title' => $this->t('Select'),
             'url' => Url::fromRoute('entity.yamlform.duplicate_form', $route_parameters),
-            'attributes' => [
-              'class' => [_yamlform_use_ajax('dialog')],
-              'data-dialog-type' => 'modal',
-              'data-dialog-options' => Json::encode([
-                'width' => 400,
-              ]),
-            ],
           ],
-          'view' => [
+        ],
+      ];
+      $row['preview']['data'] = [
+        '#type' => 'operations',
+        '#links' => [
+          'preview' => [
             'title' => $this->t('Preview'),
-            'url' => Url::fromRoute('entity.yamlform.canonical', $route_parameters),
+            'url' => Url::fromRoute('entity.yamlform.preview', $route_parameters),
+            'attributes' => YamlFormDialogHelper::getModalDialogAttributes(800),
           ],
         ],
       ];
@@ -112,6 +113,25 @@ class YamlFormTemplatesController extends ControllerBase implements ContainerInj
     $build['#attached']['library'][] = 'yamlform/yamlform.admin';
 
     return $build;
+  }
+
+  /**
+   * Returns a form to add a new submission to a YAML form.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   * @param \Drupal\yamlform\YamlFormInterface $yamlform
+   *   The YAML form this submission will be added to.
+   *
+   * @return array
+   *   The YAML form submission form.
+   */
+  public function previewForm(Request $request, YamlFormInterface $yamlform) {
+    if (!$yamlform->isTemplate()) {
+      return new NotFoundHttpException();
+    }
+
+    return $yamlform->getSubmissionForm([], 'preview');
   }
 
   /**
@@ -139,6 +159,19 @@ class YamlFormTemplatesController extends ControllerBase implements ContainerInj
 
     $entity_ids = $query->execute();
     return ($entity_ids) ? $this->yamlformStorage->loadMultiple($entity_ids) : [];
+  }
+
+  /**
+   * Route preview title callback.
+   *
+   * @param \Drupal\yamlform\YamlFormInterface|null $yamlform
+   *   A YAML form.
+   *
+   * @return string
+   *   The YAML form label.
+   */
+  public function previewTitle(YamlFormInterface $yamlform = NULL) {
+    return $this->t('Previewing @title template', ['@title' => $yamlform->label()]);
   }
 
 }

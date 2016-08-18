@@ -2,6 +2,8 @@
 
 namespace Drupal\yamlform\Plugin\YamlFormElement;
 
+use Drupal\yamlform\YamlFormElementBase;
+
 /**
  * Provides a 'email' element.
  *
@@ -12,7 +14,18 @@ namespace Drupal\yamlform\Plugin\YamlFormElement;
  *   category = @Translation("Advanced")
  * )
  */
-class Email extends TextFieldBase {
+class Email extends YamlFormElementBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultProperties() {
+    return parent::getDefaultProperties() + [
+      'size' => '',
+      'maxlength' => '',
+      'placeholder' => '',
+    ];
+  }
 
   /**
    * {@inheritdoc}

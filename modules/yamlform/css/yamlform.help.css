@@ -3,6 +3,15 @@
  * YAML form help styling
  */
 
+.block-help {
+  margin: 1em 0;
+}
+
+.button.button-yamlform-play:before {
+  content: '► ';
+  font-size: .8em;
+}
+
 .yamlform-help-video-youtube {
   margin: 1.5em 0;
   max-width: 1024px;

@@ -485,33 +485,30 @@ class YamlFormSubmissionStorage extends SqlContentEntityStorage implements YamlF
 
     // Save data.
     $this->saveData($entity);
-
+    // DEBUG: dsm($entity->getState());
     // Log transaction.
     $yamlform = $entity->getYamlForm();
-    $link = $entity->toLink(t('Edit'), 'edit-form')->toString();
+    $context = [
+      '@id' => $entity->id(),
+      '@form' => $yamlform->label(),
+      'link' => $entity->toLink(t('Edit'), 'edit-form')->toString(),
+    ];
     switch ($entity->getState()) {
       case YamlFormSubmissionInterface::STATE_DRAFT;
-        \Drupal::logger('yamlform')
-          ->notice('Submission draft saved in %form.', [
-            '%form' => $yamlform->label(),
-            'link' => $link,
-          ]);
+        \Drupal::logger('yamlform')->notice('@form:Submission #@id draft saved.', $context);
         break;
 
       case YamlFormSubmissionInterface::STATE_UPDATED;
-        \Drupal::logger('yamlform')
-          ->notice('Submission updated in %form.', [
-            '%form' => $yamlform->label(),
-            'link' => $link,
-          ]);
+        \Drupal::logger('yamlform')->notice('@form:Submission #@id updated.', $context);
         break;
 
       case YamlFormSubmissionInterface::STATE_COMPLETED;
-        \Drupal::logger('yamlform')
-          ->notice('New submission added to %form.', [
-            '%form' => $yamlform->label(),
-            'link' => $link,
-          ]);
+        if ($result === SAVED_NEW) {
+          \Drupal::logger('yamlform')->notice('@form:Submission #@id created.', $context);
+        }
+        else {
+          \Drupal::logger('yamlform')->notice('@form:Submission #@id completed.', $context);
+        }
         break;
     }
 
@@ -549,6 +546,15 @@ class YamlFormSubmissionStorage extends SqlContentEntityStorage implements YamlF
     foreach ($entities as $entity) {
       $this->invokeYamlFormElements('postDelete', $entity);
       $this->invokeYamlFormHandlers('postDelete', $entity);
+    }
+
+    // Log deleted.
+    foreach ($entities as $entity) {
+      \Drupal::logger('yamlform')
+        ->notice('Deleted @form:Submission #@id.', [
+          '@id' => $entity->id(),
+          '@form' => $entity->getYamlForm()->label(),
+        ]);
     }
 
     return $return;

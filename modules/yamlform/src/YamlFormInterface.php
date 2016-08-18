@@ -190,11 +190,14 @@ interface YamlFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    *
    * @param array $values
    *   (optional) An array of values to set, keyed by property name.
+   * @param string $operation
+   *   (optional) The operation identifying the form variation to be returned.
+   *   Defaults to 'default'. This is typically used in routing:
    *
    * @return array
    *   A render array representing a YAML form submission form.
    */
-  public function getSubmissionForm(array $values = []);
+  public function getSubmissionForm(array $values = [], $operation = 'default');
 
   /**
    * Get elements (YAML) value.

@@ -31,7 +31,7 @@ class YamlFormSubmissionFormSettingsTest extends YamlFormTestBase {
 
     // Check confirmation message.
     $this->drupalPostForm('yamlform/test_confirmation_message', [], t('Submit'));
-    $this->assertRaw('This is a custom confirmation message.');
+    $this->assertRaw('This is a <b>custom</b> confirmation message.');
     $this->assertUrl('yamlform/test_confirmation_message');
 
     // Check confirmation page with custom query parameters.
@@ -164,7 +164,7 @@ class YamlFormSubmissionFormSettingsTest extends YamlFormTestBase {
 
     // Check novalidate checkbox is enabled.
     $this->drupalGet('admin/structure/yamlform/manage/test_form_novalidate/settings');
-    $this->assertRaw('<input data-drupal-selector="edit-form-novalidate" aria-describedby="edit-form-novalidate--description" type="checkbox" id="edit-form-novalidate" name="form_novalidate" value="1" class="form-checkbox" />');
+    $this->assertRaw('<input data-drupal-selector="edit-form-novalidate" aria-describedby="edit-form-novalidate--description" type="checkbox" id="edit-form-novalidate" name="form_novalidate" value class="form-checkbox" />');
     $this->assertRaw('If checked, the <a href="http://www.w3schools.com/tags/att_form_novalidate.asp">novalidate</a> attribute, which disables client-side validation, will be added to this forms.');
 
     // Check form no longer has novalidate attribute.
@@ -186,6 +186,12 @@ class YamlFormSubmissionFormSettingsTest extends YamlFormTestBase {
     $this->drupalGet('yamlform/test_form_novalidate');
     $element = $this->cssSelect('form#yamlform-submission-test-form-novalidate-form[novalidate="novalidate"]');
     $this->assertTrue(!empty($element), t('Default client-side validation setting added form novalidate attribute.'));
+
+    /* Test autofocus (form_autofocus) */
+
+    // Check form has autofocus class.
+    $this->drupalGet('yamlform/test_form_autofocus');
+    $this->assertCssSelect('.js-yamlform-autofocus');
 
     /* Test confidential submissions (form_confidential)*/
 

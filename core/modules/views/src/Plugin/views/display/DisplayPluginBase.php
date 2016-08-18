@@ -1339,6 +1339,7 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
       );
     }
 
+    /** @var \Drupal\views\Plugin\views\exposed_form\ExposedFormPluginInterface $exposed_form_plugin */
     $exposed_form_plugin = $this->getPlugin('exposed_form');
     if (!$exposed_form_plugin) {
       // Default to the no cache control plugin.
@@ -2254,6 +2255,7 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
     }
     $this->view->initHandlers();
     if ($this->usesExposed()) {
+      /** @var \Drupal\views\Plugin\views\exposed_form\ExposedFormPluginInterface $exposed_form */
       $exposed_form = $this->getPlugin('exposed_form');
       $exposed_form->preExecute();
     }
@@ -2550,6 +2552,7 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
     $this->view->initHandlers();
 
     if ($this->usesExposed() && $this->getOption('exposed_block')) {
+      /** @var \Drupal\views\Plugin\views\exposed_form\ExposedFormPluginInterface $exposed_form */
       $exposed_form = $this->getPlugin('exposed_form');
       return $exposed_form->renderExposedForm(TRUE);
     }

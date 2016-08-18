@@ -5,18 +5,18 @@ uid: null
 template: false
 id: contact
 title: Contact
-description: 'Basic email contact form'
+description: 'Basic email contact form.'
 elements: |
   name:
     '#title': 'Your Name'
     '#type': textfield
     '#required': true
-    '#default_value': '[current-user:display-name]'
+    '#default_value': '[yamlform-authenticated-user:display-name]'
   email:
     '#title': 'Your Email'
     '#type': email
     '#required': true
-    '#default_value': '[current-user:mail]'
+    '#default_value': '[yamlform-authenticated-user:mail]'
   subject:
     '#title': 'Subject'
     '#type': textfield
@@ -31,12 +31,14 @@ settings:
   page: true
   page_submit_path: ''
   page_confirm_path: ''
-  form_closed_message: ''
-  form_exception_message: ''
   form_submit_label: 'Send message'
-  form_prepopulate: false
+  form_exception_message: ''
+  form_closed_message: ''
   form_confidential: false
   form_confidential_message: ''
+  form_prepopulate: false
+  form_novalidate: false
+  form_autofocus: false
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -55,8 +57,8 @@ settings:
   draft_saved_message: ''
   draft_loaded_message: ''
   confirmation_type: url_message
-  confirmation_url: '<front>'
   confirmation_message: 'Your message has been sent.'
+  confirmation_url: '<front>'
   limit_total: null
   limit_total_message: ''
   limit_user: null

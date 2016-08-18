@@ -17,8 +17,16 @@ entity.yamlform_options.source_form:
 entity.yamlform_ui.element:
   path: '/admin/structure/yamlform/manage/{yamlform}/element/add'
   defaults:
-    _controller: '\Drupal\yamlform_ui\Controller\YamlFormUiElementController::listElements'
+    _form: '\Drupal\yamlform_ui\Form\YamlFormUiElementTypeSelectForm'
     _title: 'Select an element'
+  requirements:
+    _custom_access: '\Drupal\yamlform_ui\Access\YamlFormUiAccess::checkYamlFormEditAccess'
+
+entity.yamlform_ui.change_element:
+  path: '/admin/structure/yamlform/manage/{yamlform}/element/{key}/change'
+  defaults:
+    _form: '\Drupal\yamlform_ui\Form\YamlFormUiElementTypeChangeForm'
+    _title: 'Select new element type'
   requirements:
     _custom_access: '\Drupal\yamlform_ui\Access\YamlFormUiAccess::checkYamlFormEditAccess'
 

@@ -2,8 +2,6 @@
 
 namespace Drupal\yamlform\Plugin\YamlFormElement;
 
-use Drupal\yamlform\YamlFormElementBase;
-
 /**
  * Provides a 'checkbox' element.
  *
@@ -14,7 +12,7 @@ use Drupal\yamlform\YamlFormElementBase;
  *   category = @Translation("Basic"),
  * )
  */
-class Checkbox extends YamlFormElementBase {
+class Checkbox extends BooleanBase {
 
   /**
    * {@inheritdoc}
@@ -23,21 +21,6 @@ class Checkbox extends YamlFormElementBase {
     $properties = parent::getDefaultProperties();
     $properties['title_display'] = 'after';
     return $properties;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formatText(array &$element, $value, array $options = []) {
-    $format = $this->getFormat($element);
-
-    switch ($format) {
-      case 'value';
-        return ($value) ? $this->t('Yes') : $this->t('No');
-
-      default:
-        return ($value) ? 1 : 0;
-    }
   }
 
 }

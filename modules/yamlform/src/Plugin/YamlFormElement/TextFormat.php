@@ -142,7 +142,7 @@ class TextFormat extends YamlFormElementBase {
     $form['text_format'] = [
       '#type' => 'details',
       '#title' => $this->t('Text format settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['text_format']['allowed_formats'] = [
       '#type' => 'checkboxes',

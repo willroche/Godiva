@@ -43,7 +43,7 @@ class YamlFormtemplatesFilterForm extends FormBase {
       '#button_type' => 'primary',
       '#value' => $this->t('Filter'),
     ];
-    if (!empty($search) || !empty($state)) {
+    if (!empty($search)) {
       $form['filter']['reset'] = [
         '#type' => 'submit',
         '#submit' => ['::resetForm'],

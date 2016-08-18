@@ -1,9 +1,20 @@
-<div class="slice h-clearfix t-center t-light t-banner">	
-	<div class="category-hero-bg b-lazy h-centered-holder" {{ field_category_hero_image }}>
-		<div class="h-centered-content">
-			<div class="l-col-12 l-content l-padding">
-				<h3>{{ name }}</h3>
-			</div>
-		</div>
-	</div>
-</div>
+
+
+{#
+/**
+ * @file
+ * Display Suite 1 column template.
+ *
+ * Available variables:
+ * - ds_content_wrapper: wrapper around content
+ * - attributes: content region attributes
+ * - ds_content: content region
+ */
+#}
+<{{ ds_content_wrapper }}{{ attributes.addClass('ds-1col', 'clearfix') }}>
+
+  {{ title_suffix.contextual_links }}
+
+  {{ ds_content }}
+
+</{{ ds_content_wrapper }}>

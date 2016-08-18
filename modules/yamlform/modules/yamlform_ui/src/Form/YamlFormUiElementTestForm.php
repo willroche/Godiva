@@ -62,9 +62,7 @@ class YamlFormUiElementTestForm extends YamlFormUiElementFormBase {
       $this->element = ['#type' => $type];
     }
 
-    $plugin_id = $this->elementManager->getElementPluginId($this->element);
-
-    $this->yamlformElement = $this->elementManager->createInstance($plugin_id, $this->element);
+    $this->yamlformElement = $this->elementManager->getElementInstance($this->element);
 
     $form['#title'] = $this->t('Test %type element', ['%type' => $type]);
 

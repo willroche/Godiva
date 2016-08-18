@@ -76,7 +76,6 @@ class YamlFormCodeMirror extends Textarea {
         break;
     }
 
-    $element['#attached']['library'][] = 'yamlform/yamlform.element.codemirror.' . $element['#mode'];
     return $element;
   }
 
@@ -94,11 +93,12 @@ class YamlFormCodeMirror extends Textarea {
   public static function preRenderYamlFormCodeMirror($element) {
     static::setAttributes($element, ['js-yamlform-codemirror', 'yamlform-codemirror', $element['#mode']]);
     $element['#attributes']['data-yamlform-codemirror-mode'] = static::getMode($element['#mode']);
+    $element['#attached']['library'][] = 'yamlform/yamlform.element.codemirror.' . $element['#mode'];
     return $element;
   }
 
   /**
-   * Form element validation handler for #type 'yamlform_codemirror_yaml'.
+   * Form element validation handler for #type 'yamlform_codemirror'.
    */
   public static function validateYamlFormCodeMirror(&$element, FormStateInterface $form_state, &$complete_form) {
     if ($errors = static::getErrors($element, $form_state, $complete_form)) {

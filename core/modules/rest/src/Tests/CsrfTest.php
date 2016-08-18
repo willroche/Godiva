@@ -43,7 +43,6 @@ class CsrfTest extends RESTTestBase {
     // Create a user account that has the required permissions to create
     // resources via the REST API.
     $permissions = $this->entityPermissions($this->testEntityType, 'create');
-    $permissions[] = 'restful post entity:' . $this->testEntityType;
     $this->account = $this->drupalCreateUser($permissions);
 
     // Serialize an entity to a string to use in the content body of the POST
@@ -72,6 +71,10 @@ class CsrfTest extends RESTTestBase {
 
   /**
    * Tests that CSRF check is triggered for Cookie Auth requests.
+   *
+   * @deprecated as of Drupal 8.2.x, will be removed before Drupal 9.0.0. Use
+   *   \Drupal\Tests\system\Functional\CsrfRequestHeaderTest::testRouteAccess
+   *   instead.
    */
   public function testCookieAuth() {
     $this->drupalLogin($this->account);

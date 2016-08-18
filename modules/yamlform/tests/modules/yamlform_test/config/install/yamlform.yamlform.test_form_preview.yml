@@ -14,13 +14,14 @@ settings:
   page: true
   page_submit_path: ''
   page_confirm_path: ''
-  form_closed_message: ''
-  form_exception_message: ''
   form_submit_label: ''
-  form_prepopulate: true
-  form_novalidate: false
+  form_exception_message: ''
+  form_closed_message: ''
   form_confidential: false
   form_confidential_message: ''
+  form_prepopulate: true
+  form_novalidate: false
+  form_autofocus: false
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -39,8 +40,8 @@ settings:
   draft_saved_message: ''
   draft_loaded_message: ''
   confirmation_type: message
-  confirmation_url: ''
   confirmation_message: ''
+  confirmation_url: ''
   limit_total: null
   limit_total_message: ''
   limit_user: null

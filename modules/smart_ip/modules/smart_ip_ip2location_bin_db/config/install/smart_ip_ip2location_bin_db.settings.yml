@@ -1,0 +1,8 @@
+version: lite
+edition: DB11
+username: null
+password: null
+db_auto_update: true
+caching_method: no_cache
+ipv4_bin_file_custom_path: null
+ipv6_bin_file_custom_path: null

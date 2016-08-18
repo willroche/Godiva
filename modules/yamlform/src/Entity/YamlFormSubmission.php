@@ -488,7 +488,7 @@ class YamlFormSubmission extends ContentEntityBase implements YamlFormSubmission
    *   depending on the last save operation performed.
    */
   public function getState() {
-    if ($this->isNew()) {
+    if (!$this->id()) {
       return self::STATE_UNSAVED;
     }
     elseif ($this->isDraft()) {
@@ -579,11 +579,11 @@ class YamlFormSubmission extends ContentEntityBase implements YamlFormSubmission
    * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
+    $this->changed->value = REQUEST_TIME;
     if ($this->isDraft()) {
       $this->completed->value = NULL;
     }
     elseif (!$this->isCompleted()) {
-      $this->changed->value = REQUEST_TIME;
       $this->completed->value = REQUEST_TIME;
     }
 

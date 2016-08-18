@@ -29,6 +29,7 @@ batch:
   default_batch_update_size: 500
   default_batch_delete_size: 500
 elements:
+  allowed_tags: admin
   default_description_display: ''
   default_max_filesize: ''
   default_file_extensions: 'gif jpg png bmp eps tif pict psd txt rtf html odf pdf doc docx ppt pptx xls xlsx xml avi mov mp3 ogg wav bz2 dmg gz jar rar sit svg tar zip'
@@ -153,5 +154,7 @@ test:
 ui:
   details_save: true
   dialog_disabled: false
+  html_editor_disabled: false
+  video_display: dialog
 langcode: en
 third_party_settings: {  }

@@ -2,12 +2,12 @@
 
 namespace Drupal\yamlform_ui;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Drupal\yamlform\YamlFormEntityForm;
 
 /**
@@ -26,13 +26,7 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
       return $form;
     }
 
-    $dialog_attributes = [
-      'class' => [_yamlform_use_ajax('dialog')],
-      'data-dialog-type' => 'modal',
-      'data-dialog-options' => Json::encode([
-        'width' => 800,
-      ]),
-    ];
+    $dialog_attributes = YamlFormDialogHelper::getModalDialogAttributes(800);
 
     // Build table header.
     $header = [];
@@ -48,6 +42,10 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
     $header['type'] = [
       'data' => $this->t('Type'),
       'class' => [RESPONSIVE_PRIORITY_LOW],
+    ];
+    $header['required'] = [
+      'data' => $this->t('Required'),
+      'class' => ['yamlform-ui-element-required', RESPONSIVE_PRIORITY_LOW],
     ];
     $header['weight'] = $this->t('Weight');
     $header['parent'] = $this->t('Parent');
@@ -113,9 +111,7 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
           '#type' => 'link',
           '#title' => $this->t('Add element'),
           '#url' => new Url('entity.yamlform_ui.element', $route_parameters, $route_options),
-          '#attributes' => [
-            'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-          ] + $dialog_attributes ,
+          '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--primary', 'button--small']),
         ];
       }
       else {
@@ -129,6 +125,16 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
       $rows[$key]['type'] = [
         '#markup' => $yamlform_element->getPluginLabel(),
       ];
+
+      if ($yamlform_element->hasProperty('required')) {
+        $rows[$key]['required'] = [
+          '#type' => 'checkbox',
+          '#default_value' => (empty($element['#required'])) ? FALSE : TRUE,
+        ];
+      }
+      else {
+        $rows[$key]['required'] = ['#markup' => ''];
+      }
 
       $rows[$key]['weight'] = [
         '#type' => 'weight',
@@ -200,16 +206,12 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
           '#type' => 'link',
           '#title' => $this->t('Add element'),
           '#url' => new Url('entity.yamlform_ui.element', ['yamlform' => $yamlform->id()]),
-          '#attributes' => [
-            'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-          ] + $dialog_attributes,
+          '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--primary', 'button--small']),
           'add_page' => [
             '#type' => 'link',
             '#title' => $this->t('Add page'),
             '#url' => new Url('entity.yamlform_ui.element.add_form', ['yamlform' => $yamlform->id(), 'type' => 'wizard_page']),
-            '#attributes' => [
-              'class' => ['button', 'button-action', 'button--primary', 'button--small', _yamlform_use_ajax('dialog')],
-            ] + $dialog_attributes,
+            '#attributes' => YamlFormDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--primary', 'button--small']),
           ],
         ],
       ];
@@ -219,6 +221,9 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
       '#type' => 'table',
       '#header' => $header,
       '#empty' => $this->t('Please add elements to this form.'),
+      '#attributes' => [
+        'class' => ['yamlform-ui-elements-table'],
+      ],
       '#tabledrag' => [
         [
           'action' => 'match',
@@ -282,6 +287,16 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
         return;
       }
 
+      // Set #required or remove the property.
+      if (isset($elements_reordered[$key]['required'])) {
+        if (empty($elements_reordered[$key]['required'])) {
+          unset($elements_flattened[$key]['#required']);
+        }
+        else {
+          $elements_flattened[$key]['#required'] = TRUE;
+        }
+      }
+
       // Add this key to the parent's children.
       $elements_reordered[$parent_key]['children'][$key] = $key;
     }
@@ -296,7 +311,7 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
       }
     }
     $this->buildUpdatedElementsRecursive($elements_updated, '', $elements_reordered, $elements_flattened);
-
+    
     // Update the YAML form's elements.
     $yamlform->setElements($elements_updated);
 
@@ -319,13 +334,14 @@ class YamlFormUiEntityForm extends YamlFormEntityForm {
    *   An associative array that will be populated with updated elements
    *   hierarchy.
    * @param string $key
-   *   The current element key.  The blank empty key represents the elements root.
+   *   The current element key. The blank empty key represents the elements
+   *   root.
    * @param array $elements_reordered
    *   An associative array contain the reordered elements parent child
    *   relationship.
    * @param array $elements_flattened
-   *   An associative array containing the raw flattened elements that will copied
-   *   into the updated elements hierarchy.
+   *   An associative array containing the raw flattened elements that will
+   *   copied into the updated elements hierarchy.
    */
   protected function buildUpdatedElementsRecursive(array &$elements, $key, array $elements_reordered, array $elements_flattened) {
     if (!isset($elements_reordered[$key]['children'])) {

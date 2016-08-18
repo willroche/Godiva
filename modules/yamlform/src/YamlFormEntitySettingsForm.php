@@ -53,7 +53,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     $form['general']['template'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow this form to be used as a template.'),
-      '#description' => $this->t('If checked, this form will be available as template, which can be duplicated, to all users who can create new YAML forms.'),
+      '#description' => $this->t('If checked, this form will be available as template, which can be duplicated, to all users who can create new forms.'),
       '#access' => $this->moduleHandler->moduleExists('yamlform_templates'),
       '#default_value' => $yamlform->isTemplate(),
     ];
@@ -124,15 +124,13 @@ class YamlFormEntitySettingsForm extends EntityForm {
 
     ];
     $form['form']['form_closed_message']  = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Form closed message'),
       '#description' => $this->t('A message to be displayed notifying the user that the form is closed.'),
       '#default_value' => $settings['form_closed_message'],
     ];
     $form['form']['form_exception_message']  = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Form exception message'),
       '#description' => $this->t('A message to be displayed if the form breaks.'),
       '#default_value' => $settings['form_closed_message'],
@@ -147,11 +145,11 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Confidential submissions'),
       '#description' => $this->t('Confidential submissions have no recorded IP address and must be submitted while logged out.'),
+      '#return_value' => TRUE,
       '#default_value' => $settings['form_confidential'],
     ];
     $form['form']['form_confidential_message']  = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Form confidential message'),
       '#description' => $this->t('A message to be displayed when authenticated users try to access a confidential form.'),
       '#default_value' => $settings['form_confidential_message'],
@@ -164,6 +162,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     $form['form']['form_prepopulate'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow elements to be populated using query string parameters.'),
+      '#return_value' => TRUE,
       '#default_value' => $settings['form_prepopulate'],
     ];
     if ($default_settings['default_form_novalidate']) {
@@ -184,9 +183,17 @@ class YamlFormEntitySettingsForm extends EntityForm {
         '#type' => 'checkbox',
         '#title' => $this->t('Disable client-side validation'),
         '#description' => $this->t('If checked, the <a href="@href">novalidate</a> attribute, which disables client-side validation, will be added to this forms.', ['@href' => 'http://www.w3schools.com/tags/att_form_novalidate.asp']),
+        '#return_value' => TRUE,
         '#default_value' => $settings['form_novalidate'],
       ];
     }
+    $form['form']['form_autofocus'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Autofocus'),
+      '#description' => $this->t('If checked, the first visible and enabled input will be focused for new submissions.'),
+      '#return_value' => TRUE,
+      '#default_value' => $settings['form_autofocus'],
+    ];
 
     $form['wizard'] = [
       '#type' => 'details',
@@ -196,15 +203,18 @@ class YamlFormEntitySettingsForm extends EntityForm {
     $form['wizard']['wizard_progress_bar'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show wizard progress bar'),
+      '#return_value' => TRUE,
       '#default_value' => $settings['wizard_progress_bar'],
     ];
     $form['wizard']['wizard_progress_pages'] = [
       '#type' => 'checkbox',
+      '#return_value' => TRUE,
       '#title' => $this->t('Show wizard progress pages'),
       '#default_value' => $settings['wizard_progress_pages'],
     ];
     $form['wizard']['wizard_progress_percentage'] = [
       '#type' => 'checkbox',
+      '#return_value' => TRUE,
       '#title' => $this->t('Show wizard progress percentage'),
       '#default_value' => $settings['wizard_progress_percentage'],
     ];
@@ -225,6 +235,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     $form['wizard']['wizard_complete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include confirmation page in progress'),
+      '#return_value' => TRUE,
       '#default_value' => $settings['wizard_complete'],
     ];
     $form['wizard']['wizard_start_label'] = [
@@ -284,8 +295,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['preview_prev_button_label'],
     ];
     $form['preview']['settings']['preview_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Preview message'),
       '#description' => $this->t('A message to be displayed on the preview page.'),
       '#default_value' => $settings['preview_message'],
@@ -300,6 +310,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Allow your users to save and finish the form later.'),
       "#description" => $this->t('This option is available only for authenticated users.'),
+      '#return_value' => TRUE,
       '#default_value' => $settings['draft'],
     ];
     $form['draft']['settings'] = [
@@ -312,6 +323,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     ];
     $form['draft']['settings']['draft_auto_save'] = [
       '#type' => 'checkbox',
+      '#return_value' => TRUE,
       '#title' => $this->t('Automatically save as draft when paging, previewing, and when there are validation errors.'),
       "#description" => $this->t('Automatically save partial submissions when users click the "Preview" button or when validation errors prevent form submission.'),
       '#default_value' => $settings['draft_auto_save'],
@@ -324,15 +336,13 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['draft_button_label'],
     ];
     $form['draft']['settings']['draft_saved_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Draft saved message'),
       '#description' => $this->t('Message to be displayed when a draft is saved.'),
       '#default_value' => $settings['draft_saved_message'],
     ];
     $form['draft']['settings']['draft_loaded_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Draft loaded message'),
       '#description' => $this->t('Message to be displayed when a draft is loaded.'),
       '#default_value' => $settings['draft_loaded_message'],
@@ -371,8 +381,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     ];
 
     $form['confirmation']['confirmation_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Confirmation message'),
       '#description' => $this->t('Message to be shown upon successful submission.'),
       '#default_value' => $settings['confirmation_message'],
@@ -399,8 +408,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['entity_limit_total'],
     ];
     $form['submission']['limit_total_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Total submissions limit message'),
       '#default_value' => $settings['limit_total_message'],
     ];
@@ -415,8 +423,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['entity_limit_user'],
     ];
     $form['submission']['limit_user_message'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Per user submission limit message'),
       '#default_value' => $settings['limit_user_message'],
     ];
@@ -429,6 +436,7 @@ class YamlFormEntitySettingsForm extends EntityForm {
     $form['results']['results_disabled'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Disable saving of submissions.'),
+      '#return_value' => TRUE,
       '#description' => $this->t('If results are disabled, submissions must be sent via <a href=":href">email and/or a custom form handler</a>.', [':href' => Url::fromRoute('entity.yamlform.handlers_form', ['yamlform' => $yamlform->id()])->toString()]),
       '#default_value' => $settings['results_disabled'],
     ];

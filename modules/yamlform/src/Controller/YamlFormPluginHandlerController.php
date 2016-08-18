@@ -2,9 +2,9 @@
 
 namespace Drupal\yamlform\Controller;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\yamlform\Utility\YamlFormDialogHelper;
 use Drupal\yamlform\YamlFormHandlerInterface;
 use Drupal\yamlform\YamlFormInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -133,13 +133,7 @@ class YamlFormPluginHandlerController extends ControllerBase {
       $links['add'] = [
         'title' => $this->t('Add handler'),
         'url' => Url::fromRoute('entity.yamlform.handler.add_form', ['yamlform' => $yamlform->id(), 'yamlform_handler' => $plugin_id]),
-        'attributes' => [
-          'class' => [_yamlform_use_ajax('dialog')],
-          'data-dialog-type' => 'modal',
-          'data-dialog-options' => Json::encode([
-            'width' => 800,
-          ]),
-        ],
+        'attributes' => YamlFormDialogHelper::getModalDialogAttributes(800),
       ];
       $row['operations']['data'] = [
         '#type' => 'operations',

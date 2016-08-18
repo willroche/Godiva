@@ -212,7 +212,7 @@ trait YamlFormTestTrait {
         'dob' => [
           '#type' => 'date',
           '#title' => 'Date of birth',
-          '#date_format' => 'l, F j, Y',
+          '#format' => 'l, F j, Y',
         ],
         'node' => [
           '#type' => 'entity_autocomplete',

@@ -7,6 +7,7 @@
 
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
+use Drupal\user\Entity\User;
 use Drupal\yamlform\Entity\YamlForm;
 use Drupal\yamlform\Utility\YamlFormDateHelper;
 
@@ -14,6 +15,11 @@ use Drupal\yamlform\Utility\YamlFormDateHelper;
  * Implements hook_token_info().
  */
 function yamlform_token_info() {
+  $types['yamlform-authenticated-user'] = [
+    'name' => t('YAML form authenticated user'),
+    'description' => t('Tokens related to the currently authenticated user.'),
+    'type' => 'user',
+  ];
   $types['yamlform-submission'] = [
     'name' => t('YAML form submissions'),
     'description' => t('Tokens related to YAML form submissions.'),
@@ -144,8 +150,19 @@ function yamlform_tokens($type, $tokens, array $data, array $options, Bubbleable
   }
 
   $replacements = [];
-
-  if ($type == 'yamlform-submission' && !empty($data['yamlform-submission'])) {
+  if ($type == 'yamlform-authenticated-user') {
+    if (\Drupal::currentUser()->isAuthenticated()) {
+      $account = User::load(\Drupal::currentUser()->id());
+      $bubbleable_metadata->addCacheContexts(['user']);
+      $replacements += $token_service->generate('user', $tokens, ['user' => $account], $options, $bubbleable_metadata);
+    }
+    else {
+      foreach ($replacements as $name => $token) {
+        $replacements[$name] = '';
+      }
+    }
+  }
+  elseif ($type == 'yamlform-submission' && !empty($data['yamlform-submission'])) {
 
     /** @var \Drupal\yamlform\YamlFormSubmissionInterface $yamlform_submission */
     $yamlform_submission = $data['yamlform-submission'];

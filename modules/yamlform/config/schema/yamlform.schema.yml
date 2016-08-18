@@ -69,6 +69,9 @@ yamlform.settings:
       type: mapping
       label: 'Elements default settings'
       mapping:
+        allowed_tags:
+          type: string
+          label: 'Allowed tags'
         default_description_display:
           type: string
           label: 'Default title display'
@@ -161,9 +164,15 @@ yamlform.settings:
       type: mapping
       label: 'User interface settings'
       mapping:
+        video_display:
+          type: string
+          label: 'Video display'
         dialog_disabled:
           type: boolean
           label: 'Disable dialogs'
+        html_editor_disabled:
+          type: boolean
+          label: 'Disable HTML editor'
         details_save:
           type: boolean
           label: 'Save details open/close state'
@@ -232,6 +241,9 @@ yamlform.yamlform.*:
         form_novalidate:
           type: boolean
           label: 'Disable client-side validation'
+        form_autofocus:
+          type: boolean
+          label: 'Autofocus'
         wizard_progress_bar:
           type: boolean
           label: 'Show wizard progress bar'

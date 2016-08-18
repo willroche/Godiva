@@ -14,7 +14,7 @@ use Drupal\yamlform\YamlFormElementBase;
  *   category = @Translation("Advanced"),
  * )
  */
-class YamlFormToggle extends YamlFormElementBase {
+class YamlFormToggle extends Checkbox {
 
   /**
    * {@inheritdoc}
@@ -57,7 +57,7 @@ class YamlFormToggle extends YamlFormElementBase {
     $form['toggle'] = [
       '#type' => 'details',
       '#title' => $this->t('toggle settings'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['toggle']['toggle_theme'] = [
       '#type' => 'select',

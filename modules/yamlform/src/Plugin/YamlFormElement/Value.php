@@ -2,8 +2,6 @@
 
 namespace Drupal\yamlform\Plugin\YamlFormElement;
 
-use Drupal\yamlform\YamlFormElementBase;
-
 /**
  * Provides a 'value' element.
  *
@@ -14,7 +12,7 @@ use Drupal\yamlform\YamlFormElementBase;
  *   category = @Translation("Advanced")
  * )
  */
-class Value extends YamlFormElementBase {
+class Value extends TextBase {
 
   /**
    * {@inheritdoc}

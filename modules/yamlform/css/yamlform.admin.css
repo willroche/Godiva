@@ -11,6 +11,18 @@
 }
 
 /**
+ * Buttons
+ */
+.button.button-yamlform-setting {
+  margin: 0 0 1em 0;
+}
+
+.button.button-yamlform-setting:before {
+  content: '⚙';
+  font-size: 1.2em;
+}
+
+/**
  * YAML form handler.
  */
 .yamlform-handler__new,

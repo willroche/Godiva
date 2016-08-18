@@ -54,7 +54,7 @@ class YamlFormCheckboxesOther extends FormElement {
    * Processes a checkboxes other form element.
    *
    * See checkboxes form element for checkboxes properties.
-   * 
+   *
    * @see \Drupal\Core\Render\Element\Checkboxes
    */
   public static function processYamlFormCheckboxesOther(&$element, FormStateInterface $form_state, &$complete_form) {

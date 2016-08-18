@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ *
+ * @param $phase
+ * @return array
+ */
+function smart_ip_ip2location_bin_db_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install') {
+    if (!class_exists('\IP2Location\Database')) {
+      $requirements['ip2location_library'] = [
+        'description' => t('Smart IP IP2Location binary database module requires the ip2location/ip2location-php library.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}

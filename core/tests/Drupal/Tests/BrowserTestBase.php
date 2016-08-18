@@ -8,13 +8,13 @@ use Behat\Mink\Mink;
 use Behat\Mink\Session;
 use Drupal\Component\FileCache\FileCacheFactory;
 use Drupal\Component\Serialization\Json;
-use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Database\Database;
 use Drupal\Core\DrupalKernel;
+use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Session\UserSession;
@@ -56,6 +56,7 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
   use ContentTypeCreationTrait {
     createContentType as drupalCreateContentType;
   }
+  use ConfigTestTrait;
   use UserCreationTrait {
     createRole as drupalCreateRole;
     createUser as drupalCreateUser;

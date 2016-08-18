@@ -3,6 +3,7 @@
 namespace Drupal\yamlform\Form;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -10,6 +11,7 @@ use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Plugin\Field\FieldType\FileItem;
 use Drupal\yamlform\Entity\YamlForm;
+use Drupal\yamlform\Utility\YamlFormArrayHelper;
 use Drupal\yamlform\YamlFormElementManagerInterface;
 use Drupal\yamlform\YamlFormSubmissionExporterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -139,7 +141,6 @@ class YamlFormAdminSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
       '#default_value' => $config->get('settings.default_form_confidential_message'),
     ];
-
     $form['form']['default_form_novalidate']  = [
       '#type' => 'checkbox',
       '#title' => $this->t('Disable client-side validation for all forms'),
@@ -281,6 +282,19 @@ class YamlFormAdminSettingsForm extends ConfigFormBase {
       '#open' => FALSE,
       '#tree' => TRUE,
     ];
+    $form['elements']['allowed_tags'] = [
+      '#type' => 'yamlform_radios_other',
+      '#title' => $this->t('Allowed tags'),
+      '#options' => [
+        'admin' => t('Admin tags Excludes: script, iframe, etc...'),
+        'html' => t('HTML tags: Includes only @html_tags.', ['@html_tags' => YamlFormArrayHelper::toString(Xss::getHtmlTagList())]),
+      ],
+      '#other__option_label' => t('Custom tags'),
+      '#other__placeholder' => t('Enter multiple tags delimited using spaces'),
+      '#required' => TRUE,
+      '#description' => $this->t('Allowed tags are applied to an element propperty that may contain HTML. This includes element title, description, prefix, and suffix'),
+      '#default_value' => $config->get('elements.allowed_tags'),
+    ];
     $form['elements']['default_description_display'] = [
       '#type' => 'select',
       '#title' => $this->t('Default description display'),
@@ -289,6 +303,7 @@ class YamlFormAdminSettingsForm extends ConfigFormBase {
         'before' => $this->t('Before'),
         'after' => $this->t('After'),
         'invisible' => $this->t('Invisible'),
+        'tooltip' => $this->t('Tooltip'),
       ],
       '#description' => $this->t('Determines the default placement of the description for all form elements.'),
       '#default_value' => $config->get('elements.default_description_display'),
@@ -470,6 +485,17 @@ class YamlFormAdminSettingsForm extends ConfigFormBase {
       '#open' => FALSE,
       '#tree' => TRUE,
     ];
+    $form['ui']['video_display'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Video display'),
+      '#description' => $this->t('Controls how videos are displayed in inline help and within the YAML Form help section.'),
+      '#options' => [
+        'dialog' => $this->t('Dialog'),
+        'link' => $this->t('External link'),
+        'hidden' => $this->t('Hidden'),
+      ],
+      '#default_value' => $config->get('ui.video_display'),
+    ];
     $form['ui']['details_save'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Save details open/close state'),
@@ -486,6 +512,13 @@ class YamlFormAdminSettingsForm extends ConfigFormBase {
       '#description' => $this->t('If checked, all modal dialogs (ie popups) will be disabled.'),
       '#return_value' => TRUE,
       '#default_value' => $config->get('ui.dialog_disabled'),
+    ];
+    $form['ui']['html_editor_disabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('DiHTML editor dialogs'),
+      '#description' => $this->t('If checked, all HTML editor will be disabled.'),
+      '#return_value' => TRUE,
+      '#default_value' => $config->get('ui.html_editor_disabled'),
     ];
     return parent::buildForm($form, $form_state);
   }

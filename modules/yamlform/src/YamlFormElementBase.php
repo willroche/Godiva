@@ -17,6 +17,7 @@ use Drupal\yamlform\Entity\YamlForm;
 use Drupal\yamlform\Entity\YamlFormOptions;
 use Drupal\yamlform\Utility\YamlFormArrayHelper;
 use Drupal\yamlform\Utility\YamlFormElementHelper;
+use Drupal\yamlform\Utility\YamlFormReflectionHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -46,6 +47,13 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
   protected $currentUser;
 
   /**
+   * The YAML form element manager.
+   *
+   * @var \Drupal\yamlform\YamlFormElementManagerInterface
+   */
+  protected $elementManager;
+
+  /**
    * Constructs a Drupal\Component\Plugin\PluginBase object.
    *
    * @param array $configuration
@@ -58,11 +66,14 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
    *   The configuration factory.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   The current user.
+   * @param \Drupal\yamlform\YamlFormElementManagerInterface $element_manager
+   *   The YAML form element manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, AccountInterface $current_user) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, AccountInterface $current_user, YamlFormElementManagerInterface $element_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->currentUser = $current_user;
+    $this->elementManager = $element_manager;
   }
 
   /**
@@ -74,7 +85,8 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
       $plugin_id,
       $plugin_definition,
       $container->get('config.factory'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('plugin.manager.yamlform.element')
     );
   }
 
@@ -102,6 +114,14 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
 
       'format' => $this->getDefaultFormat(),
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasProperty($property_name) {
+    $default_properties = $this->getDefaultProperties();
+    return isset($default_properties[$property_name]);
   }
 
   /**
@@ -171,13 +191,63 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
   /**
    * {@inheritdoc}
    */
-  public function initialize(array &$element) {
-    // Set #allowed_tags to admin tag list. YAML form builders are
-    // to be consider trusted users.
-    if (isset($element['#allowed_tags'])) {
-      $element['#allowed_tags'] = Xss::getAdminTagList();
+  public function isHidden(array $element) {
+    return $this->pluginDefinition['hidden'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRelatedTypes(array $element) {
+    $types = [];
+
+    $parent_classes = YamlFormReflectionHelper::getParentClasses($this, 'YamlFormElementBase');
+
+    $plugin_id = $this->getPluginId();
+    $is_container = $this->isContainer($element);
+    $has_multiple_values = $this->hasMultipleValues($element);
+    $is_multiline = $this->isMultiline($element);
+
+    $elements = $this->elementManager->getInstances();
+    foreach ($elements as $element_name => $element_instance) {
+      // Skip self.
+      if ($plugin_id == $element_instance->getPluginId()) {
+        continue;
+      }
+
+      // Skip hidden.
+      if ($element_instance->isHidden($element)) {
+        continue;
+      }
+
+      // Compare element base (abstract) class.
+      $element_instance_parent_classes = YamlFormReflectionHelper::getParentClasses($element_instance, 'YamlFormElementBase');
+      if ($parent_classes[1] != $element_instance_parent_classes[1]) {
+        continue;
+      }
+
+      // Compare container, multiple values, and multiline.
+      if ($is_container != $element_instance->isContainer($element)) {
+        continue;
+      }
+      if ($has_multiple_values != $element_instance->hasMultipleValues($element)) {
+        continue;
+      }
+      if ($is_multiline != $element_instance->isMultiline($element)) {
+        continue;
+      }
+
+      $types[$element_name] = $element_instance->getPluginLabel();
     }
 
+    asort($types);
+    return $types;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function initialize(array &$element) {
     // Set element options.
     if (isset($element['#options'])) {
       $element['#options'] = YamlFormOptions::getElementOptions($element);
@@ -188,10 +258,34 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
    * {@inheritdoc}
    */
   public function prepare(array &$element, YamlFormSubmissionInterface $yamlform_submission) {
+    // Add #allowed_tags.
+    $allowed_tags = $this->configFactory->get('yamlform.settings')->get('elements.allowed_tags');
+    switch ($allowed_tags) {
+      case 'admin':
+        $element['#allowed_tags'] = Xss::getAdminTagList();
+        break;
+
+      case 'html':
+        $element['#allowed_tags'] = Xss::getHtmlTagList();
+        break;
+
+      default:
+        $element['#allowed_tags'] = preg_split('/ +/', $allowed_tags);
+        break;
+    }
+
     // Add default description display.
     $default_description_display = $this->configFactory->get('yamlform.settings')->get('elements.default_description_display');
     if ($default_description_display && !isset($element['#description_display']) && $this->hasProperty('description_display')) {
       $element['#description_display'] = $default_description_display;
+    }
+
+    // Add tooltip description display support.
+    if (isset($element['#description_display']) && $element['#description_display'] === 'tooltip') {
+      $element['#description_display'] = 'invisible';
+      $element['#wrapper_attributes']['class'][] = 'js-yamlform-element-tooltip';
+      $element['#wrapper_attributes']['class'][] = 'yamlform-element-tooltip';
+      $element['#attached']['library'][] = 'yamlform/yamlform.element.tooltip';
     }
 
     // Add validation handler for #unique value.
@@ -502,8 +596,7 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
       '#attributes' => ['autofocus' => 'autofocus'],
     ];
     $form['general']['description'] = [
-      '#type' => 'yamlform_codemirror',
-      '#mode' => 'html',
+      '#type' => 'yamlform_html_editor',
       '#title' => $this->t('Description'),
       '#description' => $this->t('A short description of the element used as help for the user when he/she uses the form.'),
     ];
@@ -538,7 +631,7 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
     $form['form'] = [
       '#type' => 'details',
       '#title' => $this->t('Form display'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['form']['title_display'] = [
       '#type' => 'select',
@@ -560,6 +653,7 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
         'before' => $this->t('Before'),
         'after' => $this->t('After'),
         'invisible' => $this->t('Invisible'),
+        'tooltip' => $this->t('Tooltip'),
       ],
       '#description' => $this->t('Determines the placement of the description.'),
     ];
@@ -608,25 +702,6 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
       '#size' => 4,
     ];
 
-    $form['form']['min'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Min'),
-      '#description' => $this->t('Specifies the minimum value.'),
-      '#size' => 4,
-    ];
-    $form['form']['max'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Max'),
-      '#description' => $this->t('Specifies the maximum value.'),
-      '#size' => 4,
-    ];
-    $form['form']['step'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Steps'),
-      '#description' => $this->t('Specifies the legal number intervals.'),
-      '#size' => 4,
-    ];
-
     $form['form']['placeholder'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Placeholder'),
@@ -655,7 +730,7 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
     $form['validation'] = [
       '#type' => 'details',
       '#title' => $this->t('Form validation'),
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
     $form['validation']['required'] = [
       '#type' => 'checkbox',
@@ -673,6 +748,7 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
     $form['display'] = [
       '#type' => 'details',
       '#title' => $this->t('Submission display'),
+      '#open' => FALSE,
     ];
     $form['display']['format'] = [
       '#type' => 'select',
@@ -933,20 +1009,6 @@ class YamlFormElementBase extends PluginBase implements YamlFormElementInterface
   protected function isPropertyArray($property_name) {
     $default_properties = $this->getDefaultProperties();
     return is_array($default_properties[$property_name]);
-  }
-
-  /**
-   * Determine if an element supports a specified property.
-   *
-   * @param string $property_name
-   *   An element's property name.
-   *
-   * @return bool
-   *   TRUE if the element supports a specified property.
-   */
-  protected function hasProperty($property_name) {
-    $default_properties = $this->getDefaultProperties();
-    return isset($default_properties[$property_name]);
   }
 
 }

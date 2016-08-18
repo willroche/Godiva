@@ -72,10 +72,11 @@ class YamlFormEntityForm extends BundleEntityFormBase {
     if ($this->operation == 'duplicate') {
       // Display custom title.
       $form['#title'] = $this->t("Duplicate '@label' form", ['@label' => $yamlform->label()]);
-      // Make sure the new form is not a template.
-      $yamlform->set('template', FALSE);
-      // Remove 'Template:' prefix from the form's title.
-      $yamlform->set('title', preg_replace('/^Template: /', '', $yamlform->label()));
+      // If template, clear template's description and remove template flag.
+      if ($yamlform->isTemplate()) {
+        $yamlform->set('description', '');
+        $yamlform->set('template', FALSE);
+      }
     }
 
     $form = parent::buildForm($form, $form_state);

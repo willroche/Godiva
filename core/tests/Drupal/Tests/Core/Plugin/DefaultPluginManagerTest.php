@@ -2,6 +2,9 @@
 
 namespace Drupal\Tests\Core\Plugin;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -299,6 +302,136 @@ class DefaultPluginManagerTest extends UnitTestCase {
 
     $plugin_manager = new TestPluginManager($this->namespaces, $this->expectedDefinitions, $module_handler, NULL);
     $this->assertInternalType('array', $plugin_manager->getDefinitions());
+  }
+
+  /**
+   * @covers ::getCacheContexts
+   */
+  public function testGetCacheContexts() {
+    $module_handler = $this->prophesize(ModuleHandlerInterface::class);
+    $plugin_manager = new TestPluginManager($this->namespaces, $this->expectedDefinitions, $module_handler->reveal(), NULL);
+    $cache_contexts = $plugin_manager->getCacheContexts();
+    $this->assertInternalType('array', $cache_contexts);
+    array_map(function ($cache_context) {
+      $this->assertInternalType('string', $cache_context);
+    }, $cache_contexts);
+  }
+
+  /**
+   * @covers ::getCacheTags
+   */
+  public function testGetCacheTags() {
+    $module_handler = $this->prophesize(ModuleHandlerInterface::class);
+    $plugin_manager = new TestPluginManager($this->namespaces, $this->expectedDefinitions, $module_handler->reveal(), NULL);
+    $cache_tags = $plugin_manager->getCacheTags();
+    $this->assertInternalType('array', $cache_tags);
+    array_map(function ($cache_tag) {
+      $this->assertInternalType('string', $cache_tag);
+    }, $cache_tags);
+  }
+
+  /**
+   * @covers ::getCacheMaxAge
+   */
+  public function testGetCacheMaxAge() {
+    $module_handler = $this->prophesize(ModuleHandlerInterface::class);
+    $plugin_manager = new TestPluginManager($this->namespaces, $this->expectedDefinitions, $module_handler->reveal(), NULL);
+    $cache_max_age = $plugin_manager->getCacheMaxAge();
+    $this->assertInternalType('int', $cache_max_age);
+  }
+
+  /**
+   * @covers ::processDefinition
+   * @dataProvider providerTestProcessDefinition
+   */
+  public function testProcessDefinition($definition, $expected) {
+    $module_handler = $this->prophesize(ModuleHandlerInterface::class);
+    $plugin_manager = new TestPluginManagerWithDefaults($this->namespaces, $this->expectedDefinitions, $module_handler->reveal(), NULL);
+
+    $plugin_manager->processDefinition($definition, 'the_plugin_id');
+    $this->assertEquals($expected, $definition);
+  }
+
+  public function providerTestProcessDefinition() {
+    $data = [];
+
+    $data['merge'][] = [
+      'foo' => [
+        'bar' => [
+          'asdf',
+        ],
+      ],
+    ];
+    $data['merge'][] = [
+      'foo' => [
+        'bar' => [
+          'baz',
+          'asdf',
+        ],
+      ],
+    ];
+
+    $object_definition = (object) [
+      'foo' => [
+        'bar' => [
+          'asdf',
+        ],
+      ],
+    ];
+    $data['object_definition'] = [$object_definition, clone $object_definition];
+
+    $data['no_form'][] = ['class' => TestPluginForm::class];
+    $data['no_form'][] = [
+      'class' => TestPluginForm::class,
+      'forms' => ['configure' => TestPluginForm::class],
+      'foo' => ['bar' => ['baz']],
+    ];
+
+    $data['default_form'][] = ['class' => TestPluginForm::class, 'forms' => ['configure' => 'stdClass']];
+    $data['default_form'][] = [
+      'class' => TestPluginForm::class,
+      'forms' => ['configure' => 'stdClass'],
+      'foo' => ['bar' => ['baz']],
+    ];
+    return $data;
+  }
+
+}
+
+class TestPluginManagerWithDefaults extends TestPluginManager {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaults = [
+    'foo' => [
+      'bar' => [
+        'baz',
+      ],
+    ],
+  ];
+
+}
+
+class TestPluginForm implements PluginFormInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
   }
 
 }

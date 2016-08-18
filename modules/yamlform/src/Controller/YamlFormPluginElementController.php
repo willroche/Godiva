@@ -7,6 +7,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Url;
 use Drupal\yamlform\Utility\YamlFormElementHelper;
+use Drupal\yamlform\Utility\YamlFormReflectionHelper;
 use Drupal\yamlform\YamlFormElementManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -91,18 +92,7 @@ class YamlFormPluginElementController extends ControllerBase {
         $yamlform_element = $this->yamlFormElementManager->createInstance($element_plugin_id);
         $yamlform_element_plugin_definition = $this->yamlFormElementManager->getDefinition($element_plugin_id);
 
-        // Get the element's class heirachy.
-        $class = get_class($yamlform_element);
-        $parent_classes = [
-          $this->getClassName($class),
-        ];
-        do {
-          $parent_class = get_parent_class($class);
-          $parent_class_name = $this->getClassName($parent_class);
-          $parent_classes[] = $parent_class_name;
-          $class = $parent_class;
-        } while ($parent_class_name != 'YamlFormElementBase' && $class);
-        $parent_classes = array_reverse($parent_classes);
+        $parent_classes = YamlFormReflectionHelper::getParentClasses($yamlform_element, 'YamlFormElementBase');
 
         $default_format = $yamlform_element->getDefaultFormat();
         $format_names = array_keys($yamlform_element->getFormats());
@@ -111,13 +101,15 @@ class YamlFormPluginElementController extends ControllerBase {
           $formats[$default_format] = '<b>' . $formats[$default_format] . '</b>';
         }
 
+        $related_types = $yamlform_element->getRelatedTypes($element);
+
         $definitions = [
           'value' => $yamlform_element->hasValue($element),
           'container' => $yamlform_element->isContainer($element),
           'root' => $yamlform_element->isRoot($element),
-          'hidden' => $yamlform_element_plugin_definition['hidden'],
-          'multiline' => $yamlform_element_plugin_definition['multiline'],
-          'multiple' => $yamlform_element_plugin_definition['multiple'],
+          'hidden' => $yamlform_element->isHidden($element),
+          'multiline' => $yamlform_element->isMultiline($element),
+          'multiple' => $yamlform_element->hasMultipleValues($element),
         ];
         $settings = [];
         foreach ($definitions as $key => $value) {
@@ -154,6 +146,7 @@ class YamlFormPluginElementController extends ControllerBase {
             ['data' => ['#markup' => implode('<br/>', $settings)], 'nowrap' => 'nowrap'],
             ['data' => ['#markup' => implode('<br/>', $properties)]],
             $formats ? ['data' => ['#markup' => '• ' . implode('<br/>• ', $formats)], 'nowrap' => 'nowrap'] : '',
+            $related_types ? ['data' => ['#markup' => '• ' . implode('<br/>• ', $related_types)], 'nowrap' => 'nowrap'] : '<' . $this->t('none') . '>',
             $element_plugin_definition['provider'],
             $yamlform_element_plugin_definition['provider'],
             $operations ? ['data' => ['#type' => 'operations', '#links' => $operations]] : '',
@@ -194,6 +187,7 @@ class YamlFormPluginElementController extends ControllerBase {
         $this->t('Definition'),
         $this->t('Properties'),
         $this->t('Formats'),
+        $this->t('Related'),
         $this->t('Provided by'),
         $this->t('Integrated by'),
         $this->t('Operations'),

@@ -3,6 +3,7 @@
 namespace Drupal\views_ui\Tests;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 
 /**
  * Tests the UI preview functionality.
@@ -104,7 +105,7 @@ class PreviewTest extends UITestBase {
     $this->assertText(t('Query execute time'));
     $this->assertText(t('View render time'));
     $this->assertRaw('<strong>Query</strong>');
-    $this->assertText("SELECT views_test_data.name AS views_test_data_name\nFROM \n{views_test_data} views_test_data\nWHERE (( (views_test_data.id = &#039;100&#039; ) ))");
+    $this->assertText("SELECT views_test_data.name AS views_test_data_name\nFROM \n{views_test_data} views_test_data\nWHERE (views_test_data.id = &#039;100&#039; )");
 
     // Test that the statistics and query are rendered above the preview.
     $this->assertTrue(strpos($this->getRawContent(), 'views-query-info') < strpos($this->getRawContent(), 'view-test-preview'), 'Statistics shown above the preview.');
@@ -324,7 +325,7 @@ class PreviewTest extends UITestBase {
     );
     $url = $this->getAbsoluteUrl($url);
     $post = array('js' => 'true') + $this->getAjaxPageStatePostData();
-    $result = Json::decode($this->drupalPost($url, 'application/vnd.drupal-ajax', $post));
+    $result = Json::decode($this->drupalPost($url, '', $post, ['query' => [MainContentViewSubscriber::WRAPPER_FORMAT => 'drupal_ajax']]));
     if (!empty($result)) {
       $this->drupalProcessAjaxResponse($content, $result, $ajax_settings, $drupal_settings);
     }

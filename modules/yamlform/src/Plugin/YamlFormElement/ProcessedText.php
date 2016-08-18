@@ -72,7 +72,6 @@ class ProcessedText extends YamlFormMarkup {
       '#type' => 'text_format',
       '#format' => '',
     ];
-
     return $form;
   }
 

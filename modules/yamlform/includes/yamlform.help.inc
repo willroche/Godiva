@@ -12,8 +12,9 @@ use Drupal\Core\Url;
  * Implements hook_help().
  */
 function yamlform_help($route_name, RouteMatchInterface $route_match) {
+  $build = [];
+
   if ($route_name == 'help.page.yamlform') {
-    $build = [];
     $build['about'] = [
       'title' => [
         '#markup' => t('About'),
@@ -37,80 +38,73 @@ function yamlform_help($route_name, RouteMatchInterface $route_match) {
     ];
 
     $help = _yamlform_help();
-    foreach ($help as $name => $info) {
+    foreach ($help as $id => $info) {
       // Title.
-      $build['uses']['content'][$name]['title'] = [
-        '#markup' => $info['title'],
+      $build['uses']['content'][$id]['title'] = [
         '#prefix' => '<dt>',
         '#suffix' => '</dt>',
       ];
-      // Content.
-      $build['uses']['content'][$name]['content'] = [
-        '#prefix' => '<dd>',
-        '#suffix' => '</dd>',
-      ];
-      if (is_array($info['content'])) {
-        $build['uses']['content'][$name]['content'] += $info['content'];
-      }
-      else {
-        $build['uses']['content'][$name]['content']['#markup'] = $info['content'];
-      }
-      // Video.
-      if (isset($info['youtube_id'])) {
-        $build['uses']['content'][$name]['content']['video'] = [
-          '#theme' => 'yamlform_help',
+      if (isset($info['url'])) {
+        $build['uses']['content'][$id]['title']['link'] = [
+          '#type' => 'link',
+          '#url' => $info['url'],
           '#title' => $info['title'],
-          '#youtube_id' => $info['youtube_id'],
-          // Make sure details is always closed on the main help page.
-          '#element_id' => FALSE,
-          '#open' => FALSE,
         ];
       }
-    }
-    $build['#attached']['library'][] = 'yamlform/yamlform.help';
-    return $build;
-  }
-
-  // Get path from route match.
-  $path = preg_replace('/^' . preg_quote(base_path(), '/') . '/', '/', Url::fromRouteMatch($route_match)->setAbsolute(FALSE)->toString());
-
-  if (strpos($route_name, 'yamlform') === FALSE && strpos($path, '/yamlform') === FALSE) {
-    return NULL;
-  }
-
-  /** @var \Drupal\Core\Path\PathMatcherInterface $path_matcher */
-  $path_matcher = \Drupal::service('path.matcher');
-
-  $help = _yamlform_help();
-  $build = [];
-  foreach ($help as $name => $info) {
-    // Set default values.
-    $info += [
-      'routes' => [],
-      'paths' => [],
-      'open' => FALSE,
-      'youtube_id' => NULL,
-    ];
-
-    $is_route_match = in_array($route_name, $info['routes']);
-    $is_path_match = ($info['paths'] && $path_matcher->matchPath($path, implode("\n", $info['paths'])));
-    if ($is_route_match || $is_path_match) {
-      $build[$name] = [
-        '#theme' => 'yamlform_help',
-        '#title' => $info['title'],
-        '#content' => $info['content'],
-        '#open' => $info['open'],
-        '#youtube_id' => $info['youtube_id'],
+      else {
+        $build['uses']['content'][$id]['title']['#markup'] = $info['title'];
+      }
+      // Content.
+      $build['uses']['content'][$id]['content'] = [
+        '#prefix' => '<dd>',
+        '#suffix' => '</dd>',
+        'content' => [
+          '#theme' => 'yamlform_help',
+          '#info' => $info,
+        ],
       ];
-      if (isset($info['warning'])) {
-        drupal_set_message($info['warning'], 'warning');
-        $build['#cache']['max-age'] = 0;
+
+    }
+  }
+  else {
+    // Get path from route match.
+    $path = preg_replace('/^' . preg_quote(base_path(), '/') . '/', '/', Url::fromRouteMatch($route_match)->setAbsolute(FALSE)->toString());
+
+    if (strpos($route_name, 'yamlform') === FALSE && strpos($path, '/yamlform') === FALSE) {
+      return NULL;
+    }
+
+    /** @var \Drupal\Core\Path\PathMatcherInterface $path_matcher */
+    $path_matcher = \Drupal::service('path.matcher');
+
+    $help = _yamlform_help();
+    $build = [];
+    foreach ($help as $id => $info) {
+      // Set default values.
+      $info += [
+        'routes' => [],
+        'paths' => [],
+      ];
+
+      $is_route_match = in_array($route_name, $info['routes']);
+      $is_path_match = ($info['paths'] && $path_matcher->matchPath($path, implode("\n", $info['paths'])));
+      if ($is_route_match || $is_path_match) {
+        $build[$id] = [
+          '#theme' => 'yamlform_help',
+          '#info' => $info,
+        ];
+        if (isset($info['warning'])) {
+          drupal_set_message($info['warning'], 'warning');
+          $build['#cache']['max-age'] = 0;
+        }
       }
     }
   }
 
   if ($build) {
-    $build['#attached']['library'][] = 'yamlform/yamlform.help';
+    $renderer = \Drupal::service('renderer');
+    $config = \Drupal::config('yamlform.settings');
+    $renderer->addCacheableDependency($build, $config);
     return $build;
   }
   else {
@@ -145,7 +139,8 @@ function _yamlform_help() {
       'entity.yamlform.collection',
     ],
     'title' => t('Managing forms'),
-    'content' => t('The <a href=":href">Forms</a> page lists all available forms, which can be filtered by title, description, and/or elements.', [':href' => Url::fromRoute('entity.yamlform.collection')->toString()]),
+    'url' => Url::fromRoute('entity.yamlform.collection'),
+    'content' => t('The Forms page lists all available forms, which can be filtered by title, description, and/or elements.'),
     'youtube_id' => 'QyVytonGeH8',
   ];
 
@@ -157,7 +152,8 @@ function _yamlform_help() {
         'entity.yamlform.templates',
       ],
       'title' => t('Using templates'),
-      'content' => t('The <a href=":href">Templates</a> page lists reusable templates that can be duplicated and customized to create new forms.', [':href' => Url::fromRoute('entity.yamlform.templates')->toString()]),
+      'url' => Url::fromRoute('entity.yamlform.templates'),
+      'content' => t('The Templatespage lists reusable templates that can be duplicated and customized to create new forms.'),
       'youtube_id' => 'tvMCqC-H0bI',
     ];
   }
@@ -169,7 +165,8 @@ function _yamlform_help() {
       'entity.yamlform_submission.collection',
     ],
     'title' => t('Managing results'),
-    'content' => t('The <a href=":href">Results</a> page lists all incoming submissions for all forms.', [':href' => Url::fromRoute('entity.yamlform_submission.collection')->toString()]),
+    'url' => Url::fromRoute('entity.yamlform_submission.collection'),
+    'content' => t('The Results page lists all incoming submissions for all forms.'),
     'youtube_id' => 'EME1HoYTmVA',
   ];
 
@@ -180,7 +177,8 @@ function _yamlform_help() {
       'yamlform.settings',
     ],
     'title' => t('Defining default settings'),
-    'content' => t('The <a href=":href">Settings</a> page allows administrators to manage global form and UI configuration settings, including updating default labels & descriptions, settings default format, and defining test dataset.', [':href' => Url::fromRoute('yamlform.settings')->toString()]),
+    'url' => Url::fromRoute('yamlform.settings'),
+    'content' => t('The Settings page allows administrators to manage global form and UI configuration settings, including updating default labels & descriptions, settings default format, and defining test dataset.'),
     'youtube_id' => 'UWxlfu7PEQg',
   ];
 
@@ -191,7 +189,8 @@ function _yamlform_help() {
       'entity.yamlform_options.collection',
     ],
     'title' => t('Defining options'),
-    'content' => t('The <a href=":href">Options</a> page lists predefined options which are used to build select menus, radio buttons, checkboxes and likerts.'),
+    'url' => Url::fromRoute('entity.yamlform_options.collection'),
+    'content' => t('The Options page lists predefined options which are used to build select menus, radio buttons, checkboxes and likerts.'),
     'youtube_id' => 'vrL_TR8aQJo',
   ];
 
@@ -202,7 +201,8 @@ function _yamlform_help() {
       'yamlform.element_plugins',
     ],
     'title' => t('Form element plugins'),
-    'content' => t('The <a href=":href">Elements</a> page  lists all available YAML form element plugins.', [':href' => Url::fromRoute('yamlform.element_plugins')->toString()]) . ' ' .
+    'url' => Url::fromRoute('yamlform.element_plugins'),
+    'content' => t('The Elements page  lists all available YAML form element plugins.') . ' ' .
     t('YAML form element plugins are used to enhance existing render/form elements. YAML form element plugins provide default properties, data normalization, custom validation, element configuration form, and customizable display formats.'),
     'youtube_id' => 'WSNGzJwnpeQ',
   ];
@@ -214,7 +214,8 @@ function _yamlform_help() {
       'yamlform.handler_plugins',
     ],
     'title' => t('Form handler plugins'),
-    'content' => t('The <a href=":href">Handler</a> page  lists all available YAML form handler plugins.', [':href' => Url::fromRoute('yamlform.handler_plugins')->toString()]) . ' ' .
+    'url' => Url::fromRoute('yamlform.handler_plugins'),
+    'content' => t('The Handler page  lists all available YAML form handler plugins.') . ' ' .
     t('Handlers are used to route submitted data to external applications and send notifications & confirmations.'),
     'youtube_id' => 'v5b4sOsUtn4',
   ];
@@ -226,7 +227,8 @@ function _yamlform_help() {
       'yamlform.admin_settings.third_party',
     ],
     'title' => t('Configuring global third party settings'),
-    'content' => t('The <a href=":href">Third party settings</a> page allows contrib and custom modules to define global settings that are applied to all forms and submissions.', [':href' => Url::fromRoute('yamlform.admin_settings.third_party')->toString()]),
+    'url' => Url::fromRoute('yamlform.admin_settings.third_party'),
+    'content' => t('The Third party settings page allows contrib and custom modules to define global settings that are applied to all forms and submissions.'),
     'youtube_id' => 'kuguydtCWf0',
   ];
 
@@ -412,6 +414,10 @@ function _yamlform_help() {
     'youtube_id' => 'CkRQMS6eJII',
   ];
 
+  foreach ($help as $id => &$info) {
+    $info['id'] = $id;
+  }
+
   return $help;
 }
 
@@ -425,7 +431,7 @@ function _yamlform_help_doc() {
 
   $help = _yamlform_help();
   $html = '';
-  foreach ($help as $name => $info) {
+  foreach ($help as $info) {
     $info += [
       'youtube_id' => NULL,
     ];

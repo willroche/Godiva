@@ -71,6 +71,10 @@ Below are the YAML Form module's 'competitors'.
   Integrate with 3rd party providers and legacy systems. 
   All while maintaining control of your data.
 
+- [Cognito Forms](https://www.cognitoforms.com)
+  A free online form builder that helps you create HTML forms for your website. 
+  Create contact forms, registration forms, order forms, surveys, and more.
+
 - [FormSite](https://www.formsite.com)  
   Easily build professional online html forms and web surveys. 
 

@@ -145,12 +145,12 @@ elements: |
     date:
       '#type': date
       '#title': 'date'
-      '#date_format': 'l, F j, Y'
+      '#format': 'l, F j, Y'
       '#default_value': '2009-08-18'
     datetime:
       '#type': datetime
       '#title': 'datetime'
-      '#date_format': 'l, F j, Y - g:i A'
+      '#format': 'l, F j, Y - g:i A'
       '#default_value': '2009-08-18T01:00:00-05:00'
     datelist:
       '#type': datelist
@@ -163,7 +163,7 @@ elements: |
         - minute
         - second
         - ampm
-      '#date_format': 'l, F j, Y - g:i A'
+      '#format': 'l, F j, Y - g:i A'
       '#default_value': '2009-08-18T01:00:00-05:00'
   custom_elements:
     '#type': details
@@ -229,13 +229,14 @@ settings:
   page: true
   page_submit_path: ''
   page_confirm_path: ''
-  form_closed_message: ''
-  form_exception_message: ''
   form_submit_label: ''
-  form_prepopulate: false
-  form_novalidate: false
+  form_exception_message: ''
+  form_closed_message: ''
   form_confidential: false
   form_confidential_message: ''
+  form_prepopulate: false
+  form_novalidate: false
+  form_autofocus: false
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -254,8 +255,8 @@ settings:
   draft_saved_message: ''
   draft_loaded_message: ''
   confirmation_type: page
-  confirmation_url: ''
   confirmation_message: ''
+  confirmation_url: ''
   limit_total: null
   limit_total_message: ''
   limit_user: null
