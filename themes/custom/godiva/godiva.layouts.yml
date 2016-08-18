@@ -1,0 +1,10 @@
+full_width_top:
+  label: Full width top
+  category: My Layouts
+  template: templates/full-width-top
+  css: css/full-width-top.css
+  regions:
+    top:
+      label: Top content
+    bottom:
+      label: Bottom content

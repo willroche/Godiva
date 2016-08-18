@@ -29,6 +29,7 @@ regions:
   header_content: Header content
   primary_menu: Primary menu
   menu_article: Menu article
+  tags: Tags
   header_socials: Header socials
   header_shop: Header shop
   featured_top: Featured top

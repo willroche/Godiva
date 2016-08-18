@@ -136,8 +136,9 @@ slideRightBtn.addEventListener('click', function(e) {
 	e.preventDefault;
 	slideRight.open();
 });
+
 (function ($) {
-	$("form#views-exposed-form-search-page-1 :input").each(function(index, elem) {
+	$("form#views-exposed-form-tag-articles-search :input").each(function(index, elem) {
 	    var eId = $(elem).attr("id");
 	    var label = null;
 	    if (eId && (label = $(elem).parents("form").find("label[for="+eId+"]")).length == 1) {
@@ -145,4 +146,7 @@ slideRightBtn.addEventListener('click', function(e) {
 	        $(label).remove();
 	    }
 		});
+		$("form#views-exposed-form-tag-articles-search div.form-item").replaceWith(function() { return $(this).contents(); });
 }(jQuery));
+
+document.getElementById("edit-actions").style.display="none";

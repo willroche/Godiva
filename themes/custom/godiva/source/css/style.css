@@ -2707,6 +2707,7 @@ p {
   margin-top: 13px;
   margin-right: 7px;
   display: inline-block;
+  float: left;
 }
 .i-tag:hover .i-tag-body,
 .i-tag:hover .i-tag-end {
